@@ -1,0 +1,5 @@
+version: 1
+interface:
+  display_name: React Firebase POC
+  short_description: Bootstrap React + Firebase demo projects
+  default_prompt: Build a mobile/tablet-first React web app with Firebase Auth magic-link, Firestore, Cloud Functions, and Storage using this skill's conventions.

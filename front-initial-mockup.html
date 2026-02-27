@@ -1,0 +1,2542 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <title>Mi Diario Emocional</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Archivo:wght@400;600&family=Playfair+Display:wght@600;700&display=swap');
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: rgba(253, 190, 15, 0.3);
+    }
+    
+    button, input, textarea {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+    }
+    
+    :root {
+      --yellow: #FDBE0F;
+      --yellow-light: #FFF4CC;
+      --white: #FFFFFF;
+      --dark: #1A1A1A;
+      --gray: #666666;
+      --gray-light: #E5E5E5;
+      --green: #6BCF7F;
+      --red: #FF6B6B;
+    }
+    
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--white);
+      color: var(--dark);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      border: none !important;
+      outline: none !important;
+      box-shadow: none !important;
+    }
+    
+    .app-container {
+      max-width: 420px;
+      margin: 0 auto;
+      min-height: 100vh;
+      background: var(--white);
+      position: relative;
+      border: none !important;
+      outline: none !important;
+      box-shadow: none !important;
+      padding-top: 50px;
+    }
+    
+    /* Elegant Brand Header */
+    .brand-header {
+      position: fixed;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 420px;
+      background: var(--white);
+      padding: 12px 20px;
+      border-bottom: 1px solid var(--gray-light);
+      z-index: 100;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    
+    .brand-header .left-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--dark);
+      line-height: 1.3;
+      text-align: left;
+    }
+    
+    .brand-header .brand-separator {
+      color: var(--dark);
+      font-weight: 400;
+      font-size: 18px;
+      margin: 0 8px;
+    }
+    
+    .brand-header .right-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--dark);
+      line-height: 1.3;
+      text-align: right;
+    }
+    
+    /* Logo Header */
+    
+    /* Navigation */
+    .nav-bar {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 420px;
+      background: var(--white);
+      border-top: 1px solid var(--gray-light);
+      display: flex;
+      z-index: 100;
+    }
+    
+    .nav-bar.hidden {
+      display: none;
+    }
+    
+    .nav-item {
+      flex: 1;
+      padding: 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+      background: transparent;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: var(--gray);
+      font-weight: 500;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+    
+    .nav-item.active {
+      background: var(--yellow);
+      color: var(--dark);
+      font-weight: 700;
+    }
+    
+    /* Sections */
+    .section {
+      display: none;
+      padding: 20px 24px 100px; /* Added 20px top padding */
+      min-height: 100vh;
+    }
+    
+    .section.active {
+      display: block;
+      animation: fadeIn 0.4s ease;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes pulse {
+      0% { 
+        transform: translate(-50%, 50%) scale(0.5);
+        opacity: 1;
+      }
+      50% {
+        transform: translate(-50%, 50%) scale(1.5);
+        opacity: 0.8;
+      }
+      100% { 
+        transform: translate(-50%, 50%) scale(1);
+        opacity: 0;
+      }
+    }
+    
+    @keyframes bounce {
+      0%, 100% { 
+        transform: translate(-50%, 50%) scale(1);
+      }
+      50% { 
+        transform: translate(-50%, 50%) scale(1.2);
+      }
+    }
+    
+    /* Profile Screen */
+    #profileSection {
+      padding: 100px 24px 40px;
+    }
+    
+    .profile-container {
+      max-width: 600px; /* Extra wide to fit "desafíos de liderazgo" */
+      margin: 0 auto;
+      padding-top: 10px;
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+    
+    .profile-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    
+    .profile-header h1 {
+      font-family: 'Archivo', sans-serif;
+      font-size: 34px !important;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: var(--dark);
+      line-height: 1.3;
+      max-width: 100%;
+    }
+    
+    .profile-header p {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      color: var(--gray);
+    }
+    
+    .profile-form {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    
+    .profile-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 8px;
+    }
+    
+    .profile-input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    .profile-input-group label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--gray);
+      font-weight: 500;
+    }
+    
+    .profile-input-group input {
+      width: 100%;
+      padding: 16px;
+      border: 2px solid var(--gray-light);
+      background: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      border-radius: 4px;
+    }
+    
+    .profile-input-group input:focus {
+      outline: none;
+      border-color: var(--yellow);
+      background: var(--yellow-light);
+    }
+    
+    .profile-input-group input::placeholder {
+      color: var(--gray-light);
+    }
+    
+    .btn-primary {
+      background: var(--dark);
+      color: var(--white);
+    }
+    
+    .btn-primary:hover {
+      background: var(--yellow);
+      color: var(--dark);
+    }
+    
+    .btn-secondary {
+      background: transparent;
+      color: var(--gray);
+      border: 2px solid var(--gray-light);
+    }
+    
+    .btn-secondary:hover {
+      border-color: var(--dark);
+      color: var(--dark);
+      background: transparent;
+    }
+    
+    /* Add margin to buttons in other sections */
+    #emotionSection .btn,
+    #dayDetail .btn {
+      margin-top: 32px;
+    }
+    
+    /* Exercise Blocks */
+    .exercise-block {
+      margin-bottom: 40px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid var(--gray-light);
+    }
+    
+    .exercise-block:last-of-type {
+      border-bottom: none;
+    }
+    
+    .block-title {
+      font-family: 'Archivo', sans-serif;
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 24px;
+      color: var(--dark);
+    }
+    
+    .exercise-section {
+      margin-bottom: 32px;
+    }
+    
+    .exercise-title {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--dark);
+    }
+    
+    .value-display.small {
+      font-size: 32px;
+      margin-top: 8px;
+    }
+    
+    /* Uncomfortable Situations */
+    .situation-card {
+      background: var(--yellow-light);
+      padding: 20px;
+      margin-bottom: 16px;
+      border-radius: 4px;
+      border-left: 3px solid var(--yellow);
+    }
+    
+    .situation-number {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--gray);
+      margin-bottom: 12px;
+    }
+    
+    .btn-add {
+      background: transparent;
+      border: 2px dashed var(--gray-light);
+      color: var(--gray);
+      padding: 12px;
+      width: 100%;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 500;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+    
+    .btn-add:hover {
+      border-color: var(--yellow);
+      color: var(--dark);
+      background: var(--yellow-light);
+    }
+    
+    /* Rating items for Day 1 exercise */
+    .rating-item {
+      margin-bottom: 24px;
+    }
+    
+    .rating-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      margin-bottom: 8px;
+      display: block;
+      color: var(--dark);
+    }
+    
+    /* Header */
+    .header {
+      margin-bottom: 40px;
+    }
+    
+    .header h1 {
+      font-family: 'Archivo', sans-serif;
+      font-size: 32px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    
+    .header p {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      color: var(--gray);
+      letter-spacing: 0.5px;
+    }
+    
+    /* Streak Display */
+    .streak-display {
+      display: inline-block;
+      background: var(--yellow-light);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      margin-top: 12px;
+      letter-spacing: 0.5px;
+      font-weight: 500;
+    }
+    
+    /* Emotion Meter Section */
+    .question-block {
+      margin-bottom: 48px;
+    }
+    
+    .question-block label {
+      display: block;
+      font-size: 18px;
+      margin-bottom: 24px;
+      font-weight: 400;
+    }
+    
+    .slider-container {
+      position: relative;
+      padding: 0 8px;
+    }
+    
+    .slider {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 4px;
+      background: var(--gray-light);
+      outline: none;
+      border-radius: 2px;
+      touch-action: pan-x;
+    }
+    
+    .slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 32px;
+      height: 32px;
+      background: var(--yellow);
+      cursor: pointer;
+      border-radius: 50%;
+      border: 3px solid var(--dark);
+      transition: transform 0.2s ease;
+    }
+    
+    .slider::-webkit-slider-thumb:hover {
+      transform: scale(1.1);
+    }
+    
+    .slider::-moz-range-thumb {
+      width: 32px;
+      height: 32px;
+      background: var(--yellow);
+      cursor: pointer;
+      border-radius: 50%;
+      border: 3px solid var(--dark);
+      transition: transform 0.2s ease;
+    }
+    
+    .slider-labels {
+      display: flex;
+      justify-content: space-between;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      color: var(--gray);
+      margin-top: 12px;
+      padding: 0 8px;
+    }
+    
+    .value-display {
+      text-align: center;
+      font-family: 'Archivo', sans-serif;
+      font-size: 48px;
+      font-weight: 600;
+      margin-top: 16px;
+      color: var(--dark);
+    }
+    
+    /* Emotion Chart */
+    .chart-container {
+      margin: 48px 0;
+      padding: 24px;
+      background: var(--yellow-light);
+      border-radius: 4px;
+    }
+    
+    .chart-title {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 24px;
+      color: var(--gray);
+      font-weight: 500;
+    }
+    
+    .chart {
+      position: relative;
+      width: 100%;
+      height: 300px;
+      background: var(--white);
+      border: 2px solid var(--dark);
+      background-image: 
+        repeating-linear-gradient(0deg, transparent, transparent 29px, #E5E5E5 29px, #E5E5E5 30px),
+        repeating-linear-gradient(90deg, transparent, transparent 29px, #E5E5E5 29px, #E5E5E5 30px);
+      background-size: 30px 30px;
+    }
+    
+    .chart-axis {
+      position: absolute;
+      background: var(--gray-light);
+    }
+    
+    .chart-axis-y {
+      left: 0;
+      top: 0;
+      width: 1px;
+      height: 100%;
+    }
+    
+    .chart-axis-x {
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 1px;
+    }
+    
+    .chart-labels {
+      position: absolute;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 10px;
+      color: var(--gray);
+    }
+    
+    .label-y {
+      left: -30px;
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      top: 50%;
+      transform: translateY(-50%) rotate(180deg);
+    }
+    
+    .label-x {
+      bottom: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    
+    .chart-point {
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      background: var(--yellow);
+      border: 3px solid var(--dark);
+      border-radius: 50%;
+      transform: translate(-50%, 50%);
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      z-index: 10;
+    }
+    
+    .chart-point:hover {
+      transform: translate(-50%, 50%) scale(1.3);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    
+    .chart-point.current {
+      background: var(--yellow);
+      border-color: var(--dark);
+      animation: bounce 0.5s ease-out;
+    }
+    
+    .chart-point.history {
+      background: var(--gray);
+      border-color: var(--gray);
+      opacity: 0.5;
+      width: 12px;
+      height: 12px;
+    }
+    
+    /* Button */
+    .btn {
+      width: 100%;
+      padding: 18px;
+      background: var(--dark);
+      color: var(--white);
+      border: none;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 0;
+      font-weight: 700;
+      -webkit-tap-highlight-color: rgba(0,0,0,0.1);
+      touch-action: manipulation;
+      pointer-events: auto;
+      position: relative;
+      z-index: 10;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    
+    .btn:hover {
+      background: var(--yellow);
+      color: var(--dark);
+    }
+    
+    .btn:active {
+      transform: scale(0.98);
+    }
+    
+    /* Calendar Grid */
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 8px;
+      margin-top: 32px;
+    }
+    
+    .day-block {
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      border: 2px solid var(--gray-light);
+      background: var(--white);
+      transition: all 0.3s ease;
+      position: relative;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+    
+    .day-block:hover {
+      border-color: var(--yellow);
+      transform: scale(1.05);
+    }
+    
+    .day-block.completed {
+      background: var(--green);
+      border-color: var(--green);
+      color: var(--white);
+    }
+    
+    .day-block.incomplete {
+      background: var(--red);
+      border-color: var(--red);
+      color: var(--white);
+    }
+    
+    .day-block.today {
+      border-color: var(--yellow);
+      border-width: 3px;
+    }
+    
+    /* Day Detail View */
+    .day-detail {
+      display: none;
+    }
+    
+    .day-detail.active {
+      display: block;
+      animation: slideIn 0.3s ease;
+    }
+    
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(20px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    
+    .back-btn {
+      background: none;
+      border: none;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      color: var(--gray);
+      cursor: pointer;
+      margin-bottom: 24px;
+      padding: 8px 0;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 500;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+    
+    .back-btn:hover {
+      color: var(--dark);
+    }
+    
+    .day-number {
+      font-family: 'Archivo', sans-serif;
+      font-size: 64px;
+      font-weight: 600;
+      margin-bottom: 32px;
+      color: var(--dark);
+    }
+    
+    .form-group {
+      margin-bottom: 40px;
+    }
+    
+    .form-group label {
+      display: block;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+      color: var(--gray);
+      font-weight: 500;
+    }
+    
+    .form-group textarea {
+      width: 100%;
+      min-height: 120px;
+      padding: 16px;
+      border: 1px solid var(--gray-light);
+      background: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      resize: vertical;
+      transition: all 0.3s ease;
+    }
+    
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--yellow);
+      background: var(--yellow-light);
+    }
+    
+    /* Success message */
+    .success-msg {
+      position: fixed;
+      top: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--green);
+      color: var(--white);
+      padding: 16px 32px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      border-radius: 4px;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      font-weight: 500;
+    }
+    
+    .success-msg.show {
+      opacity: 1;
+    }
+    
+    /* Responsive */
+    @media (max-width: 380px) {
+      .calendar-grid {
+        grid-template-columns: repeat(5, 1fr);
+      }
+      
+      .header h1 {
+        font-size: 28px;
+      }
+      
+      .day-number {
+        font-size: 48px;
+      }
+    }
+    
+    /* ============================================ */
+    /* DESKTOP OPTIMIZATION */
+    /* ============================================ */
+    
+    @media (min-width: 768px) {
+      .app-container {
+        max-width: 800px;
+        padding-top: 70px;
+      }
+      
+      .brand-header {
+        max-width: 800px;
+        padding: 14px 60px;
+        gap: 16px;
+      }
+      
+      .brand-header .left-brand {
+        font-size: 12px;
+        letter-spacing: 1.5px;
+      }
+      
+      .brand-header .right-brand {
+        font-size: 12px;
+        letter-spacing: 1.5px;
+      }
+      
+      .brand-header .brand-separator {
+        font-size: 22px;
+        margin: 0 12px;
+      }
+      
+      .section {
+        padding: 40px 60px 120px !important;
+      }
+      
+      .profile-container {
+        max-width: 500px;
+        margin: 60px auto 0;
+      }
+      
+      .profile-header h1 {
+        font-size: 48px;
+      }
+      
+      .day-detail {
+        padding: 40px 60px 120px !important;
+      }
+      
+      .calendar-grid {
+        grid-template-columns: repeat(10, 1fr) !important;
+        gap: 16px !important;
+      }
+      
+      .day-block {
+        width: 60px !important;
+        height: 60px !important;
+        font-size: 18px !important;
+      }
+      
+      .form-group textarea {
+        min-height: 120px;
+      }
+      
+      .btn {
+        padding: 16px 32px;
+        font-size: 18px;
+      }
+      
+      h2 {
+        font-size: 36px !important;
+      }
+      
+      .block-title {
+        font-size: 24px !important;
+      }
+      
+      .exercise-title {
+        font-size: 20px !important;
+      }
+      
+      .nav-bar {
+        max-width: 800px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      
+      .chart-container {
+        height: 400px !important;
+      }
+      
+      .emotion-card {
+        padding: 32px;
+      }
+      
+      .streak-badge {
+        font-size: 18px;
+        padding: 12px 24px;
+      }
+    }
+    
+    @media (min-width: 1200px) {
+      .app-container {
+        max-width: 1000px;
+        padding-top: 80px;
+      }
+      
+      .brand-header {
+        max-width: 1000px;
+        padding: 16px 80px;
+        gap: 20px;
+      }
+      
+      .brand-header .left-brand {
+        font-size: 14px;
+        letter-spacing: 1.8px;
+      }
+      
+      .brand-header .right-brand {
+        font-size: 14px;
+        letter-spacing: 1.8px;
+      }
+      
+      .brand-header .brand-separator {
+        font-size: 24px;
+        margin: 0 16px;
+      }
+      
+      .section {
+        padding: 60px 80px 140px !important;
+      }
+      
+      .day-detail {
+        padding: 60px 80px 140px !important;
+      }
+      
+      .calendar-grid {
+        grid-template-columns: repeat(12, 1fr) !important;
+        gap: 20px !important;
+      }
+      
+      .day-block {
+        width: 70px !important;
+        height: 70px !important;
+        font-size: 20px !important;
+      }
+      
+      .nav-bar {
+        max-width: 1000px;
+      }
+      
+      .profile-header h1 {
+        font-size: 56px;
+      }
+      
+      h2 {
+        font-size: 42px !important;
+      }
+      
+      .situation-card,
+      .exercise-section {
+        padding: 32px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    
+    <!-- Brand Header -->
+    <div class="brand-header">
+      <div class="left-brand">
+        Universidad<br>Torcuato Di Tella
+      </div>
+      <div class="brand-separator">×</div>
+      <div class="right-brand">
+        Estanislao Bachrach
+      </div>
+    </div>
+    
+    <!-- Success Message -->
+    <div class="success-msg" id="successMsg">✓ Guardado</div>
+    
+    <!-- Profile Creation Screen -->
+    <section class="section active" id="profileSection">
+      <div class="profile-container">
+        <div class="profile-header">
+          <h1>Bienvenidos a<br>Desafíos de Liderazgo</h1>
+          <p>Crea tu perfil para comenzar</p>
+        </div>
+        
+        <form id="profileForm" class="profile-form">
+          <div class="profile-input-group">
+            <label for="userName">Nombre</label>
+            <input type="text" id="userName" placeholder="Tu nombre" autocomplete="name">
+          </div>
+          
+          <div class="profile-input-group">
+            <label for="userEmail">Email</label>
+            <input type="email" id="userEmail" placeholder="tu@email.com" autocomplete="email">
+          </div>
+          
+          <div class="profile-buttons">
+            <button type="submit" class="btn btn-primary" onclick="return handleBeginClick();">Comenzar</button>
+            <button type="button" class="btn btn-secondary" id="skipProfile" onclick="handleSkipClick(); return false;">Saltar</button>
+          </div>
+        </form>
+      </div>
+    </section>
+    
+    <!-- Emotion Meter Section -->
+    <section class="section" id="emotionSection">
+      <div class="header">
+        <h1>¿Cómo te sentiste hoy?</h1>
+        <p id="currentDate"></p>
+      </div>
+      
+      <div class="question-block">
+        <label for="pleasureSlider">¿Qué tan bien te sentiste hoy?</label>
+        <div class="slider-container">
+          <input type="range" min="1" max="10" value="5" class="slider" id="pleasureSlider">
+          <div class="slider-labels">
+            <span>1</span>
+            <span>10</span>
+          </div>
+          <div class="value-display" id="pleasureValue">5</div>
+        </div>
+      </div>
+      
+      <div class="question-block">
+        <label for="energySlider">¿Qué nivel de energía tuviste hoy?</label>
+        <div class="slider-container">
+          <input type="range" min="1" max="10" value="5" class="slider" id="energySlider">
+          <div class="slider-labels">
+            <span>1</span>
+            <span>10</span>
+          </div>
+          <div class="value-display" id="energyValue">5</div>
+        </div>
+      </div>
+      
+      <div class="chart-container">
+        <div class="chart-title">Tu mapa emocional</div>
+        <div class="chart" id="emotionChart">
+          <div class="chart-axis chart-axis-y"></div>
+          <div class="chart-axis chart-axis-x"></div>
+          <div class="chart-labels label-y">Energía</div>
+          <div class="chart-labels label-x">Placer</div>
+        </div>
+      </div>
+      
+      <button class="btn" id="saveEmotionBtn">Guardar día</button>
+    </section>
+    
+    <!-- Meditations Section -->
+    <section class="section" id="meditationsSection">
+      <div class="header">
+        <h1>Material Extra</h1>
+        <p>Próximamente</p>
+      </div>
+    </section>
+    
+    <!-- Calendar Section -->
+    <section class="section" id="calendarSection">
+      <!-- Calendar Grid View -->
+      <div id="calendarView">
+        <div class="header">
+          <h1>60 días con vos mismo</h1>
+          <p>Reto de autoconocimiento</p>
+          <div class="streak-display" id="streakDisplay">Racha: 0 días</div>
+        </div>
+        
+        <div class="calendar-grid" id="calendarGrid"></div>
+      </div>
+      
+      <!-- Day Detail View -->
+      <div class="day-detail" id="dayDetail">
+        <button class="back-btn" id="backBtn">← Volver</button>
+        <div class="day-number" id="dayNumber">Día 1</div>
+        
+        <form id="gratitudeForm">
+          <!-- BLOQUE 1: EJERCICIOS FIJOS (días 1-10) -->
+          <div class="exercise-block" id="fixedBlock110">
+            <h3 class="block-title">Ejercicios diarios</h3>
+            
+            <!-- 1. Emocionómetro -->
+            <div class="exercise-section">
+              <h4 class="exercise-title">1. Emocionómetro</h4>
+              
+              <div class="form-group">
+                <label for="dayPleasure">¿Qué tan bien te sentiste hoy?</label>
+                <div class="slider-container">
+                  <input type="range" min="1" max="10" value="5" class="slider" id="dayPleasure">
+                  <div class="slider-labels">
+                    <span>1</span>
+                    <span>10</span>
+                  </div>
+                  <div class="value-display small" id="dayPleasureValue">5</div>
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label for="dayEnergy">¿Qué nivel de energía tuviste hoy?</label>
+                <div class="slider-container">
+                  <input type="range" min="1" max="10" value="5" class="slider" id="dayEnergy">
+                  <div class="slider-labels">
+                    <span>1</span>
+                    <span>10</span>
+                  </div>
+                  <div class="value-display small" id="dayEnergyValue">5</div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- 2. Gratitud -->
+            <div class="exercise-section">
+              <h4 class="exercise-title">2. Gratitud</h4>
+              <div class="form-group">
+                <label for="gratitudeText">Hoy agradezco a... / por...</label>
+                <textarea id="gratitudeText" placeholder="Escribe aquí..."></textarea>
+              </div>
+            </div>
+            
+            <!-- 3. Situaciones incómodas (mínimo 3) -->
+            <div class="exercise-section">
+              <h4 class="exercise-title">3. Situaciones incómodas (mínimo 3)</h4>
+              <div id="uncomfortableSituations">
+                <!-- Se generarán dinámicamente 3 situaciones -->
+              </div>
+              <button type="button" class="btn-add" id="addSituation">+ Añadir otra situación</button>
+            </div>
+          </div>
+          
+          <!-- BLOQUE FIJO (días 11-60): Trabajo cognitivo -->
+          <div class="exercise-block" id="fixedBlock1160" style="display: none;">
+            <h3 class="block-title">Situaciones incómodas – Trabajo cognitivo</h3>
+            <p style="font-size: 14px; color: var(--gray); margin-bottom: 24px;">Para cada situación incómoda: visualizala, introduce pensamientos nuevos y precisos, úsalos en la situación real y registra las respuestas.</p>
+            
+            <div id="cognitiveWork">
+              <!-- Se generarán 3 bloques de trabajo cognitivo -->
+            </div>
+            <button type="button" class="btn-add" id="addCognitiveWork">+ Añadir otra situación</button>
+          </div>
+          
+          <!-- BLOQUE 2: EJERCICIO VARIABLE -->
+          <div class="exercise-block" id="variableExerciseBlock" style="display: none;">
+            <h3 class="block-title">Ejercicio del día</h3>
+            <div id="variableExerciseContent">
+              <!-- Se generará dinámicamente según el día -->
+            </div>
+          </div>
+          
+          <button type="submit" class="btn">Guardar día</button>
+        </form>
+      </div>
+    </section>
+    
+    <!-- Navigation -->
+    <nav class="nav-bar">
+      <button class="nav-item active" data-section="emotion">Emocionómetro</button>
+      <button class="nav-item" data-section="calendar">Bitácora</button>
+      <button class="nav-item" data-section="meditations">Material Extra</button>
+    </nav>
+  </div>
+
+  <script>
+    // ========================================
+    // GLOBAL FUNCTIONS - MOBILE COMPATIBLE
+    // ========================================
+    
+    function handleSkipClick() {
+      console.log('🔘 handleSkipClick called');
+      alert('✅ Botón Saltar funcionó! Navegando...');
+      
+      try {
+        var profileSection = document.getElementById('profileSection');
+        var emotionSection = document.getElementById('emotionSection');
+        var navBar = document.querySelector('.nav-bar');
+        
+        if (profileSection) profileSection.classList.remove('active');
+        if (emotionSection) emotionSection.classList.add('active');
+        if (navBar) navBar.classList.remove('hidden');
+        
+        console.log('✅ Navigation successful');
+        return false;
+      } catch(e) {
+        console.error('❌ Error:', e);
+        alert('Error al navegar: ' + e.message);
+        return false;
+      }
+    }
+    
+    function handleBeginClick() {
+      console.log('🔘 handleBeginClick called');
+      try {
+        var nameInput = document.getElementById('userName');
+        var emailInput = document.getElementById('userEmail');
+        var name = nameInput ? nameInput.value.trim() : '';
+        var email = emailInput ? emailInput.value.trim() : '';
+        
+        if (name || email) {
+          var profile = { 
+            name: name, 
+            email: email, 
+            createdAt: new Date().toISOString() 
+          };
+          localStorage.setItem('userProfile', JSON.stringify(profile));
+          console.log('💾 Profile saved');
+        }
+        
+        var profileSection = document.getElementById('profileSection');
+        var emotionSection = document.getElementById('emotionSection');
+        var navBar = document.querySelector('.nav-bar');
+        
+        if (profileSection) profileSection.classList.remove('active');
+        if (emotionSection) emotionSection.classList.add('active');
+        if (navBar) navBar.classList.remove('hidden');
+        
+        // Show success
+        var successMsg = document.getElementById('successMsg');
+        if (successMsg) {
+          successMsg.style.opacity = '1';
+          setTimeout(function() { successMsg.style.opacity = '0'; }, 2000);
+        }
+        
+        console.log('✅ Begin successful');
+        return false;
+      } catch(e) {
+        console.error('❌ Error:', e);
+        alert('Error al comenzar: ' + e.message);
+        return false;
+      }
+    }
+    
+    // ========================================
+    // DOM READY
+    // ========================================
+    
+    // Wait for DOM to be fully loaded
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('App loaded successfully');
+      
+      // Get navBar reference
+      const navBar = document.querySelector('.nav-bar');
+      console.log('NavBar found:', !!navBar);
+      
+    // Check if profile exists
+    const userProfile = JSON.parse(localStorage.getItem('userProfile') || 'null');
+    
+    console.log('User profile:', userProfile);
+    
+    // DESACTIVADO: Auto-skip cuando hay perfil
+    // Si quieres que salte automáticamente cuando ya hay perfil guardado,
+    // descomenta el bloque if/else de abajo:
+    
+    /*
+    if (userProfile && userProfile.name) {
+      // Profile exists, skip to main app
+      console.log('Profile exists, showing main app');
+      document.getElementById('profileSection').classList.remove('active');
+      document.getElementById('emotionSection').classList.add('active');
+      navBar.classList.remove('hidden');
+    } else {
+      // Show profile screen, hide nav
+      console.log('No profile, showing profile screen');
+      navBar.classList.add('hidden');
+    }
+    */
+    
+    // FORZAR: SIEMPRE mostrar pantalla de perfil al inicio
+    console.log('Showing profile screen (forced)');
+    navBar.classList.add('hidden');
+    
+    // Note: Profile form now uses onclick handlers defined globally above
+    // No additional event listeners needed here
+      
+    // Initialize storage
+    const storage = {
+      emotions: JSON.parse(localStorage.getItem('emotions') || '[]'),
+      gratitude: JSON.parse(localStorage.getItem('gratitude') || '{}'),
+      streak: parseInt(localStorage.getItem('streak') || '0'),
+      lastCompletedDay: localStorage.getItem('lastCompletedDay') || null
+    };
+    
+    // Variable exercises for days 1-10
+    const variableExercises = {
+      1: {
+        title: 'Catalogate',
+        fields: [
+          { id: 'humor', label: 'Estado de humor general' },
+          { id: 'familia', label: 'Familia' },
+          { id: 'amigos', label: 'Amigos' },
+          { id: 'vidaSocial', label: 'Vida social' },
+          { id: 'relaciones', label: 'Relaciones' },
+          { id: 'trabajo', label: 'Trabajo' },
+          { id: 'salud', label: 'Salud' },
+          { id: 'estudio', label: 'Estudio' },
+          { id: 'ejercicio', label: 'Ejercicio' },
+          { id: 'alimentacion', label: 'Alimentación' }
+        ],
+        type: 'rating'
+      },
+      2: {
+        title: 'Ves que puedo',
+        fields: [
+          { id: 'situacion', label: '¿Cuándo fue la última vez que pensaste que no podías más y aun así continuaste?', type: 'textarea' }
+        ],
+        type: 'text'
+      },
+      3: {
+        title: 'Mentalidad de crecimiento',
+        fields: [
+          { id: 'deberiaSer', label: 'Algo en lo que creías que "deberías ser bueno"', type: 'textarea' },
+          { id: 'noSalio', label: 'Algo que no te salió y creíste que era porque "no eras bueno"', type: 'textarea' }
+        ],
+        type: 'text'
+      },
+      4: {
+        title: 'Crítica y vergüenza',
+        fields: [
+          { id: 'critica', label: 'Una crítica que te dio vergüenza', type: 'textarea' },
+          { id: 'aprendizaje', label: '¿Qué aprendiste?', type: 'textarea' }
+        ],
+        type: 'text'
+      },
+      5: {
+        title: 'Atención plena',
+        fields: [
+          { id: 'lugar', label: 'Lugar elegido', type: 'text' },
+          { id: 'sentimiento', label: '¿Cómo te sentiste al terminar?', type: 'textarea' }
+        ],
+        type: 'text'
+      },
+      6: {
+        title: 'Compromiso físico',
+        fields: [
+          { id: 'compromiso', label: 'Me comprometo a...', type: 'textarea', placeholder: 'Describe la actividad física o deporte' }
+        ],
+        type: 'text'
+      },
+      7: {
+        title: 'No me salió',
+        fields: [
+          { id: 'quePaso', label: 'Qué no salió', type: 'textarea' },
+          { id: 'queBien', label: 'Qué hiciste bien', type: 'textarea' },
+          { id: 'repetir', label: 'Qué repetirías en otros ámbitos', type: 'textarea' }
+        ],
+        type: 'text'
+      },
+      8: {
+        title: 'Actividades que me hacen bien',
+        fields: [
+          { id: 'hoy', label: 'Hoy', type: 'textarea' },
+          { id: 'semana', label: 'Esta semana', type: 'textarea' },
+          { id: 'mes', label: 'Este mes', type: 'textarea' }
+        ],
+        type: 'text'
+      },
+      9: {
+        title: 'Estrés consciente',
+        fields: [
+          { id: 'estres', label: '¿Con qué te vas a estresar esta semana?', type: 'textarea' }
+        ],
+        type: 'text'
+      },
+      10: {
+        title: 'Kit de auto-calma',
+        fields: [
+          { id: 'kit', label: '¿Qué objetos o recursos elegís para calmarte?', type: 'textarea' }
+        ],
+        type: 'text'
+      },
+      // DÍAS 11-20: Regulación emocional y cognitiva
+      11: {
+        title: 'Detectar pensamientos negativos',
+        fields: [
+          { id: 'pensamientosNegativos', label: 'Detectar pensamientos negativos', type: 'textarea' },
+          { id: 'pensamientosNuevos', label: 'Crear pensamientos nuevos y precisos para cada situación', type: 'textarea' }
+        ],
+        type: 'text'
+      },
+      12: {
+        title: 'Escaneo corporal',
+        fields: [
+          { id: 'escaneo', label: 'Escaneo corporal completo', type: 'textarea', placeholder: 'Describe tu experiencia durante el escaneo...' },
+          { id: 'sensaciones', label: '¿Qué sentiste durante el ejercicio?', type: 'textarea' }
+        ],
+        type: 'text'
+      },
+      13: {
+        title: 'Registro de emociones',
+        fields: [
+          { id: 'placenteras', label: 'Emociones placenteras', type: 'textarea' },
+          { id: 'neutras', label: 'Emociones neutras', type: 'textarea' },
+          { id: 'displacenteras', label: 'Emociones displacenteras', type: 'textarea' },
+          { id: 'planAccion', label: 'Plan de acción', type: 'textarea' }
+        ],
+        type: 'text'
+      },
+      14: {
+        title: 'Respiración 7/11 y cualidades',
+        fields: [
+          { id: 'respiracion', label: 'Experiencia con respiración 7/11', type: 'textarea' },
+          { id: 'cualidades', label: 'Escribe 5 cualidades positivas tuyas', type: 'textarea', placeholder: '1.\n2.\n3.\n4.\n5.' }
+        ],
+        type: 'text'
+      },
+      15: {
+        title: 'Perdón y respiración al cuadrado',
+        fields: [
+          { id: 'perdon', label: 'Perdonar un error del pasado', type: 'textarea' },
+          { id: 'respiracion', label: 'Respiración al cuadrado', type: 'textarea' },
+          { id: 'experiencia', label: '¿Qué experimentaste?', type: 'textarea' }
+        ],
+        type: 'text'
+      },
+      16: {
+        title: 'Preocupado vs ocupado',
+        fields: [
+          { id: 'preocupacion', label: 'Preocupado vs ocupado', type: 'textarea' },
+          { id: 'vidaPersonal', label: 'Hacer algo distinto - Vida personal', type: 'textarea' },
+          { id: 'vidaProfesional', label: 'Hacer algo distinto - Vida profesional', type: 'textarea' }
+        ],
+        type: 'text'
+      },
+      17: {
+        title: 'Ejercicio del color',
+        fields: [
+          { id: 'colorFavorito', label: 'Tu color favorito', type: 'text' },
+          { id: 'detecciones', label: 'Detectar tu color favorito durante el día', type: 'textarea', placeholder: 'Anota cada vez que veas tu color...' }
+        ],
+        type: 'text'
+      },
+      18: {
+        title: 'Si yo puedo...',
+        fields: [
+          { id: 'frases', label: 'Completar 10 frases: "Si yo puedo ___, entonces puedo ___"', type: 'textarea', placeholder: '1. Si yo puedo..., entonces puedo...\n2. Si yo puedo..., entonces puedo...\n...' }
+        ],
+        type: 'text'
+      },
+      19: {
+        title: 'Resolver un conflicto',
+        fields: [
+          { id: 'conflicto', label: 'Describe el conflicto', type: 'textarea' },
+          { id: 'soluciones', label: '5 soluciones posibles', type: 'textarea', placeholder: '1.\n2.\n3.\n4.\n5.' },
+          { id: 'prosContras', label: 'Pros y contras de cada solución', type: 'textarea' }
+        ],
+        type: 'text'
+      },
+      20: {
+        title: 'Conociendo mi cuerpo',
+        fields: [
+          { id: 'bitacora', label: 'Bitácora corporal guiada', type: 'textarea', placeholder: 'Registra las sensaciones en cada parte de tu cuerpo...' }
+        ],
+        type: 'text'
+      },
+      // DÍA 21: Interocepción
+      21: {
+        title: 'Interocepción',
+        fields: [
+          { id: 'latidos', label: 'Escuchar y registrar latidos del corazón', type: 'textarea', placeholder: 'Describe tu experiencia escuchando tus latidos...' }
+        ],
+        type: 'text'
+      },
+      // DÍAS 22-30: Presencia y consciencia (mismas consignas)
+      22: { ...createPresenceExercise(), type: 'presence' },
+      23: { ...createPresenceExercise(), type: 'presence' },
+      24: { ...createPresenceExercise(), type: 'presence' },
+      25: { ...createPresenceExercise(), type: 'presence' },
+      26: { ...createPresenceExercise(), type: 'presence' },
+      27: { ...createPresenceExercise(), type: 'presence' },
+      28: { ...createPresenceExercise(), type: 'presence' },
+      29: { ...createPresenceExercise(), type: 'presence' },
+      30: { ...createPresenceExercise(), type: 'presence' },
+      // DÍAS 31-40: Percepción y patrones
+      31: {
+        title: 'Ponerse cómodo',
+        fields: [
+          { id: 'postura', label: 'Describe tu postura más cómoda', type: 'textarea' },
+          { id: 'sensaciones', label: '¿Qué sientes en tu cuerpo?', type: 'textarea' }
+        ],
+        type: 'text'
+      },
+      32: {
+        title: 'UFA',
+        fields: [
+          { id: 'queSalioMal', label: '¿Qué salió mal?', type: 'textarea' },
+          { id: 'comoTeSentiste', label: '¿Cómo te sentiste?', type: 'textarea' }
+        ],
+        type: 'text'
+      },
+      33: {
+        title: 'Tengo / Hago',
+        fields: [
+          { id: 'nuncaTuve', label: 'Lo que nunca tuviste', type: 'textarea' },
+          { id: 'nuncaHice', label: 'Lo que nunca hiciste', type: 'textarea' }
+        ],
+        type: 'text'
+      },
+      34: {
+        title: 'Frases limitantes',
+        fields: [
+          { id: 'fraseLimitante', label: 'Una frase limitante que te decís', type: 'textarea' },
+          { id: 'evidencias', label: 'Evidencias reales que contradicen esa frase', type: 'textarea' }
+        ],
+        type: 'text'
+      },
+      35: {
+        title: 'Redescubrir un lugar',
+        fields: [
+          { id: 'lugar', label: 'Lugar habitual elegido', type: 'text' },
+          { id: 'queViste', label: '¿Qué viste diferente?', type: 'textarea' }
+        ],
+        type: 'text'
+      },
+      36: {
+        title: 'Ejercicio del sabor',
+        fields: [
+          { id: 'alimento', label: '¿Qué comiste?', type: 'text' },
+          { id: 'experiencia', label: 'Describe la experiencia sensorial', type: 'textarea' }
+        ],
+        type: 'text'
+      },
+      37: {
+        title: 'Chequeo emocional',
+        fields: [
+          { id: 'manana', label: 'Emoción de la mañana', type: 'text' },
+          { id: 'tarde', label: 'Emoción de la tarde', type: 'text' },
+          { id: 'noche', label: 'Emoción de la noche', type: 'text' },
+          { id: 'reflexion', label: 'Reflexión del día', type: 'textarea' }
+        ],
+        type: 'text'
+      },
+      38: {
+        title: 'Detección de patrones',
+        fields: [
+          { id: 'patronDetectado', label: 'Patrón repetido que identificaste', type: 'textarea' },
+          { id: 'cuandoOcurre', label: '¿Cuándo ocurre?', type: 'textarea' }
+        ],
+        type: 'text'
+      },
+      39: {
+        title: 'Cambio consciente',
+        fields: [
+          { id: 'reaccionAutomatica', label: 'Reacción automática que querés cambiar', type: 'textarea' },
+          { id: 'nuevaRespuesta', label: 'Nueva respuesta elegida', type: 'textarea' },
+          { id: 'resultado', label: '¿Qué pasó cuando lo intentaste?', type: 'textarea' }
+        ],
+        type: 'text'
+      },
+      40: {
+        title: 'Integración',
+        fields: [
+          { id: 'queEntiendo', label: '¿Qué estás entendiendo de vos?', type: 'textarea' },
+          { id: 'aprendizajes', label: 'Aprendizajes hasta ahora', type: 'textarea' }
+        ],
+        type: 'text'
+      },
+      // DÍAS 41-50: Identidad
+      41: {
+        title: 'Identidad real vs imagen',
+        fields: [
+          { id: 'comoMeVeo', label: 'Cómo me veo', type: 'textarea' },
+          { id: 'comoMeVenOtros', label: 'Cómo creo que me ven otros', type: 'textarea' },
+          { id: 'diferencias', label: 'Diferencias entre ambas', type: 'textarea' }
+        ],
+        type: 'text'
+      },
+      42: {
+        title: 'Qué ocultás',
+        fields: [
+          { id: 'queOculto', label: '¿Qué parte de vos ocultás?', type: 'textarea' },
+          { id: 'porQue', label: '¿Por qué?', type: 'textarea' }
+        ],
+        type: 'text'
+      },
+      43: {
+        title: 'Qué te da orgullo',
+        fields: [
+          { id: 'orgullo', label: '¿De qué estás orgulloso/a?', type: 'textarea' },
+          { id: 'porQue', label: '¿Por qué te genera orgullo?', type: 'textarea' }
+        ],
+        type: 'text'
+      },
+      44: {
+        title: 'Qué evitás',
+        fields: [
+          { id: 'queEvito', label: '¿Qué situaciones o conversaciones evitás?', type: 'textarea' },
+          { id: 'quePassaria', label: '¿Qué pasaría si no las evitaras?', type: 'textarea' }
+        ],
+        type: 'text'
+      },
+      45: {
+        title: 'Bajo presión',
+        fields: [
+          { id: 'comoReacciono', label: '¿Cómo reaccionás bajo presión?', type: 'textarea' },
+          { id: 'queRevela', label: '¿Qué revela esto de vos?', type: 'textarea' }
+        ],
+        type: 'text'
+      },
+      46: {
+        title: 'Autenticidad',
+        fields: [
+          { id: 'cuandoSoyAutentico', label: '¿Cuándo sos más auténtico/a?', type: 'textarea' },
+          { id: 'cuandoNo', label: '¿Cuándo no lo sos?', type: 'textarea' }
+        ],
+        type: 'text'
+      },
+      47: {
+        title: 'Coherencia personal',
+        fields: [
+          { id: 'valores', label: 'Tus valores principales', type: 'textarea' },
+          { id: 'coherencia', label: '¿Tus acciones están alineadas con ellos?', type: 'textarea' }
+        ],
+        type: 'text'
+      },
+      48: {
+        title: 'Zona de confort',
+        fields: [
+          { id: 'dentroZona', label: '¿Qué está dentro de tu zona de confort?', type: 'textarea' },
+          { id: 'fueraZona', label: '¿Qué te gustaría hacer que está fuera?', type: 'textarea' }
+        ],
+        type: 'text'
+      },
+      49: {
+        title: 'Relación contigo mismo/a',
+        fields: [
+          { id: 'comoMeTrato', label: '¿Cómo me trato a mí mismo/a?', type: 'textarea' },
+          { id: 'queNecesito', label: '¿Qué necesito de mí?', type: 'textarea' }
+        ],
+        type: 'text'
+      },
+      50: {
+        title: 'Síntesis de identidad',
+        fields: [
+          { id: 'quienSoy', label: '¿Quién soy realmente?', type: 'textarea' },
+          { id: 'quienQuieroSer', label: '¿Quién quiero ser?', type: 'textarea' }
+        ],
+        type: 'text'
+      },
+      // DÍAS 51-60: Integración y cierre
+      51: {
+        title: 'Aprendizajes clave',
+        fields: [
+          { id: 'aprendizajes', label: 'Principales aprendizajes hasta ahora', type: 'textarea' }
+        ],
+        type: 'text'
+      },
+      52: {
+        title: 'Cambios mentales',
+        fields: [
+          { id: 'cambiosMentales', label: '¿Qué cambió en tu forma de pensar?', type: 'textarea' }
+        ],
+        type: 'text'
+      },
+      53: {
+        title: 'Cambios corporales',
+        fields: [
+          { id: 'cambiosCorporales', label: '¿Qué cambió en tu relación con tu cuerpo?', type: 'textarea' }
+        ],
+        type: 'text'
+      },
+      54: {
+        title: 'Herramientas que funcionaron',
+        fields: [
+          { id: 'herramientas', label: '¿Qué ejercicios o herramientas te funcionaron mejor?', type: 'textarea' }
+        ],
+        type: 'text'
+      },
+      55: {
+        title: 'Hábitos a sostener',
+        fields: [
+          { id: 'habitos', label: '¿Qué hábitos querés sostener?', type: 'textarea' },
+          { id: 'como', label: '¿Cómo vas a hacerlo?', type: 'textarea' }
+        ],
+        type: 'text'
+      },
+      56: {
+        title: 'Desafíos pendientes',
+        fields: [
+          { id: 'desafios', label: '¿Qué desafíos quedan por delante?', type: 'textarea' }
+        ],
+        type: 'text'
+      },
+      57: {
+        title: 'Proyección futura',
+        fields: [
+          { id: 'comoMeVeoFuturo', label: '¿Cómo te ves en 3 meses?', type: 'textarea' },
+          { id: 'queHaras', label: '¿Qué harás para llegar ahí?', type: 'textarea' }
+        ],
+        type: 'text'
+      },
+      58: {
+        title: 'Agradecimientos',
+        fields: [
+          { id: 'agradecimientos', label: '¿A quién o qué agradecés de este proceso?', type: 'textarea' }
+        ],
+        type: 'text'
+      },
+      59: {
+        title: 'Preparación para el cierre',
+        fields: [
+          { id: 'reflexion', label: 'Reflexión final antes del último día', type: 'textarea' }
+        ],
+        type: 'text'
+      },
+      60: {
+        title: 'Cierre final',
+        fields: [
+          { id: 'sintesis', label: 'Síntesis del proceso completo', type: 'textarea' },
+          { id: 'queTeLlevas', label: '¿Qué te llevás?', type: 'textarea' },
+          { id: 'queSigue', label: '¿Qué sigue ahora?', type: 'textarea' }
+        ],
+        type: 'text'
+      }
+    };
+    
+    // Helper function for days 22-30 (presence exercises)
+    function createPresenceExercise() {
+      return {
+        title: 'Presencia y consciencia',
+        fields: [
+          { id: 'caracteristicaPropia', label: 'Una característica positiva tuya (no repetir)', type: 'textarea' },
+          { id: 'caracteristicaOtra', label: 'Una característica positiva de otra persona (no repetir)', type: 'textarea' },
+          { id: 'emocionActual', label: 'Emoción actual', type: 'text' },
+          { id: 'sensacionesCorporales', label: 'Sensaciones corporales', type: 'textarea' },
+          { id: 'respiracion', label: 'Cómo está tu respiración', type: 'text' },
+          { id: 'experienciaPresente', label: 'Experiencia del momento presente', type: 'textarea' }
+        ]
+      };
+    }
+    
+    // Date utilities
+    function formatDate(date) {
+      const days = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+      const months = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+      return `${days[date.getDay()]}, ${date.getDate()} de ${months[date.getMonth()]}`;
+    }
+    
+    function getDateString(date) {
+      return date.toISOString().split('T')[0];
+    }
+    
+    // Set current date
+    document.getElementById('currentDate').textContent = formatDate(new Date());
+    
+    // Navigation
+    document.querySelectorAll('.nav-item').forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.preventDefault();
+        const section = item.dataset.section;
+        
+        // Update nav
+        document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+        item.classList.add('active');
+        
+        // Update sections
+        document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+        document.getElementById(section + 'Section').classList.add('active');
+        
+        // Refresh calendar if switching to it
+        if (section === 'calendar') {
+          renderCalendar();
+          updateStreakDisplay();
+        }
+      });
+    });
+    
+    // Emotion Meter
+    const pleasureSlider = document.getElementById('pleasureSlider');
+    const energySlider = document.getElementById('energySlider');
+    const pleasureValue = document.getElementById('pleasureValue');
+    const energyValue = document.getElementById('energyValue');
+    
+    pleasureSlider.addEventListener('input', (e) => {
+      pleasureValue.textContent = e.target.value;
+    });
+    
+    energySlider.addEventListener('input', (e) => {
+      energyValue.textContent = e.target.value;
+    });
+    
+    // Day detail sliders
+    const dayPleasureSlider = document.getElementById('dayPleasure');
+    const dayEnergySlider = document.getElementById('dayEnergy');
+    const dayPleasureValue = document.getElementById('dayPleasureValue');
+    const dayEnergyValue = document.getElementById('dayEnergyValue');
+    
+    dayPleasureSlider.addEventListener('input', (e) => {
+      dayPleasureValue.textContent = e.target.value;
+    });
+    
+    dayEnergySlider.addEventListener('input', (e) => {
+      dayEnergyValue.textContent = e.target.value;
+    });
+    
+    // Save emotion
+    document.getElementById('saveEmotionBtn').addEventListener('click', (e) => {
+      e.preventDefault();
+      const today = getDateString(new Date());
+      const pleasure = parseInt(pleasureSlider.value);
+      const energy = parseInt(energySlider.value);
+      
+      // Check if already saved today
+      const existingIndex = storage.emotions.findIndex(e => e.date === today);
+      
+      if (existingIndex >= 0) {
+        storage.emotions[existingIndex] = { date: today, pleasure, energy };
+      } else {
+        storage.emotions.push({ date: today, pleasure, energy });
+      }
+      
+      localStorage.setItem('emotions', JSON.stringify(storage.emotions));
+      renderEmotionChart();
+      showSuccess();
+    });
+    
+    // Render emotion chart
+    function renderEmotionChart() {
+      const chart = document.getElementById('emotionChart');
+      
+      // Remove existing points
+      chart.querySelectorAll('.chart-point').forEach(point => point.remove());
+      
+      // Add points
+      storage.emotions.forEach(emotion => {
+        const point = document.createElement('div');
+        point.className = 'chart-point';
+        
+        // Calculate position (0-10 to 0-100%)
+        const x = ((emotion.pleasure - 1) / 9) * 100;
+        const y = 100 - ((emotion.energy - 1) / 9) * 100;
+        
+        point.style.left = x + '%';
+        point.style.bottom = (100 - y) + '%';
+        
+        chart.appendChild(point);
+      });
+    }
+    
+    // Make emotion chart interactive - click to mark point
+    (function setupEmotionChart() {
+      const chart = document.getElementById('emotionChart');
+      const pleasureInput = document.getElementById('pleasureSlider');
+      const energyInput = document.getElementById('energySlider');
+      const pleasureValueDisplay = document.getElementById('pleasureValue');
+      const energyValueDisplay = document.getElementById('energyValue');
+      
+      console.log('Setting up interactive emotion chart');
+      console.log('Chart found:', !!chart);
+      console.log('Inputs found:', !!pleasureInput, !!energyInput);
+      
+      if (!chart || !pleasureInput || !energyInput) {
+        console.error('Chart or inputs not found!');
+        return;
+      }
+      
+      // Variable to store current point
+      let currentPoint = null;
+      
+      // Add click handler to chart
+      chart.addEventListener('click', function(e) {
+        console.log('Chart clicked!');
+        
+        const rect = chart.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        console.log('Click position:', x, y, 'Chart size:', rect.width, rect.height);
+        
+        // Convert pixel position to 1-10 scale
+        const pleasurePercent = (x / rect.width) * 100;
+        const energyPercent = ((rect.height - y) / rect.height) * 100;
+        
+        const pleasureValue10 = Math.round((pleasurePercent / 100) * 9) + 1;
+        const energyValue10 = Math.round((energyPercent / 100) * 9) + 1;
+        
+        // Clamp values between 1 and 10
+        const finalPleasure = Math.max(1, Math.min(10, pleasureValue10));
+        const finalEnergy = Math.max(1, Math.min(10, energyValue10));
+        
+        console.log('Calculated values - Placer:', finalPleasure, 'Energía:', finalEnergy);
+        
+        // Update sliders
+        pleasureInput.value = finalPleasure;
+        energyInput.value = finalEnergy;
+        pleasureValueDisplay.textContent = finalPleasure;
+        energyValueDisplay.textContent = finalEnergy;
+        
+        // Remove previous current point if exists
+        if (currentPoint) {
+          currentPoint.remove();
+        }
+        
+        // Add new PERMANENT point
+        currentPoint = document.createElement('div');
+        currentPoint.className = 'chart-point current';
+        currentPoint.style.left = pleasurePercent + '%';
+        currentPoint.style.bottom = energyPercent + '%';
+        
+        // Add tooltip
+        currentPoint.title = `Placer: ${finalPleasure}, Energía: ${finalEnergy}`;
+        
+        chart.appendChild(currentPoint);
+        
+        console.log('✅ Punto FIJO marcado - Placer:', finalPleasure, 'Energía:', finalEnergy);
+      });
+      
+      // Also add touch support for mobile
+      chart.addEventListener('touchstart', function(e) {
+        e.preventDefault();
+        const touch = e.touches[0];
+        const clickEvent = new MouseEvent('click', {
+          clientX: touch.clientX,
+          clientY: touch.clientY
+        });
+        chart.dispatchEvent(clickEvent);
+      });
+      
+      // Make cursor pointer over chart
+      chart.style.cursor = 'crosshair';
+      console.log('✅ Interactive chart setup complete');
+      
+      // Update point position when sliders change
+      pleasureInput.addEventListener('input', updatePointFromSliders);
+      energyInput.addEventListener('input', updatePointFromSliders);
+      
+      function updatePointFromSliders() {
+        const pleasure = parseInt(pleasureInput.value);
+        const energy = parseInt(energyInput.value);
+        
+        pleasureValueDisplay.textContent = pleasure;
+        energyValueDisplay.textContent = energy;
+        
+        // Create point if it doesn't exist yet
+        if (!currentPoint) {
+          currentPoint = document.createElement('div');
+          currentPoint.className = 'chart-point current';
+          chart.appendChild(currentPoint);
+          console.log('✅ Punto creado por movimiento de slider');
+        }
+        
+        // Update point position
+        const pleasurePercent = ((pleasure - 1) / 9) * 100;
+        const energyPercent = ((energy - 1) / 9) * 100;
+        
+        currentPoint.style.left = pleasurePercent + '%';
+        currentPoint.style.bottom = energyPercent + '%';
+        currentPoint.title = `Placer: ${pleasure}, Energía: ${energy}`;
+      }
+    })();
+    
+    // Render uncomfortable situations
+    function renderUncomfortableSituations(count = 3) {
+      const container = document.getElementById('uncomfortableSituations');
+      container.innerHTML = '';
+      
+      for (let i = 0; i < count; i++) {
+        const card = document.createElement('div');
+        card.className = 'situation-card';
+        card.innerHTML = `
+          <div class="situation-number">Situación ${i + 1}</div>
+          <div class="form-group">
+            <label>Situación</label>
+            <textarea class="situation-field" data-index="${i}" data-field="situacion" placeholder="Describe la situación..."></textarea>
+          </div>
+          <div class="form-group">
+            <label>Cuerpo</label>
+            <textarea class="situation-field" data-index="${i}" data-field="cuerpo" placeholder="¿Qué sentiste en tu cuerpo?"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Pensamientos DURANTE</label>
+            <textarea class="situation-field" data-index="${i}" data-field="pensamientos" placeholder="¿Qué pensabas?"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Emociones durante y después</label>
+            <textarea class="situation-field" data-index="${i}" data-field="emociones" placeholder="¿Qué emociones experimentaste?"></textarea>
+          </div>
+        `;
+        container.appendChild(card);
+      }
+    }
+    
+    // Add situation button
+    document.getElementById('addSituation').addEventListener('click', (e) => {
+      e.preventDefault();
+      const currentCount = document.querySelectorAll('.situation-card').length;
+      renderUncomfortableSituations(currentCount + 1);
+      
+      // Restore data if exists
+      const currentDay = parseInt(document.getElementById('gratitudeForm').dataset.day);
+      const dayData = storage.gratitude[currentDay];
+      if (dayData && dayData.situations) {
+        loadUncomfortableSituations(dayData.situations);
+      }
+    });
+    
+    // Render cognitive work (days 11-60)
+    function renderCognitiveWork(count = 3) {
+      const container = document.getElementById('cognitiveWork');
+      container.innerHTML = '';
+      
+      for (let i = 0; i < count; i++) {
+        const card = document.createElement('div');
+        card.className = 'situation-card';
+        card.innerHTML = `
+          <div class="situation-number">Situación ${i + 1}</div>
+          <div class="form-group">
+            <label>Visualizar la situación incómoda</label>
+            <textarea class="cognitive-field" data-index="${i}" data-field="visualizacion" placeholder="Describe la situación..."></textarea>
+          </div>
+          <div class="form-group">
+            <label>Pensamientos nuevos / precisos</label>
+            <textarea class="cognitive-field" data-index="${i}" data-field="pensamientosNuevos" placeholder="¿Qué pensamientos nuevos introduces?"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Intentar usarlos en la situación real</label>
+            <textarea class="cognitive-field" data-index="${i}" data-field="intento" placeholder="¿Cómo los usaste?"></textarea>
+          </div>
+          <div class="form-group">
+            <label>¿Cambió la emoción o su intensidad?</label>
+            <textarea class="cognitive-field" data-index="${i}" data-field="cambioEmocion" placeholder="Describe..."></textarea>
+          </div>
+          <div class="form-group">
+            <label>¿Cambió alguna señal del cuerpo?</label>
+            <textarea class="cognitive-field" data-index="${i}" data-field="cambioCuerpo" placeholder="Describe..."></textarea>
+          </div>
+          <div class="form-group">
+            <label>¿La situación fue menos incómoda?</label>
+            <textarea class="cognitive-field" data-index="${i}" data-field="menosIncomoda" placeholder="Describe..."></textarea>
+          </div>
+          <div class="form-group">
+            <label>¿Actué o me sentí más eficaz?</label>
+            <textarea class="cognitive-field" data-index="${i}" data-field="masEficaz" placeholder="Describe..."></textarea>
+          </div>
+        `;
+        container.appendChild(card);
+      }
+    }
+    
+    // Add cognitive work button
+    document.getElementById('addCognitiveWork').addEventListener('click', (e) => {
+      e.preventDefault();
+      const currentCount = document.querySelectorAll('#cognitiveWork .situation-card').length;
+      renderCognitiveWork(currentCount + 1);
+      
+      // Restore data if exists
+      const currentDay = parseInt(document.getElementById('gratitudeForm').dataset.day);
+      const dayData = storage.gratitude[currentDay];
+      if (dayData && dayData.cognitiveWork) {
+        loadCognitiveWork(dayData.cognitiveWork);
+      }
+    });
+    
+    // Render variable exercise
+    function renderVariableExercise(dayNum) {
+      const block = document.getElementById('variableExerciseBlock');
+      const content = document.getElementById('variableExerciseContent');
+      
+      // Show for all days 1-60
+      if (dayNum < 1 || dayNum > 60) {
+        block.style.display = 'none';
+        return;
+      }
+      
+      block.style.display = 'block';
+      const exercise = variableExercises[dayNum];
+      
+      if (exercise.type === 'rating') {
+        // Day 1: Rating inputs
+        let html = `<div class="exercise-section">`;
+        exercise.fields.forEach(field => {
+          html += `
+            <div class="rating-item">
+              <label class="rating-label">${field.label}</label>
+              <div class="slider-container">
+                <input type="range" min="1" max="10" value="5" class="slider variable-field" 
+                       data-field="${field.id}" id="var_${field.id}">
+                <div class="slider-labels">
+                  <span>1</span>
+                  <span>10</span>
+                </div>
+                <div class="value-display small" id="var_${field.id}_value">5</div>
+              </div>
+            </div>
+          `;
+        });
+        html += `</div>`;
+        content.innerHTML = html;
+        
+        // Add event listeners for sliders
+        exercise.fields.forEach(field => {
+          const slider = document.getElementById(`var_${field.id}`);
+          const valueDisplay = document.getElementById(`var_${field.id}_value`);
+          slider.addEventListener('input', (e) => {
+            valueDisplay.textContent = e.target.value;
+          });
+        });
+        
+      } else if (exercise.type === 'presence') {
+        // Days 22-30: Presence exercises
+        let html = `<div class="exercise-section"><h4 class="exercise-title">${exercise.title}</h4>`;
+        exercise.fields.forEach(field => {
+          const inputType = field.type === 'textarea' ? 'textarea' : 'input type="text"';
+          const placeholder = field.placeholder || 'Escribe aquí...';
+          
+          if (field.type === 'textarea') {
+            html += `
+              <div class="form-group">
+                <label>${field.label}</label>
+                <textarea class="variable-field" data-field="${field.id}" placeholder="${placeholder}"></textarea>
+              </div>
+            `;
+          } else {
+            html += `
+              <div class="form-group">
+                <label>${field.label}</label>
+                <input type="text" class="variable-field" data-field="${field.id}" placeholder="${placeholder}" 
+                       style="width: 100%; padding: 16px; border: 1px solid var(--gray-light); font-family: 'DM Sans', sans-serif; font-size: 16px;">
+              </div>
+            `;
+          }
+        });
+        html += `</div>`;
+        content.innerHTML = html;
+        
+      } else {
+        // Days 2-10, 11-21, 31-60: Text inputs
+        let html = `<div class="exercise-section"><h4 class="exercise-title">${exercise.title}</h4>`;
+        exercise.fields.forEach(field => {
+          const inputType = field.type === 'textarea' ? 'textarea' : 'input type="text"';
+          const placeholder = field.placeholder || 'Escribe aquí...';
+          
+          if (field.type === 'textarea') {
+            html += `
+              <div class="form-group">
+                <label>${field.label}</label>
+                <textarea class="variable-field" data-field="${field.id}" placeholder="${placeholder}"></textarea>
+              </div>
+            `;
+          } else {
+            html += `
+              <div class="form-group">
+                <label>${field.label}</label>
+                <input type="text" class="variable-field" data-field="${field.id}" placeholder="${placeholder}" 
+                       style="width: 100%; padding: 16px; border: 1px solid var(--gray-light); font-family: 'DM Sans', sans-serif; font-size: 16px;">
+              </div>
+            `;
+          }
+        });
+        html += `</div>`;
+        content.innerHTML = html;
+      }
+    }
+    
+    // Calendar
+    function renderCalendar() {
+      const grid = document.getElementById('calendarGrid');
+      grid.innerHTML = '';
+      
+      const today = getDateString(new Date());
+      
+      for (let i = 1; i <= 60; i++) {
+        const dayBlock = document.createElement('div');
+        dayBlock.className = 'day-block';
+        dayBlock.textContent = i;
+        
+        // Check if completed - different logic per block
+        const dayData = storage.gratitude[i];
+        let isCompleted = false;
+        
+        if (dayData) {
+          if (i >= 1 && i <= 10) {
+            // Days 1-10: gratitude + situations (min 3) + variable exercise
+            isCompleted = dayData.gratitude && 
+                         dayData.situations && 
+                         dayData.situations.length >= 3 &&
+                         dayData.variableExercise;
+          } else if (i >= 11 && i <= 60) {
+            // Days 11-60: cognitive work (min 3) + variable exercise
+            isCompleted = dayData.cognitiveWork && 
+                         dayData.cognitiveWork.length >= 3 &&
+                         dayData.variableExercise;
+          }
+        }
+        
+        if (isCompleted) {
+          dayBlock.classList.add('completed');
+        } else if (i < getCurrentDay()) {
+          dayBlock.classList.add('incomplete');
+        }
+        
+        // Mark today
+        if (i === getCurrentDay()) {
+          dayBlock.classList.add('today');
+        }
+        
+        dayBlock.addEventListener('click', (e) => {
+          e.preventDefault();
+          openDay(i);
+        });
+        grid.appendChild(dayBlock);
+      }
+    }
+    
+    function getCurrentDay() {
+      // Calculate current day based on start date (you can customize this)
+      const startDate = new Date(localStorage.getItem('startDate') || new Date().toISOString());
+      const today = new Date();
+      const diffTime = Math.abs(today - startDate);
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      return Math.min(diffDays, 60);
+    }
+    
+    // Save start date on first load
+    if (!localStorage.getItem('startDate')) {
+      localStorage.setItem('startDate', new Date().toISOString());
+    }
+    
+    // Reset all form fields
+    function resetDayForm() {
+      console.log('Resetting form fields...');
+      
+      // Reset emocionómetro (days 1-10)
+      const dayPleasure = document.getElementById('dayPleasure');
+      const dayEnergy = document.getElementById('dayEnergy');
+      if (dayPleasure) {
+        dayPleasure.value = 5;
+        document.getElementById('dayPleasureValue').textContent = 5;
+      }
+      if (dayEnergy) {
+        dayEnergy.value = 5;
+        document.getElementById('dayEnergyValue').textContent = 5;
+      }
+      
+      // Reset gratitude
+      const gratitudeText = document.getElementById('gratitudeText');
+      if (gratitudeText) gratitudeText.value = '';
+      
+      // Clear ALL textareas and inputs in the form
+      const allTextareas = document.querySelectorAll('#gratitudeForm textarea');
+      allTextareas.forEach(ta => ta.value = '');
+      
+      const allTextInputs = document.querySelectorAll('#gratitudeForm input[type="text"]');
+      allTextInputs.forEach(input => input.value = '');
+      
+      // NOTE: We DON'T clear the containers here anymore
+      // They will be re-rendered in openDay() before loading data
+    }
+    
+    // Open day detail
+    function openDay(dayNum) {
+      console.log('Opening day:', dayNum);
+      
+      // First, reset form fields (not containers)
+      resetDayForm();
+      
+      // CRITICAL: Ensure dayDetail is visible
+      const dayDetail = document.getElementById('dayDetail');
+      const calendarView = document.getElementById('calendarView');
+      
+      calendarView.style.display = 'none';
+      dayDetail.style.display = 'block';
+      dayDetail.classList.add('active');
+      
+      document.getElementById('dayNumber').textContent = `Día ${dayNum}`;
+      
+      // Store current day FIRST
+      document.getElementById('gratitudeForm').dataset.day = dayNum;
+      
+      // Show/hide blocks based on day
+      const fixedBlock110 = document.getElementById('fixedBlock110');
+      const fixedBlock1160 = document.getElementById('fixedBlock1160');
+      
+      // Get data first to know how many items to render
+      const dayData = storage.gratitude[dayNum];
+      console.log('Day data for day', dayNum, ':', dayData);
+      
+      if (dayNum >= 1 && dayNum <= 10) {
+        // Days 1-10: show emocionómetro + gratitud + situations
+        fixedBlock110.style.display = 'block';
+        fixedBlock1160.style.display = 'none';
+        
+        // CLEAR and render with correct count
+        const uncomfortableSituations = document.getElementById('uncomfortableSituations');
+        if (uncomfortableSituations) uncomfortableSituations.innerHTML = '';
+        
+        const situationCount = (dayData && dayData.situations) ? Math.max(3, dayData.situations.length) : 3;
+        renderUncomfortableSituations(situationCount);
+        
+      } else if (dayNum >= 11 && dayNum <= 60) {
+        // Days 11-60: show cognitive work
+        fixedBlock110.style.display = 'none';
+        fixedBlock1160.style.display = 'block';
+        
+        // CLEAR and render with correct count
+        const cognitiveWork = document.getElementById('cognitiveWork');
+        if (cognitiveWork) cognitiveWork.innerHTML = '';
+        
+        const cognitiveCount = (dayData && dayData.cognitiveWork) ? Math.max(3, dayData.cognitiveWork.length) : 3;
+        renderCognitiveWork(cognitiveCount);
+      }
+      
+      // CLEAR and render variable exercise for all days 1-60
+      const variableExerciseContent = document.getElementById('variableExerciseContent');
+      if (variableExerciseContent) variableExerciseContent.innerHTML = '';
+      
+      renderVariableExercise(dayNum);
+      
+      // NOW load all data in one setTimeout
+      setTimeout(() => {
+        if (!dayData) {
+          console.log('No data found for this day');
+          return;
+        }
+        
+        // Load data for days 1-10
+        if (dayNum >= 1 && dayNum <= 10) {
+          if (dayData.pleasure !== undefined) {
+            document.getElementById('dayPleasure').value = dayData.pleasure;
+            document.getElementById('dayPleasureValue').textContent = dayData.pleasure;
+            document.getElementById('dayEnergy').value = dayData.energy;
+            document.getElementById('dayEnergyValue').textContent = dayData.energy;
+            console.log('Loaded emocionómetro:', dayData.pleasure, dayData.energy);
+          }
+          if (dayData.gratitude) {
+            document.getElementById('gratitudeText').value = dayData.gratitude;
+            console.log('Loaded gratitude');
+          }
+          
+          if (dayData.situations && dayData.situations.length > 0) {
+            loadUncomfortableSituations(dayData.situations);
+            console.log('Loaded situations:', dayData.situations.length);
+          }
+        }
+        
+        // Load cognitive work for days 11-60
+        if (dayNum >= 11 && dayNum <= 60) {
+          if (dayData.cognitiveWork && dayData.cognitiveWork.length > 0) {
+            loadCognitiveWork(dayData.cognitiveWork);
+            console.log('Loaded cognitive work:', dayData.cognitiveWork.length);
+          }
+        }
+        
+        // Load variable exercise data (all days)
+        if (dayData.variableExercise) {
+          // Wait a bit more to ensure fields are rendered
+          setTimeout(() => {
+            const fields = document.querySelectorAll('.variable-field');
+            if (fields.length > 0) {
+              loadVariableExerciseData(dayData.variableExercise);
+              console.log('Loaded variable exercise with', fields.length, 'fields');
+            } else {
+              console.warn('No variable fields found yet, retrying...');
+              setTimeout(() => {
+                loadVariableExerciseData(dayData.variableExercise);
+              }, 100);
+            }
+          }, 50);
+        }
+      }, 250);
+    }
+    
+    // Load uncomfortable situations data
+    function loadUncomfortableSituations(situations) {
+      situations.forEach((sit, index) => {
+        const fields = document.querySelectorAll(`.situation-field[data-index="${index}"]`);
+        fields.forEach(field => {
+          const fieldName = field.dataset.field;
+          if (sit[fieldName]) {
+            field.value = sit[fieldName];
+          }
+        });
+      });
+    }
+    
+    // Load cognitive work data
+    function loadCognitiveWork(cognitiveWork) {
+      cognitiveWork.forEach((work, index) => {
+        const fields = document.querySelectorAll(`.cognitive-field[data-index="${index}"]`);
+        fields.forEach(field => {
+          const fieldName = field.dataset.field;
+          if (work[fieldName]) {
+            field.value = work[fieldName];
+          }
+        });
+      });
+    }
+    
+    // Load variable exercise data
+    function loadVariableExerciseData(data) {
+      const fields = document.querySelectorAll('.variable-field');
+      fields.forEach(field => {
+        const fieldName = field.dataset.field;
+        if (data[fieldName]) {
+          if (field.type === 'range') {
+            field.value = data[fieldName];
+            const valueDisplay = document.getElementById(`var_${fieldName}_value`);
+            if (valueDisplay) {
+              valueDisplay.textContent = data[fieldName];
+            }
+          } else {
+            field.value = data[fieldName];
+          }
+        }
+      });
+    }
+    
+    // Back button
+    document.getElementById('backBtn').addEventListener('click', (e) => {
+      e.preventDefault();
+      console.log('Back button clicked');
+      
+      // Hide day detail immediately
+      document.getElementById('dayDetail').classList.remove('active');
+      document.getElementById('dayDetail').style.display = 'none';
+      
+      // Show calendar
+      document.getElementById('calendarView').style.display = 'block';
+    });
+    
+    // Save gratitude
+    document.getElementById('gratitudeForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const dayNum = parseInt(e.target.dataset.day);
+      let dataToSave = {};
+      
+      // DAYS 1-10: Collect emocionómetro, gratitude, situations
+      if (dayNum >= 1 && dayNum <= 10) {
+        const pleasure = parseInt(document.getElementById('dayPleasure').value);
+        const energy = parseInt(document.getElementById('dayEnergy').value);
+        const gratitude = document.getElementById('gratitudeText').value;
+        
+        // Collect uncomfortable situations
+        const situations = [];
+        const situationCards = document.querySelectorAll('#uncomfortableSituations .situation-card');
+        situationCards.forEach((card, index) => {
+          const fields = card.querySelectorAll('.situation-field');
+          const situation = {};
+          fields.forEach(field => {
+            const fieldName = field.dataset.field;
+            situation[fieldName] = field.value;
+          });
+          if (Object.values(situation).some(val => val.trim() !== '')) {
+            situations.push(situation);
+          }
+        });
+        
+        dataToSave = { pleasure, energy, gratitude, situations };
+      }
+      
+      // DAYS 11-60: Collect cognitive work
+      if (dayNum >= 11 && dayNum <= 60) {
+        const cognitiveWork = [];
+        const cognitiveCards = document.querySelectorAll('#cognitiveWork .situation-card');
+        cognitiveCards.forEach((card, index) => {
+          const fields = card.querySelectorAll('.cognitive-field');
+          const work = {};
+          fields.forEach(field => {
+            const fieldName = field.dataset.field;
+            work[fieldName] = field.value;
+          });
+          if (Object.values(work).some(val => val.trim() !== '')) {
+            cognitiveWork.push(work);
+          }
+        });
+        
+        dataToSave = { cognitiveWork };
+      }
+      
+      // Collect variable exercise data (all days 1-60)
+      if (dayNum >= 1 && dayNum <= 60) {
+        const variableExercise = {};
+        const variableFields = document.querySelectorAll('.variable-field');
+        variableFields.forEach(field => {
+          const fieldName = field.dataset.field;
+          if (field.type === 'range') {
+            variableExercise[fieldName] = parseInt(field.value);
+          } else {
+            variableExercise[fieldName] = field.value;
+          }
+        });
+        dataToSave.variableExercise = variableExercise;
+      }
+      
+      // Save all data
+      storage.gratitude[dayNum] = dataToSave;
+      localStorage.setItem('gratitude', JSON.stringify(storage.gratitude));
+      
+      // Update streak
+      updateStreak(dayNum);
+      
+      showSuccess();
+      
+      // Go back to calendar
+      setTimeout(() => {
+        document.getElementById('backBtn').click();
+        renderCalendar();
+        updateStreakDisplay();
+      }, 1000);
+    });
+    
+    // Streak management
+    function updateStreak(completedDay) {
+      const today = getCurrentDay();
+      const lastDay = storage.lastCompletedDay ? parseInt(storage.lastCompletedDay) : 0;
+      
+      // If completing today or consecutive day
+      if (completedDay === today || completedDay === lastDay + 1) {
+        if (completedDay > lastDay) {
+          storage.streak++;
+          storage.lastCompletedDay = completedDay.toString();
+        }
+      } else if (completedDay < lastDay) {
+        // Completing a past day doesn't affect streak
+        return;
+      } else {
+        // Gap in days, reset streak
+        storage.streak = 1;
+        storage.lastCompletedDay = completedDay.toString();
+      }
+      
+      localStorage.setItem('streak', storage.streak.toString());
+      localStorage.setItem('lastCompletedDay', storage.lastCompletedDay);
+    }
+    
+    function updateStreakDisplay() {
+      document.getElementById('streakDisplay').textContent = `Racha: ${storage.streak} días`;
+    }
+    
+    // Show success message
+    function showSuccess() {
+      const msg = document.getElementById('successMsg');
+      msg.classList.add('show');
+      setTimeout(() => {
+        msg.classList.remove('show');
+      }, 2000);
+    }
+    
+    // Initialize
+    // renderEmotionChart(); // DESACTIVADO: No mostrar puntos al cargar
+    renderCalendar();
+    updateStreakDisplay();
+    
+    }); // End DOMContentLoaded
+  </script>
+</body>
+</html>
