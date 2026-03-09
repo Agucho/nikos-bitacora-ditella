@@ -1,0 +1,2346 @@
+{
+  "meta": {
+    "id": "bitacora-60d-v1",
+    "title": "60 días con vos mismo",
+    "duration_days": 60,
+    "source_pdf": "docs/BITACORA_DDL_2026_NIKOS.pdf",
+    "notes": "This JSON is the app source-of-truth for day definitions. Update here instead of hardcoding App/UI logic.",
+    "extraction": {
+      "source_folder": "docs/bitacora-60-dias",
+      "day_files_detected": 59,
+      "missing_days_in_extraction": [
+        56
+      ],
+      "notes": "Day text and stitched PNGs are user-provided extraction artifacts. Chart pages were intentionally excluded."
+    }
+  },
+  "completion_rules": [
+    {
+      "from_day": 1,
+      "to_day": 10,
+      "requires": [
+        "gratitude_d1_d10",
+        "uncomfortable_situations_d1_d10",
+        "primary_exercise"
+      ]
+    },
+    {
+      "from_day": 11,
+      "to_day": 60,
+      "requires": [
+        "cognitive_work_d11_d60",
+        "primary_exercise"
+      ]
+    }
+  ],
+  "repeated_blocks": {
+    "gratitude_d1_d10": {
+      "id": "gratitude_d1_d10",
+      "title": "Hoy agradezco a... / por...",
+      "applies_to_days": [
+        1,
+        10
+      ],
+      "min_items": 1,
+      "fields": [
+        {
+          "id": "gratitude",
+          "label": "HOY AGRADEZCO A... / POR...",
+          "type": "textarea",
+          "required": true
+        }
+      ]
+    },
+    "uncomfortable_situations_d1_d10": {
+      "id": "uncomfortable_situations_d1_d10",
+      "title": "Situaciones incómodas",
+      "applies_to_days": [
+        1,
+        10
+      ],
+      "min_items": 3,
+      "item_fields": [
+        {
+          "key": "situacion",
+          "label": "SITUACIÓN",
+          "type": "textarea"
+        },
+        {
+          "key": "cuerpo",
+          "label": "CUERPO",
+          "type": "textarea"
+        },
+        {
+          "key": "pensamientos",
+          "label": "PENSAMIENTOS DURANTE",
+          "type": "textarea"
+        },
+        {
+          "key": "emociones",
+          "label": "EMOCIONES DURANTE Y DESPUÉS",
+          "type": "textarea"
+        }
+      ]
+    },
+    "cognitive_work_d11_d60": {
+      "id": "cognitive_work_d11_d60",
+      "title": "Situaciones incómodas - trabajo cognitivo",
+      "applies_to_days": [
+        11,
+        60
+      ],
+      "min_items": 3,
+      "item_fields": [
+        {
+          "key": "visualizacion",
+          "label": "VISUALIZACIÓN",
+          "type": "textarea"
+        },
+        {
+          "key": "pensamientosNuevos",
+          "label": "PENSAMIENTOS NUEVOS / PRECISOS",
+          "type": "textarea"
+        },
+        {
+          "key": "intento",
+          "label": "INTENTAR USARLOS EN LA SITUACIÓN REAL",
+          "type": "textarea"
+        },
+        {
+          "key": "cambioEmocion",
+          "label": "¿CAMBIÓ LA EMOCIÓN O SU INTENSIDAD?",
+          "type": "textarea"
+        },
+        {
+          "key": "cambioCuerpo",
+          "label": "¿CAMBIÓ ALGUNA SEÑAL DEL CUERPO?",
+          "type": "textarea"
+        },
+        {
+          "key": "menosIncomoda",
+          "label": "¿LA SITUACIÓN FUE MENOS INCÓMODA?",
+          "type": "textarea"
+        },
+        {
+          "key": "masEficaz",
+          "label": "¿ACTUÉ O ME SENTÍ MÁS EFICAZ?",
+          "type": "textarea"
+        }
+      ]
+    }
+  },
+  "days": [
+    {
+      "day": 1,
+      "source": {
+        "pdf_file": "docs/BITACORA_DDL_2026_NIKOS.pdf",
+        "start_page_hint": 6
+      },
+      "includes": [
+        "gratitude_d1_d10",
+        "uncomfortable_situations_d1_d10"
+      ],
+      "primary_exercise": {
+        "title": "Catalogate",
+        "type": "rating",
+        "fields": [
+          {
+            "id": "familia",
+            "label": "Familia",
+            "type": "slider",
+            "min": 1,
+            "max": 10
+          },
+          {
+            "id": "amigos",
+            "label": "Amigos",
+            "type": "slider",
+            "min": 1,
+            "max": 10
+          },
+          {
+            "id": "vidaSocial",
+            "label": "Vida Social",
+            "type": "slider",
+            "min": 1,
+            "max": 10
+          },
+          {
+            "id": "relaciones",
+            "label": "Relaciones",
+            "type": "slider",
+            "min": 1,
+            "max": 10
+          },
+          {
+            "id": "divirtiendote",
+            "label": "Divirtiéndote",
+            "type": "slider",
+            "min": 1,
+            "max": 10
+          },
+          {
+            "id": "trabajo",
+            "label": "Trabajo",
+            "type": "slider",
+            "min": 1,
+            "max": 10
+          },
+          {
+            "id": "plata",
+            "label": "Plata",
+            "type": "slider",
+            "min": 1,
+            "max": 10
+          },
+          {
+            "id": "estudio",
+            "label": "Estudio",
+            "type": "slider",
+            "min": 1,
+            "max": 10
+          },
+          {
+            "id": "comiendoSaludable",
+            "label": "Comiendo saludable",
+            "type": "slider",
+            "min": 1,
+            "max": 10
+          },
+          {
+            "id": "tomandoMuchaAgua",
+            "label": "Tomando mucha agua",
+            "type": "slider",
+            "min": 1,
+            "max": 10
+          },
+          {
+            "id": "estarEnLaNaturaleza",
+            "label": "Estar en la naturaleza",
+            "type": "slider",
+            "min": 1,
+            "max": 10
+          },
+          {
+            "id": "ejercicioFisico",
+            "label": "Ejercicio físico",
+            "type": "slider",
+            "min": 1,
+            "max": 10
+          },
+          {
+            "id": "salud",
+            "label": "Salud",
+            "type": "slider",
+            "min": 1,
+            "max": 10
+          },
+          {
+            "id": "creatividad",
+            "label": "Creatividad",
+            "type": "slider",
+            "min": 1,
+            "max": 10
+          },
+          {
+            "id": "sentidoDeProposito",
+            "label": "Sentido de propósito",
+            "type": "slider",
+            "min": 1,
+            "max": 10
+          },
+          {
+            "id": "tuPasado",
+            "label": "Tu pasado",
+            "type": "slider",
+            "min": 1,
+            "max": 10
+          },
+          {
+            "id": "tuPresente",
+            "label": "Tu presente",
+            "type": "slider",
+            "min": 1,
+            "max": 10
+          },
+          {
+            "id": "tuFuturo",
+            "label": "Tu futuro",
+            "type": "slider",
+            "min": 1,
+            "max": 10
+          }
+        ]
+      },
+      "source_assets": {
+        "txt": "docs/bitacora-60-dias/day-1.txt",
+        "png": "docs/bitacora-60-dias/day-1.png",
+        "extracted": true
+      }
+    },
+    {
+      "day": 2,
+      "source": {
+        "pdf_file": "docs/BITACORA_DDL_2026_NIKOS.pdf",
+        "start_page_hint": 7
+      },
+      "includes": [
+        "gratitude_d1_d10",
+        "uncomfortable_situations_d1_d10"
+      ],
+      "primary_exercise": {
+        "title": "Ves que puedo",
+        "type": "text",
+        "fields": [
+          {
+            "id": "situacion",
+            "label": "¿Cuándo fue la última vez que pensaste que no podías más y aun así continuaste?",
+            "type": "textarea"
+          },
+          {
+            "id": "proximaVez",
+            "label": "¿Cuándo podría ser una próxima vez?",
+            "type": "textarea"
+          }
+        ]
+      },
+      "source_assets": {
+        "txt": "docs/bitacora-60-dias/day-2.txt",
+        "png": "docs/bitacora-60-dias/day-2.png",
+        "extracted": true
+      }
+    },
+    {
+      "day": 3,
+      "source": {
+        "pdf_file": "docs/BITACORA_DDL_2026_NIKOS.pdf",
+        "start_page_hint": 8
+      },
+      "includes": [
+        "gratitude_d1_d10",
+        "uncomfortable_situations_d1_d10"
+      ],
+      "primary_exercise": {
+        "title": "MENTE EN CRECIMIENTO",
+        "type": "text",
+        "fields": [
+          {
+            "id": "deberiaSer",
+            "label": "Pensá en algo que vos creés en lo que deberías ser bueno.",
+            "type": "textarea"
+          },
+          {
+            "id": "noSalio",
+            "label": "¿Sabías que el esfuerzo que le pongas va a ser que seas mejor?",
+            "subtitle": "Pensá en algo que alguna vez no te salió y pensaste que fue porque no eras bueno en eso.",
+            "type": "textarea"
+          },
+          {
+            "id": "estrategias",
+            "label": "¿Podés probar estrategias diferentes a las que usaste para que la próxima vez si te salga?",
+            "subtitle": "Pensá en alguien que creas tengas que demostrarle que sos bueno o el mejor en algo. Escribilo.",
+            "type": "textarea"
+          },
+          {
+            "id": "observaciones",
+            "label": "¿Sabías que las observaciones de los demás pueden ayudarte a mejorar?",
+            "type": "textarea"
+          }
+        ]
+      },
+      "source_assets": {
+        "txt": "docs/bitacora-60-dias/day-3.txt",
+        "png": "docs/bitacora-60-dias/day-3.png",
+        "extracted": true
+      }
+    },
+    {
+      "day": 4,
+      "source": {
+        "pdf_file": "docs/BITACORA_DDL_2026_NIKOS.pdf",
+        "start_page_hint": 9
+      },
+      "includes": [
+        "gratitude_d1_d10",
+        "uncomfortable_situations_d1_d10"
+      ],
+      "primary_exercise": {
+        "title": "MENTE EN CRECIMIENTO",
+        "type": "text",
+        "fields": [
+          {
+            "id": "critica",
+            "label": "Pensá en alguna vez que te criticaron y te dio vergüenza.",
+            "type": "textarea"
+          },
+          {
+            "id": "oportunidad",
+            "label": "¿Sabías que cada oportunidad es para aprender? Aprender a toda costa.",
+            "type": "textarea"
+          },
+          {
+            "id": "fallas",
+            "label": "Pensá que fallas y que errores solés esconder.",
+            "type": "textarea"
+          },
+          {
+            "id": "confrontar",
+            "label": "¿Qué podrías hacer para confrontarlas en lugar de esconderlas?",
+            "type": "textarea"
+          }
+        ]
+      },
+      "source_assets": {
+        "txt": "docs/bitacora-60-dias/day-4.txt",
+        "png": "docs/bitacora-60-dias/day-4.png",
+        "extracted": true
+      }
+    },
+    {
+      "day": 5,
+      "source": {
+        "pdf_file": "docs/BITACORA_DDL_2026_NIKOS.pdf",
+        "start_page_hint": 10
+      },
+      "includes": [
+        "gratitude_d1_d10",
+        "uncomfortable_situations_d1_d10"
+      ],
+      "primary_exercise": {
+        "title": "ATENCIÓN PLENA",
+        "type": "text",
+        "description": "Buscá un lugar donde puedas estar tranquilo, podés estar sentado o recostado. Simplemente realizarás algunas respiraciones prestando especial atención al espacio de quietud y calma que se generará entre cada inhalación y exhalación. Lleva toda tu atención ahí por un par de respiraciones.",
+        "fields": [
+          {
+            "id": "lugarYSentimiento",
+            "label": "Anotá qué lugar elegiste y cómo te sentiste al terminar:",
+            "type": "textarea"
+          }
+        ]
+      },
+      "source_assets": {
+        "txt": "docs/bitacora-60-dias/day-5.txt",
+        "png": "docs/bitacora-60-dias/day-5.png",
+        "extracted": true
+      }
+    },
+    {
+      "day": 6,
+      "source": {
+        "pdf_file": "docs/BITACORA_DDL_2026_NIKOS.pdf",
+        "start_page_hint": 11
+      },
+      "includes": [
+        "gratitude_d1_d10",
+        "uncomfortable_situations_d1_d10"
+      ],
+      "primary_exercise": {
+        "title": "EL EJERCICIO ES UN LIBERADOR DE ESTRÉS",
+        "type": "text",
+        "description": "La mente y el cuerpo son las dos caras de una misma moneda, cuando cuidas a uno, también cuidás al otro. Elegí un ejercicio, deporte con un plan a seguir que puedas comprometerte durante esta cursada o taller. Ya sea realizar caminatas regulares, suscribirte a un gimnasio, hacer yoga, baile, pilates, plantar o un deporte en equipo. Llevá un registro de las veces que lo hacés te ayudará a seguir motivado.",
+        "fields": [
+          {
+            "id": "compromiso",
+            "label": "Me comprometo a:",
+            "type": "textarea"
+          }
+        ]
+      },
+      "source_assets": {
+        "txt": "docs/bitacora-60-dias/day-6.txt",
+        "png": "docs/bitacora-60-dias/day-6.png",
+        "extracted": true
+      }
+    },
+    {
+      "day": 7,
+      "source": {
+        "pdf_file": "docs/BITACORA_DDL_2026_NIKOS.pdf",
+        "start_page_hint": 12
+      },
+      "includes": [
+        "gratitude_d1_d10",
+        "uncomfortable_situations_d1_d10"
+      ],
+      "primary_exercise": {
+        "title": "NO ME SALIÓ",
+        "type": "text",
+        "fields": [
+          {
+            "id": "quePaso",
+            "label": "Pensá en algo que no te salió bien. Escribilo.",
+            "type": "textarea"
+          },
+          {
+            "id": "queBien",
+            "label": "Buscá que cosas diferentes podrías hacer la próxima vez. Identificá que cosas SI hiciste bien. Escribilo.",
+            "type": "textarea"
+          },
+          {
+            "id": "repetir",
+            "label": "Pensá como esas cosas SI la podrías repetir en otros ámbitos de tu vida. Escribilo.",
+            "type": "textarea"
+          }
+        ],
+        "footer": "Charla con otros sobre lo sucedido."
+      },
+      "source_assets": {
+        "txt": "docs/bitacora-60-dias/day-7.txt",
+        "png": "docs/bitacora-60-dias/day-7.png",
+        "extracted": true
+      }
+    },
+    {
+      "day": 8,
+      "source": {
+        "pdf_file": "docs/BITACORA_DDL_2026_NIKOS.pdf",
+        "start_page_hint": 13
+      },
+      "includes": [
+        "gratitude_d1_d10",
+        "uncomfortable_situations_d1_d10"
+      ],
+      "primary_exercise": {
+        "title": "ACTIVIDADES",
+        "description": "Pensá en algunas actividades que te hacen sentir bien... Categorizalas en: Las puedo hacer hoy. Las puedo hacer esta semana. Las puedo hacer este mes. Hacé al menos una de ellas hoy, esta semana y este mes. Escribilas.",
+        "type": "text",
+        "fields": [
+          {
+            "id": "hoy",
+            "label": "HOY:",
+            "type": "textarea"
+          },
+          {
+            "id": "semana",
+            "label": "SEMANA:",
+            "type": "textarea"
+          },
+          {
+            "id": "mes",
+            "label": "MES:",
+            "type": "textarea"
+          }
+        ]
+      },
+      "source_assets": {
+        "txt": "docs/bitacora-60-dias/day-8.txt",
+        "png": "docs/bitacora-60-dias/day-8.png",
+        "extracted": true
+      }
+    },
+    {
+      "day": 9,
+      "source": {
+        "pdf_file": "docs/BITACORA_DDL_2026_NIKOS.pdf",
+        "start_page_hint": 14
+      },
+      "includes": [
+        "gratitude_d1_d10",
+        "uncomfortable_situations_d1_d10"
+      ],
+      "primary_exercise": {
+        "title": "ESTRESATE",
+        "description": "El estrés suele tener mala fama, pero puede ser a la vez positivo y motivante. Generalmente se relaciona al estrés con cosas negativas, muchos lo piensan como algo a ser evitado. Sin embargo, sentir un poco de estrés puede ''poner más picante'' la vida, y hacerte sentir comprometido e involucrado. Pensá en situaciones como: casarse, jugar el partido de tu vida... En vez de evitar emociones que impliquen estrés, abrazalas! Pensá el estrés como el piolín de un instrumento, si ajustas demasiado se romperá, si lo soltás mucho no estará lo suficientemente firme. Solo la cantidad justa de tensión ayudará a crear una hermosa música.",
+        "type": "text",
+        "fields": [
+          {
+            "id": "estres",
+            "label": "Escribí con qué te vas a estresar esta semana…",
+            "type": "textarea"
+          }
+        ]
+      },
+      "source_assets": {
+        "txt": "docs/bitacora-60-dias/day-9.txt",
+        "png": "docs/bitacora-60-dias/day-9.png",
+        "extracted": true
+      }
+    },
+    {
+      "day": 10,
+      "source": {
+        "pdf_file": "docs/BITACORA_DDL_2026_NIKOS.pdf",
+        "start_page_hint": 15
+      },
+      "includes": [
+        "gratitude_d1_d10",
+        "uncomfortable_situations_d1_d10"
+      ],
+      "primary_exercise": {
+        "title": "KIT DE AUTO-CALMA",
+        "description": "Elegí objetos que te calmen y te saquen del estrés. Pueden ser juegos como el sudoku, palabras cruzadas, fotos con imágenes relajantes, tarjetas con afirmaciones, pelotitas anti-stress. Objetos simbólicos como una goma de borrar para recordar que está bien cometer errores. Pensá el kit como un kit de primeros auxilios emocional.",
+        "type": "text",
+        "fields": [
+          {
+            "id": "kit",
+            "label": "Escribí qué elegiste…",
+            "type": "textarea"
+          }
+        ]
+      },
+      "source_assets": {
+        "txt": "docs/bitacora-60-dias/day-10.txt",
+        "png": "docs/bitacora-60-dias/day-10.png",
+        "extracted": true
+      }
+    },
+    {
+      "day": 11,
+      "source": {
+        "pdf_file": "docs/BITACORA_DDL_2026_NIKOS.pdf",
+        "start_page_hint": 16
+      },
+      "includes": [],
+      "intro": {
+        "title": "SITUACIONES INCÓMODAS",
+        "text": "1) Revisá tus pensamientos detectados en las situaciones incómodas de los 10 días previos y marcá cuáles de ellos son:\nIrreales o sin evidencias o irracionales o exagerados o catastróficos o mentirosos.\n\nLlamaremos a estos pensamientos: PENSAMIENTOS NEGATIVOS.\n\n2) Durante los próximos 10 días vas a intentar reemplazar esos pensamientos por otros que sean \"precisos\".\n\nLlamaremos a estos pensamientos nuevos que utilizarás para reemplazar los negativos: PENSAMIENTOS PRECISOS.\n\nEstos pueden ser (vos tenés que ir probando):\nRacionales o con evidencias o directivos o positivos.\n\nProcederás de la siguiente manera:\nA- Visualizás la situación incómoda antes de que ocurra (en tu casa, el metro, caminando, al bañarte, antes de dormir, en el auto, etc). Esto es entrenamiento mental!\n\nB- En esa visualización introducís tus [pensamientos precisos] que vos elijas para que vayan reemplazando a los [pensamientos negativos] que son los que te generan la intensidad emocional que te hace decidir y/o comportarte y/o sentirte mal.\n\nC- Cuantas más veces visualices, más chances que durante la situación incómoda real logres reemplazar los [pensamientos negativos].\n\nEsto es entrenar tu cabeza...\nVos le decís a tu cabeza qué tiene que pensar!"
+      },
+      "primary_exercise": {
+        "title": "Ejercicio del día",
+        "type": "text",
+        "fields": [
+          {
+            "id": "pensamientosNegativos",
+            "label": "Pensamientos negativos detectados: irreales y/o sin evidencias y/o irracionales y/o exagerados y/o catastróficos y/o mentirosos",
+            "type": "textarea",
+            "placeholder": "EJEMPLO: NUNCA LOGRO CONVENCER A MI JEFE"
+          },
+          {
+            "id": "pensamientosNuevos",
+            "label": "Pensamientos nuevos y precisos que intentaré usar para reemplazar. Pueden ser racionales y/o con evidencias y/o directivos y/o positivos",
+            "type": "textarea",
+            "placeholder": "EJEMPLO: CUANDO ME PREPARO BIEN SUELO CONVENCER A MI JEFE"
+          }
+        ]
+      },
+      "source_assets": {
+        "txt": "docs/bitacora-60-dias/day-11.txt",
+        "png": "docs/bitacora-60-dias/day-11.png",
+        "extracted": true
+      }
+    },
+    {
+      "day": 12,
+      "source": {
+        "pdf_file": "docs/BITACORA_DDL_2026_NIKOS.pdf",
+        "start_page_hint": 17
+      },
+      "includes": [],
+      "intro": {
+        "title": "SITUACIONES INCÓMODAS",
+        "text": "A) Visualizá la situación incómoda introduciendo esos pensamientos nuevos / precisos para que vayan reemplazando a los negativos.\n\nB) Intentá realizarlo durante las situaciones incómodas reales.\n\nC) Si no te funciona, ve cambiando los pensamientos nuevos/precisos por otros hasta que encuentres los adecuados (estos serán los que te permitan \"no sentirte tan tan incómodo y actuar de manera más eficiente durante tu situación incómoda\").\n\nRecordá: cuantas más veces visualices, más chances que durante la situación incómoda real logres reemplazar los pensamientos negativos por los pensamientos nuevos / precisos.\n\nD) ¿Cambian tus emociones o la intensidad de las mismas, cambian las señales de tu cuerpo? Escribí…\n\nE) ¿Lograste que la situación sea menos incómoda y puedas responder, actuar y sentirte de manera más eficiente? Escribí…"
+      },
+      "primary_exercise": {
+        "title": "ESCANEO",
+        "description": "A veces llevamos un estilo de vida muy acelerado dónde apenas hay tiempo o actividades que nos ayudan a conectar con nuestro cuerpo y estamos tan atrapados en la vorágine que no percibimos los dolores físicos que tenemos. Buscá un lugar agradable donde puedas relajarte, si te ayuda elegí alguna música tranquila de fondo.\nImaginá que tu mente abandona tu cabeza y viaja a través de tu cuerpo hacia uno de tus pies. ¿Cómo se siente tu pie? ¿Está relajado, tenso o dolorido? ¿Hace calor o frío? Escribilo…",
+        "type": "text",
+        "fields": [
+          {
+            "id": "escaneo",
+            "label": "",
+            "type": "textarea"
+          },
+          {
+            "id": "sensaciones",
+            "label": "Simplemente escanea y observa cómo te sentís. Imaginá que los músculos de tus pies se tensan y relajan de nuevo. Ahora concéntrate en tu pantorrilla, rodilla y muslo. Detenete en cada parte del cuerpo para repetir el escaneo, la tensión muscular y la relajación. Repetí el ejercicio con tu otra pierna. Dirigite hacia una mano y subí ambos brazos. Escanea, tensa y relaja la espalda, el estómago, el pecho, los hombros y la cara. Podés imaginar tus músculos tensarse y relajarse, o tensarse físicamente y relajarlos: hace lo que sientas mejor. Es normal que tu mente deambule a veces. Reconocé cualquier pensamiento que surja de una manera positiva, pero devolvé tu mente suavemente al ejercicio. ¿Qué sentiste durante el ejercicio? Escribilo...",
+            "type": "textarea"
+          }
+        ]
+      },
+      "source_assets": {
+        "txt": "docs/bitacora-60-dias/day-12.txt",
+        "png": "docs/bitacora-60-dias/day-12.png",
+        "extracted": true
+      }
+    },
+    {
+      "day": 13,
+      "source": {
+        "pdf_file": "docs/BITACORA_DDL_2026_NIKOS.pdf",
+        "start_page_hint": 18
+      },
+      "includes": [],
+      "primary_exercise": {
+        "title": "REGISTRÁ TUS EMOCIONES",
+        "description": "Buscar los patrones de cómo te sentís durante el día te va a ayudar a dominar tus estados de ánimo.\nHacé una lista de las emociones que has tenido durante los últimos días. Clasificalas en PLACENTERAS, NEUTRAS O DISPLACENTERAS.\nUsando estas listas como guía la semana siguiente, tildá en la misma cada vez que identifiques alguna de estas emociones. Evaluá tu lista, al finalizar cada día o semana. ¿Hay algo del recuento que te sorprenda? ¿Las emociones que provocan ansiedad superan a las placenteras? Creá un plan de acción para realizar cambios para lograr que las emociones displacenteras no ganen poder sobre vos. Cuando llegás a un recuento de tus emociones, adquirís una mejor percepción de cómo tus emociones tienen poder sobre vos, tanto las placenteras como las displacenteras.",
+        "type": "text",
+        "fields": [
+          {
+            "id": "listaCategorias",
+            "label": "LISTA Y CATEGORÍAS:",
+            "type": "textarea"
+          },
+          {
+            "id": "planAccion",
+            "label": "PLAN DE ACCIÓN:",
+            "type": "textarea"
+          }
+        ]
+      },
+      "source_assets": {
+        "txt": "docs/bitacora-60-dias/day-13.txt",
+        "png": "docs/bitacora-60-dias/day-13.png",
+        "extracted": true
+      },
+      "intro": {
+        "title": "SITUACIONES INCÓMODAS",
+        "text": "A) Visualizá la situación incómoda introduciendo esos pensamientos nuevos / precisos para que vayan reemplazando a los negativos.\n\nB) Intentá realizarlo durante las situaciones incómodas reales.\n\nC) Si no te funciona, ve cambiando los pensamientos nuevos/precisos por otros hasta que encuentres los adecuados (estos serán los que te permitan \"no sentirte tan tan incómodo y actuar de manera más eficiente durante tu situación incómoda\").\n\nRecordá: cuantas más veces visualices, más chances que durante la situación incómoda real logres reemplazar los pensamientos negativos por los pensamientos nuevos / precisos.\n\nD) ¿Cambian tus emociones o la intensidad de las mismas, cambian las señales de tu cuerpo? Escribí…\n\nE) ¿Lograste que la situación sea menos incómoda y puedas responder, actuar y sentirte de manera más eficiente? Escribí…"
+      }
+    },
+    {
+      "day": 14,
+      "source": {
+        "pdf_file": "docs/BITACORA_DDL_2026_NIKOS.pdf",
+        "start_page_hint": 19
+      },
+      "includes": [],
+      "primary_exercise": {
+        "title": "RESPIRACIÓN 7/11",
+        "description": "Esta vez, vas a inhalar usando tus dedos, contando hasta siete y vas a exhalar contando hasta 11.\nRepetilo 10 veces.",
+        "type": "text",
+        "fields": [
+          {
+            "id": "respiracion",
+            "label": "¿Notaste algún cambio luego de haberlo realizado? Escribilo…",
+            "type": "textarea"
+          },
+          {
+            "id": "cualidades",
+            "label": "SOY ASÍ\nPensá y escribí 5 cualidades positivas que tenés.",
+            "type": "textarea",
+            "placeholder": "1.\n2.\n3.\n4.\n5."
+          }
+        ],
+        "footer": "Cuando aparezcan tus cualidades negativas en el día, recordá o repetite en silencio las 5 cualidades positivas que tenés."
+      },
+      "source_assets": {
+        "txt": "docs/bitacora-60-dias/day-14.txt",
+        "png": "docs/bitacora-60-dias/day-14.png",
+        "extracted": true
+      },
+      "intro": {
+        "title": "SITUACIONES INCÓMODAS",
+        "text": "A) Visualizá la situación incómoda introduciendo esos pensamientos nuevos / precisos para que vayan reemplazando a los negativos.\n\nB) Intentá realizarlo durante las situaciones incómodas reales.\n\nC) Si no te funciona, ve cambiando los pensamientos nuevos/precisos por otros hasta que encuentres los adecuados (estos serán los que te permitan \"no sentirte tan tan incómodo y actuar de manera más eficiente durante tu situación incómoda\").\n\nRecordá: cuantas más veces visualices, más chances que durante la situación incómoda real logres reemplazar los pensamientos negativos por los pensamientos nuevos / precisos.\n\nD) ¿Cambian tus emociones o la intensidad de las mismas, cambian las señales de tu cuerpo? Escribí…\n\nE) ¿Lograste que la situación sea menos incómoda y puedas responder, actuar y sentirte de manera más eficiente? Escribí…"
+      }
+    },
+    {
+      "day": 15,
+      "source": {
+        "pdf_file": "docs/BITACORA_DDL_2026_NIKOS.pdf",
+        "start_page_hint": 20
+      },
+      "includes": [],
+      "primary_exercise": {
+        "title": "PASADO PERDONADO (PERDONATE)",
+        "description": "Todos cometemos errores y muchas veces somos muy autocríticos. Te propongo que pienses: ¿Cuál es un error tuyo del pasado que estás dispuesto a perdonarte hoy?",
+        "type": "text",
+        "fields": [
+          {
+            "id": "perdon",
+            "label": "Escribilo…",
+            "type": "textarea"
+          },
+          {
+            "id": "respiracion",
+            "label": "RESPIRACIÓN AL CUADRADO\nPara esta técnica podés imprimirte la figura de un cuadrado y seguir con tu dedo la forma o simplemente seguir estos pasos:\nInhalá al abdomen por nariz contando hasta 4.\nRetené el aire en la panza contando hasta 4.\nExhalá por boca sin forzar contando hasta 4.\nQuedate vacío sin aire contando hasta 4.\n\nRepetilo varias veces, hasta que tu respiración se normalice.\n\nEscribí qué experimentaste…",
+            "type": "textarea"
+          }
+        ]
+      },
+      "source_assets": {
+        "txt": "docs/bitacora-60-dias/day-15.txt",
+        "png": "docs/bitacora-60-dias/day-15.png",
+        "extracted": true
+      },
+      "intro": {
+        "title": "SITUACIONES INCÓMODAS",
+        "text": "A) Visualizá la situación incómoda introduciendo esos pensamientos nuevos / precisos para que vayan reemplazando a los negativos.\n\nB) Intentá realizarlo durante las situaciones incómodas reales.\n\nC) Si no te funciona, ve cambiando los pensamientos nuevos/precisos por otros hasta que encuentres los adecuados (estos serán los que te permitan \"no sentirte tan tan incómodo y actuar de manera más eficiente durante tu situación incómoda\").\n\nRecordá: cuantas más veces visualices, más chances que durante la situación incómoda real logres reemplazar los pensamientos negativos por los pensamientos nuevos / precisos.\n\nD) ¿Cambian tus emociones o la intensidad de las mismas, cambian las señales de tu cuerpo? Escribí…\n\nE) ¿Lograste que la situación sea menos incómoda y puedas responder, actuar y sentirte de manera más eficiente? Escribí…"
+      }
+    },
+    {
+      "day": 16,
+      "source": {
+        "pdf_file": "docs/BITACORA_DDL_2026_NIKOS.pdf",
+        "start_page_hint": 21
+      },
+      "includes": [],
+      "primary_exercise": {
+        "title": "PREOCUPADO VERSUS OCUPADO",
+        "description": "Ocuparse de un resultado no es lo mismo que preocuparse. Al ocuparte te permitís cambiar cosas. Al preocuparte solo ''rumeas'' dentro de tu cabeza.\n¿Hay algo que puedas ocuparte en lugar de preocuparte?",
+        "type": "text",
+        "fields": [
+          {
+            "id": "preocupacion",
+            "label": "Escribilo…",
+            "type": "textarea"
+          },
+          {
+            "id": "loQueNunca",
+            "label": "LO QUE NUNCA\nEsta semana hacé algo diferente a lo que hacés siempre en algún aspecto de tu vida profesional (trabajo y estudio) y en alguno de tu vida personal. Anotá acá cómo te sentiste justo antes, después y al hacerlo.",
+            "type": "textarea",
+            "placeholder": "Diferente en mi vida pro…\nSentí antes…\nSentí después…\nDiferente en mi vida personal…\nSentí antes…\nSentí después…"
+          }
+        ]
+      },
+      "source_assets": {
+        "txt": "docs/bitacora-60-dias/day-16.txt",
+        "png": "docs/bitacora-60-dias/day-16.png",
+        "extracted": true
+      },
+      "intro": {
+        "title": "SITUACIONES INCÓMODAS",
+        "text": "A) Visualizá la situación incómoda introduciendo esos pensamientos nuevos / precisos para que vayan reemplazando a los negativos.\n\nB) Intentá realizarlo durante las situaciones incómodas reales.\n\nC) Si no te funciona, ve cambiando los pensamientos nuevos/precisos por otros hasta que encuentres los adecuados (estos serán los que te permitan \"no sentirte tan tan incómodo y actuar de manera más eficiente durante tu situación incómoda\").\n\nRecordá: cuantas más veces visualices, más chances que durante la situación incómoda real logres reemplazar los pensamientos negativos por los pensamientos nuevos / precisos.\n\nD) ¿Cambian tus emociones o la intensidad de las mismas, cambian las señales de tu cuerpo? Escribí…\n\nE) ¿Lograste que la situación sea menos incómoda y puedas responder, actuar y sentirte de manera más eficiente? Escribí…"
+      }
+    },
+    {
+      "day": 17,
+      "source": {
+        "pdf_file": "docs/BITACORA_DDL_2026_NIKOS.pdf",
+        "start_page_hint": 22
+      },
+      "includes": [],
+      "primary_exercise": {
+        "title": "COLOR",
+        "description": "¿Cuál es tu color favorito? Mirá alrededor y fijate si lo podés encontrar. ¿En tu ropa? ¿Detrás de vos? ¿Delante tuyo? Durante todo este día está atento a encontrar este color.\n¿Para qué pensás que sirve este tipo de ejercicio?",
+        "type": "text",
+        "fields": [
+          {
+            "id": "color",
+            "label": "Escribilo…",
+            "type": "textarea"
+          },
+          {
+            "id": "siSosAsi",
+            "label": "SI SOS ASÍ, PROBÁ ASÁ\nSi nunca quiero parecer tonto. Probá el modo aprender siempre, de todo.\nSi no me sale bien de una vez, y no intento esforzarme o buscar ayuda, probá trabajar duro usando diferentes estrategias y buscá ayuda.\nSi huyo a las cosas incómodas o difíciles. Probá aprender de los errores.\n\nEscribí los últimos 3 errores que cometiste y qué aprendiste…",
+            "type": "textarea"
+          }
+        ]
+      },
+      "source_assets": {
+        "txt": "docs/bitacora-60-dias/day-17.txt",
+        "png": "docs/bitacora-60-dias/day-17.png",
+        "extracted": true
+      },
+      "intro": {
+        "title": "SITUACIONES INCÓMODAS",
+        "text": "A) Visualizá la situación incómoda introduciendo esos pensamientos nuevos / precisos para que vayan reemplazando a los negativos.\n\nB) Intentá realizarlo durante las situaciones incómodas reales.\n\nC) Si no te funciona, ve cambiando los pensamientos nuevos/precisos por otros hasta que encuentres los adecuados (estos serán los que te permitan \"no sentirte tan tan incómodo y actuar de manera más eficiente durante tu situación incómoda\").\n\nRecordá: cuantas más veces visualices, más chances que durante la situación incómoda real logres reemplazar los pensamientos negativos por los pensamientos nuevos / precisos.\n\nD) ¿Cambian tus emociones o la intensidad de las mismas, cambian las señales de tu cuerpo? Escribí…\n\nE) ¿Lograste que la situación sea menos incómoda y puedas responder, actuar y sentirte de manera más eficiente? Escribí…"
+      }
+    },
+    {
+      "day": 18,
+      "source": {
+        "pdf_file": "docs/BITACORA_DDL_2026_NIKOS.pdf",
+        "start_page_hint": 23
+      },
+      "includes": [],
+      "primary_exercise": {
+        "title": "COMPLETA 10 FRASES COMO ESTAS",
+        "type": "text",
+        "fields": [
+          {
+            "id": "frases",
+            "label": "",
+            "type": "textarea",
+            "placeholder": "Si yo puedo ……………………, entonces puedo ………………………………."
+          }
+        ]
+      },
+      "source_assets": {
+        "txt": "docs/bitacora-60-dias/day-18.txt",
+        "png": "docs/bitacora-60-dias/day-18.png",
+        "extracted": true
+      },
+      "intro": {
+        "title": "SITUACIONES INCÓMODAS",
+        "text": "A) Visualizá la situación incómoda introduciendo esos pensamientos nuevos / precisos para que vayan reemplazando a los negativos.\n\nB) Intentá realizarlo durante las situaciones incómodas reales.\n\nC) Si no te funciona, ve cambiando los pensamientos nuevos/precisos por otros hasta que encuentres los adecuados (estos serán los que te permitan \"no sentirte tan tan incómodo y actuar de manera más eficiente durante tu situación incómoda\").\n\nRecordá: cuantas más veces visualices, más chances que durante la situación incómoda real logres reemplazar los pensamientos negativos por los pensamientos nuevos / precisos.\n\nD) ¿Cambian tus emociones o la intensidad de las mismas, cambian las señales de tu cuerpo? Escribí…\n\nE) ¿Lograste que la situación sea menos incómoda y puedas responder, actuar y sentirte de manera más eficiente? Escribí…"
+      }
+    },
+    {
+      "day": 19,
+      "source": {
+        "pdf_file": "docs/BITACORA_DDL_2026_NIKOS.pdf",
+        "start_page_hint": 24
+      },
+      "includes": [],
+      "primary_exercise": {
+        "title": "RESOLVER UN CONFLICTO",
+        "description": "Pensá en un problema con el que te hayas enfrentado duramente, o una decisión que te haya resultado difícil de tomar, o un hábito que te haya costado romper. Al pensar en esto, enumerá 5 formas posibles de resolver ese conflicto. Identificá al menos 3 pros y contras para cada solución.\nEste ejercicio básico de resolución de problemas fortalece las áreas de regulación emocional de tu cerebro, incluso si no podés llegar a una solución. Simplemente participar en esta especie de lucha mental y emocional fortalece un área del cerebro conocida como cingulado anterior. Al hacer esto te convertirás en un mejor solucionador de problemas con el tiempo.",
+        "type": "text",
+        "fields": [
+          {
+            "id": "conflicto",
+            "label": "",
+            "type": "textarea"
+          }
+        ]
+      },
+      "source_assets": {
+        "txt": "docs/bitacora-60-dias/day-19.txt",
+        "png": "docs/bitacora-60-dias/day-19.png",
+        "extracted": true
+      },
+      "intro": {
+        "title": "SITUACIONES INCÓMODAS",
+        "text": "A) Visualizá la situación incómoda introduciendo esos pensamientos nuevos / precisos para que vayan reemplazando a los negativos.\n\nB) Intentá realizarlo durante las situaciones incómodas reales.\n\nC) Si no te funciona, ve cambiando los pensamientos nuevos/precisos por otros hasta que encuentres los adecuados (estos serán los que te permitan \"no sentirte tan tan incómodo y actuar de manera más eficiente durante tu situación incómoda\").\n\nRecordá: cuantas más veces visualices, más chances que durante la situación incómoda real logres reemplazar los pensamientos negativos por los pensamientos nuevos / precisos.\n\nD) ¿Cambian tus emociones o la intensidad de las mismas, cambian las señales de tu cuerpo? Escribí…\n\nE) ¿Lograste que la situación sea menos incómoda y puedas responder, actuar y sentirte de manera más eficiente? Escribí…"
+      }
+    },
+    {
+      "day": 20,
+      "source": {
+        "pdf_file": "docs/BITACORA_DDL_2026_NIKOS.pdf",
+        "start_page_hint": 25
+      },
+      "includes": [],
+      "primary_exercise": {
+        "title": "CONOCIENDO MI CUERPO (ADAPTADO DE MANUELA MISCHKE-REEDS)",
+        "description": "Descubrí si esto puede ayudarte a identificar una parte de tu cuerpo de la cual estés interesado en aprender más con la siguiente experiencia diaria, semanal y/o mensual. Por ejemplo, una molestia intestinal, una tensión en tus hombros, un hormigueo en tus dedos, una contractura en tus cuádriceps, etc.\nPreguntate cada día y llevá una bitácora escrita: ¿Cómo pienso a esa parte de mi cuerpo? ¿Cómo me siento con esa parte de mi cuerpo? ¿Hay algo que activó mi cuerpo hoy? ¿Hay algo que ayudó a relajar, calmar, mejorar, aliviar mi cuerpo hoy? ¿De qué maneras descuidé mi cuerpo hoy? ¿Cambié alguna cosa hoy? ¿Miré mi cuerpo hoy y observé algo en particular? Cuando cierro mis ojos y senso mi cuerpo ¿Qué es lo que descubro?",
+        "type": "text",
+        "fields": [
+          {
+            "id": "bitacora",
+            "label": "",
+            "type": "textarea"
+          }
+        ]
+      },
+      "source_assets": {
+        "txt": "docs/bitacora-60-dias/day-20.txt",
+        "png": "docs/bitacora-60-dias/day-20.png",
+        "extracted": true
+      },
+      "intro": {
+        "title": "SITUACIONES INCÓMODAS",
+        "text": "A) Visualizá la situación incómoda introduciendo esos pensamientos nuevos / precisos para que vayan reemplazando a los negativos.\n\nB) Intentá realizarlo durante las situaciones incómodas reales.\n\nC) Si no te funciona, ve cambiando los pensamientos nuevos/precisos por otros hasta que encuentres los adecuados (estos serán los que te permitan \"no sentirte tan tan incómodo y actuar de manera más eficiente durante tu situación incómoda\").\n\nRecordá: cuantas más veces visualices, más chances que durante la situación incómoda real logres reemplazar los pensamientos negativos por los pensamientos nuevos / precisos.\n\nD) ¿Cambian tus emociones o la intensidad de las mismas, cambian las señales de tu cuerpo? Escribí…\n\nE) ¿Lograste que la situación sea menos incómoda y puedas responder, actuar y sentirte de manera más eficiente? Escribí…"
+      }
+    },
+    {
+      "day": 21,
+      "source": {
+        "pdf_file": "docs/BITACORA_DDL_2026_NIKOS.pdf",
+        "start_page_hint": 26
+      },
+      "includes": [],
+      "primary_exercise": {
+        "title": "ESTETOSCOPIO INTEROCEPTIVO",
+        "description": "Interocepción: Tus sensaciones internas. Tu cuerpo habla en un idioma sutil muchas veces sin que lo escuches y otras gritándote. Son tus sensaciones internas. A medida que tu capacidad para escuchar, sentir, censar esas sensaciones crece, también lo hace tu inteligencia emocional intrapersonal e interpersonal (también conocida como inteligencia social). Vas a entrenar el método de medida de tu conciencia interoceptiva con un test informal de detección de tus latidos. ¿Te gustaría probar este ejercicio?\nCerrá los ojos en un lugar donde nadie te interrumpa. Sentado cómodo o acostado vas a tomar cuatro o cinco respiraciones muy profundas y lentas por nariz llenando todo tu abdomen, pulmones y clavículas de aire y vaciándote todo por la boca pero aún más despacio que cuando inhalaste. Luego respirá normal, si es posible inhalando y exhalando por nariz. Ahora olvidate de la respiración y dejala fluir sin controlarla. Cuando estés listo, sin mover tus manos del suelo o colgando al costado de tu cuerpo quiero que intentes escuchar, sentir, censar tu ritmo cardíaco. ¿Podés sentir tus latidos? ¿Por cuánto tiempo?",
+        "type": "text",
+        "fields": [
+          {
+            "id": "latidos",
+            "label": "",
+            "type": "textarea"
+          }
+        ]
+      },
+      "source_assets": {
+        "txt": "docs/bitacora-60-dias/day-21.txt",
+        "png": "docs/bitacora-60-dias/day-21.png",
+        "extracted": true
+      },
+      "intro": {
+        "title": "SITUACIONES INCÓMODAS",
+        "text": "A) Visualizá la situación incómoda introduciendo esos pensamientos nuevos / precisos para que vayan reemplazando a los negativos.\n\nB) Intentá realizarlo durante las situaciones incómodas reales.\n\nC) Si no te funciona, ve cambiando los pensamientos nuevos/precisos por otros hasta que encuentres los adecuados (estos serán los que te permitan \"no sentirte tan tan incómodo y actuar de manera más eficiente durante tu situación incómoda\").\n\nRecordá: cuantas más veces visualices, más chances que durante la situación incómoda real logres reemplazar los pensamientos negativos por los pensamientos nuevos / precisos.\n\nD) ¿Cambian tus emociones o la intensidad de las mismas, cambian las señales de tu cuerpo? Escribí…\n\nE) ¿Lograste que la situación sea menos incómoda y puedas responder, actuar y sentirte de manera más eficiente? Escribí…"
+      }
+    },
+    {
+      "day": 22,
+      "source": {
+        "pdf_file": "docs/BITACORA_DDL_2026_NIKOS.pdf",
+        "start_page_hint": 27
+      },
+      "includes": [
+        "cognitive_work_d11_d60"
+      ],
+      "primary_exercise": {
+        "title": "Presencia y consciencia",
+        "type": "presence",
+        "fields": [
+          {
+            "id": "caracteristicaPropia",
+            "label": "Una característica positiva tuya (no repetir)",
+            "type": "textarea"
+          },
+          {
+            "id": "caracteristicaOtra",
+            "label": "Una característica positiva de otra persona (no repetir)",
+            "type": "textarea"
+          },
+          {
+            "id": "emocionActual",
+            "label": "Emoción actual",
+            "type": "text"
+          },
+          {
+            "id": "sensacionesCorporales",
+            "label": "Sensaciones corporales",
+            "type": "textarea"
+          },
+          {
+            "id": "respiracion",
+            "label": "Cómo está tu respiración",
+            "type": "text"
+          },
+          {
+            "id": "experienciaPresente",
+            "label": "Experiencia del momento presente",
+            "type": "textarea"
+          }
+        ]
+      },
+      "source_assets": {
+        "txt": "docs/bitacora-60-dias/day-22.txt",
+        "png": "docs/bitacora-60-dias/day-22.png",
+        "extracted": true
+      }
+    },
+    {
+      "day": 23,
+      "source": {
+        "pdf_file": "docs/BITACORA_DDL_2026_NIKOS.pdf",
+        "start_page_hint": 28
+      },
+      "includes": [
+        "cognitive_work_d11_d60"
+      ],
+      "primary_exercise": {
+        "title": "Presencia y consciencia",
+        "type": "presence",
+        "fields": [
+          {
+            "id": "caracteristicaPropia",
+            "label": "Una característica positiva tuya (no repetir)",
+            "type": "textarea"
+          },
+          {
+            "id": "caracteristicaOtra",
+            "label": "Una característica positiva de otra persona (no repetir)",
+            "type": "textarea"
+          },
+          {
+            "id": "emocionActual",
+            "label": "Emoción actual",
+            "type": "text"
+          },
+          {
+            "id": "sensacionesCorporales",
+            "label": "Sensaciones corporales",
+            "type": "textarea"
+          },
+          {
+            "id": "respiracion",
+            "label": "Cómo está tu respiración",
+            "type": "text"
+          },
+          {
+            "id": "experienciaPresente",
+            "label": "Experiencia del momento presente",
+            "type": "textarea"
+          }
+        ]
+      },
+      "source_assets": {
+        "txt": "docs/bitacora-60-dias/day-23.txt",
+        "png": "docs/bitacora-60-dias/day-23.png",
+        "extracted": true
+      }
+    },
+    {
+      "day": 24,
+      "source": {
+        "pdf_file": "docs/BITACORA_DDL_2026_NIKOS.pdf",
+        "start_page_hint": 29
+      },
+      "includes": [
+        "cognitive_work_d11_d60"
+      ],
+      "primary_exercise": {
+        "title": "Presencia y consciencia",
+        "type": "presence",
+        "fields": [
+          {
+            "id": "caracteristicaPropia",
+            "label": "Una característica positiva tuya (no repetir)",
+            "type": "textarea"
+          },
+          {
+            "id": "caracteristicaOtra",
+            "label": "Una característica positiva de otra persona (no repetir)",
+            "type": "textarea"
+          },
+          {
+            "id": "emocionActual",
+            "label": "Emoción actual",
+            "type": "text"
+          },
+          {
+            "id": "sensacionesCorporales",
+            "label": "Sensaciones corporales",
+            "type": "textarea"
+          },
+          {
+            "id": "respiracion",
+            "label": "Cómo está tu respiración",
+            "type": "text"
+          },
+          {
+            "id": "experienciaPresente",
+            "label": "Experiencia del momento presente",
+            "type": "textarea"
+          }
+        ]
+      },
+      "source_assets": {
+        "txt": "docs/bitacora-60-dias/day-24.txt",
+        "png": "docs/bitacora-60-dias/day-24.png",
+        "extracted": true
+      }
+    },
+    {
+      "day": 25,
+      "source": {
+        "pdf_file": "docs/BITACORA_DDL_2026_NIKOS.pdf",
+        "start_page_hint": 30
+      },
+      "includes": [
+        "cognitive_work_d11_d60"
+      ],
+      "primary_exercise": {
+        "title": "Presencia y consciencia",
+        "type": "presence",
+        "fields": [
+          {
+            "id": "caracteristicaPropia",
+            "label": "Una característica positiva tuya (no repetir)",
+            "type": "textarea"
+          },
+          {
+            "id": "caracteristicaOtra",
+            "label": "Una característica positiva de otra persona (no repetir)",
+            "type": "textarea"
+          },
+          {
+            "id": "emocionActual",
+            "label": "Emoción actual",
+            "type": "text"
+          },
+          {
+            "id": "sensacionesCorporales",
+            "label": "Sensaciones corporales",
+            "type": "textarea"
+          },
+          {
+            "id": "respiracion",
+            "label": "Cómo está tu respiración",
+            "type": "text"
+          },
+          {
+            "id": "experienciaPresente",
+            "label": "Experiencia del momento presente",
+            "type": "textarea"
+          }
+        ]
+      },
+      "source_assets": {
+        "txt": "docs/bitacora-60-dias/day-25.txt",
+        "png": "docs/bitacora-60-dias/day-25.png",
+        "extracted": true
+      }
+    },
+    {
+      "day": 26,
+      "source": {
+        "pdf_file": "docs/BITACORA_DDL_2026_NIKOS.pdf",
+        "start_page_hint": 31
+      },
+      "includes": [
+        "cognitive_work_d11_d60"
+      ],
+      "primary_exercise": {
+        "title": "Presencia y consciencia",
+        "type": "presence",
+        "fields": [
+          {
+            "id": "caracteristicaPropia",
+            "label": "Una característica positiva tuya (no repetir)",
+            "type": "textarea"
+          },
+          {
+            "id": "caracteristicaOtra",
+            "label": "Una característica positiva de otra persona (no repetir)",
+            "type": "textarea"
+          },
+          {
+            "id": "emocionActual",
+            "label": "Emoción actual",
+            "type": "text"
+          },
+          {
+            "id": "sensacionesCorporales",
+            "label": "Sensaciones corporales",
+            "type": "textarea"
+          },
+          {
+            "id": "respiracion",
+            "label": "Cómo está tu respiración",
+            "type": "text"
+          },
+          {
+            "id": "experienciaPresente",
+            "label": "Experiencia del momento presente",
+            "type": "textarea"
+          }
+        ]
+      },
+      "source_assets": {
+        "txt": "docs/bitacora-60-dias/day-26.txt",
+        "png": "docs/bitacora-60-dias/day-26.png",
+        "extracted": true
+      }
+    },
+    {
+      "day": 27,
+      "source": {
+        "pdf_file": "docs/BITACORA_DDL_2026_NIKOS.pdf",
+        "start_page_hint": 32
+      },
+      "includes": [
+        "cognitive_work_d11_d60"
+      ],
+      "primary_exercise": {
+        "title": "Presencia y consciencia",
+        "type": "presence",
+        "fields": [
+          {
+            "id": "caracteristicaPropia",
+            "label": "Una característica positiva tuya (no repetir)",
+            "type": "textarea"
+          },
+          {
+            "id": "caracteristicaOtra",
+            "label": "Una característica positiva de otra persona (no repetir)",
+            "type": "textarea"
+          },
+          {
+            "id": "emocionActual",
+            "label": "Emoción actual",
+            "type": "text"
+          },
+          {
+            "id": "sensacionesCorporales",
+            "label": "Sensaciones corporales",
+            "type": "textarea"
+          },
+          {
+            "id": "respiracion",
+            "label": "Cómo está tu respiración",
+            "type": "text"
+          },
+          {
+            "id": "experienciaPresente",
+            "label": "Experiencia del momento presente",
+            "type": "textarea"
+          }
+        ]
+      },
+      "source_assets": {
+        "txt": "docs/bitacora-60-dias/day-27.txt",
+        "png": "docs/bitacora-60-dias/day-27.png",
+        "extracted": true
+      }
+    },
+    {
+      "day": 28,
+      "source": {
+        "pdf_file": "docs/BITACORA_DDL_2026_NIKOS.pdf",
+        "start_page_hint": 33
+      },
+      "includes": [
+        "cognitive_work_d11_d60"
+      ],
+      "primary_exercise": {
+        "title": "Presencia y consciencia",
+        "type": "presence",
+        "fields": [
+          {
+            "id": "caracteristicaPropia",
+            "label": "Una característica positiva tuya (no repetir)",
+            "type": "textarea"
+          },
+          {
+            "id": "caracteristicaOtra",
+            "label": "Una característica positiva de otra persona (no repetir)",
+            "type": "textarea"
+          },
+          {
+            "id": "emocionActual",
+            "label": "Emoción actual",
+            "type": "text"
+          },
+          {
+            "id": "sensacionesCorporales",
+            "label": "Sensaciones corporales",
+            "type": "textarea"
+          },
+          {
+            "id": "respiracion",
+            "label": "Cómo está tu respiración",
+            "type": "text"
+          },
+          {
+            "id": "experienciaPresente",
+            "label": "Experiencia del momento presente",
+            "type": "textarea"
+          }
+        ]
+      },
+      "source_assets": {
+        "txt": "docs/bitacora-60-dias/day-28.txt",
+        "png": "docs/bitacora-60-dias/day-28.png",
+        "extracted": true
+      }
+    },
+    {
+      "day": 29,
+      "source": {
+        "pdf_file": "docs/BITACORA_DDL_2026_NIKOS.pdf",
+        "start_page_hint": 34
+      },
+      "includes": [
+        "cognitive_work_d11_d60"
+      ],
+      "primary_exercise": {
+        "title": "Presencia y consciencia",
+        "type": "presence",
+        "fields": [
+          {
+            "id": "caracteristicaPropia",
+            "label": "Una característica positiva tuya (no repetir)",
+            "type": "textarea"
+          },
+          {
+            "id": "caracteristicaOtra",
+            "label": "Una característica positiva de otra persona (no repetir)",
+            "type": "textarea"
+          },
+          {
+            "id": "emocionActual",
+            "label": "Emoción actual",
+            "type": "text"
+          },
+          {
+            "id": "sensacionesCorporales",
+            "label": "Sensaciones corporales",
+            "type": "textarea"
+          },
+          {
+            "id": "respiracion",
+            "label": "Cómo está tu respiración",
+            "type": "text"
+          },
+          {
+            "id": "experienciaPresente",
+            "label": "Experiencia del momento presente",
+            "type": "textarea"
+          }
+        ]
+      },
+      "source_assets": {
+        "txt": "docs/bitacora-60-dias/day-29.txt",
+        "png": "docs/bitacora-60-dias/day-29.png",
+        "extracted": true
+      }
+    },
+    {
+      "day": 30,
+      "source": {
+        "pdf_file": "docs/BITACORA_DDL_2026_NIKOS.pdf",
+        "start_page_hint": 35
+      },
+      "includes": [
+        "cognitive_work_d11_d60"
+      ],
+      "primary_exercise": {
+        "title": "Presencia y consciencia",
+        "type": "presence",
+        "fields": [
+          {
+            "id": "caracteristicaPropia",
+            "label": "Una característica positiva tuya (no repetir)",
+            "type": "textarea"
+          },
+          {
+            "id": "caracteristicaOtra",
+            "label": "Una característica positiva de otra persona (no repetir)",
+            "type": "textarea"
+          },
+          {
+            "id": "emocionActual",
+            "label": "Emoción actual",
+            "type": "text"
+          },
+          {
+            "id": "sensacionesCorporales",
+            "label": "Sensaciones corporales",
+            "type": "textarea"
+          },
+          {
+            "id": "respiracion",
+            "label": "Cómo está tu respiración",
+            "type": "text"
+          },
+          {
+            "id": "experienciaPresente",
+            "label": "Experiencia del momento presente",
+            "type": "textarea"
+          }
+        ]
+      },
+      "source_assets": {
+        "txt": "docs/bitacora-60-dias/day-30.txt",
+        "png": "docs/bitacora-60-dias/day-30.png",
+        "extracted": true
+      }
+    },
+    {
+      "day": 31,
+      "source": {
+        "pdf_file": "docs/BITACORA_DDL_2026_NIKOS.pdf",
+        "start_page_hint": 36
+      },
+      "includes": [
+        "cognitive_work_d11_d60"
+      ],
+      "primary_exercise": {
+        "title": "Ponerse cómodo",
+        "type": "text",
+        "fields": [
+          {
+            "id": "postura",
+            "label": "Describe tu postura más cómoda",
+            "type": "textarea"
+          },
+          {
+            "id": "sensaciones",
+            "label": "¿Qué sientes en tu cuerpo?",
+            "type": "textarea"
+          }
+        ]
+      },
+      "source_assets": {
+        "txt": "docs/bitacora-60-dias/day-31.txt",
+        "png": "docs/bitacora-60-dias/day-31.png",
+        "extracted": true
+      }
+    },
+    {
+      "day": 32,
+      "source": {
+        "pdf_file": "docs/BITACORA_DDL_2026_NIKOS.pdf",
+        "start_page_hint": 37
+      },
+      "includes": [
+        "cognitive_work_d11_d60"
+      ],
+      "primary_exercise": {
+        "title": "UFA",
+        "type": "text",
+        "fields": [
+          {
+            "id": "queSalioMal",
+            "label": "¿Qué salió mal?",
+            "type": "textarea"
+          },
+          {
+            "id": "comoTeSentiste",
+            "label": "¿Cómo te sentiste?",
+            "type": "textarea"
+          }
+        ]
+      },
+      "source_assets": {
+        "txt": "docs/bitacora-60-dias/day-32.txt",
+        "png": "docs/bitacora-60-dias/day-32.png",
+        "extracted": true
+      }
+    },
+    {
+      "day": 33,
+      "source": {
+        "pdf_file": "docs/BITACORA_DDL_2026_NIKOS.pdf",
+        "start_page_hint": 38
+      },
+      "includes": [
+        "cognitive_work_d11_d60"
+      ],
+      "primary_exercise": {
+        "title": "Tengo / Hago",
+        "type": "text",
+        "fields": [
+          {
+            "id": "nuncaTuve",
+            "label": "Lo que nunca tuviste",
+            "type": "textarea"
+          },
+          {
+            "id": "nuncaHice",
+            "label": "Lo que nunca hiciste",
+            "type": "textarea"
+          }
+        ]
+      },
+      "source_assets": {
+        "txt": "docs/bitacora-60-dias/day-33.txt",
+        "png": "docs/bitacora-60-dias/day-33.png",
+        "extracted": true
+      }
+    },
+    {
+      "day": 34,
+      "source": {
+        "pdf_file": "docs/BITACORA_DDL_2026_NIKOS.pdf",
+        "start_page_hint": 39
+      },
+      "includes": [
+        "cognitive_work_d11_d60"
+      ],
+      "primary_exercise": {
+        "title": "Frases limitantes",
+        "type": "text",
+        "fields": [
+          {
+            "id": "fraseLimitante",
+            "label": "Una frase limitante que te decís",
+            "type": "textarea"
+          },
+          {
+            "id": "evidencias",
+            "label": "Evidencias reales que contradicen esa frase",
+            "type": "textarea"
+          }
+        ]
+      },
+      "source_assets": {
+        "txt": "docs/bitacora-60-dias/day-34.txt",
+        "png": "docs/bitacora-60-dias/day-34.png",
+        "extracted": true
+      }
+    },
+    {
+      "day": 35,
+      "source": {
+        "pdf_file": "docs/BITACORA_DDL_2026_NIKOS.pdf",
+        "start_page_hint": 40
+      },
+      "includes": [
+        "cognitive_work_d11_d60"
+      ],
+      "primary_exercise": {
+        "title": "Redescubrir un lugar",
+        "type": "text",
+        "fields": [
+          {
+            "id": "lugar",
+            "label": "Lugar habitual elegido",
+            "type": "text"
+          },
+          {
+            "id": "queViste",
+            "label": "¿Qué viste diferente?",
+            "type": "textarea"
+          }
+        ]
+      },
+      "source_assets": {
+        "txt": "docs/bitacora-60-dias/day-35.txt",
+        "png": "docs/bitacora-60-dias/day-35.png",
+        "extracted": true
+      }
+    },
+    {
+      "day": 36,
+      "source": {
+        "pdf_file": "docs/BITACORA_DDL_2026_NIKOS.pdf",
+        "start_page_hint": 41
+      },
+      "includes": [
+        "cognitive_work_d11_d60"
+      ],
+      "primary_exercise": {
+        "title": "Ejercicio del sabor",
+        "type": "text",
+        "fields": [
+          {
+            "id": "alimento",
+            "label": "¿Qué comiste?",
+            "type": "text"
+          },
+          {
+            "id": "experiencia",
+            "label": "Describe la experiencia sensorial",
+            "type": "textarea"
+          }
+        ]
+      },
+      "source_assets": {
+        "txt": "docs/bitacora-60-dias/day-36.txt",
+        "png": "docs/bitacora-60-dias/day-36.png",
+        "extracted": true
+      }
+    },
+    {
+      "day": 37,
+      "source": {
+        "pdf_file": "docs/BITACORA_DDL_2026_NIKOS.pdf",
+        "start_page_hint": 42
+      },
+      "includes": [
+        "cognitive_work_d11_d60"
+      ],
+      "primary_exercise": {
+        "title": "Chequeo emocional",
+        "type": "text",
+        "fields": [
+          {
+            "id": "manana",
+            "label": "Emoción de la mañana",
+            "type": "text"
+          },
+          {
+            "id": "tarde",
+            "label": "Emoción de la tarde",
+            "type": "text"
+          },
+          {
+            "id": "noche",
+            "label": "Emoción de la noche",
+            "type": "text"
+          },
+          {
+            "id": "reflexion",
+            "label": "Reflexión del día",
+            "type": "textarea"
+          }
+        ]
+      },
+      "source_assets": {
+        "txt": "docs/bitacora-60-dias/day-37.txt",
+        "png": "docs/bitacora-60-dias/day-37.png",
+        "extracted": true
+      }
+    },
+    {
+      "day": 38,
+      "source": {
+        "pdf_file": "docs/BITACORA_DDL_2026_NIKOS.pdf",
+        "start_page_hint": 43
+      },
+      "includes": [
+        "cognitive_work_d11_d60"
+      ],
+      "primary_exercise": {
+        "title": "Detección de patrones",
+        "type": "text",
+        "fields": [
+          {
+            "id": "patronDetectado",
+            "label": "Patrón repetido que identificaste",
+            "type": "textarea"
+          },
+          {
+            "id": "cuandoOcurre",
+            "label": "¿Cuándo ocurre?",
+            "type": "textarea"
+          }
+        ]
+      },
+      "source_assets": {
+        "txt": "docs/bitacora-60-dias/day-38.txt",
+        "png": "docs/bitacora-60-dias/day-38.png",
+        "extracted": true
+      }
+    },
+    {
+      "day": 39,
+      "source": {
+        "pdf_file": "docs/BITACORA_DDL_2026_NIKOS.pdf",
+        "start_page_hint": 44
+      },
+      "includes": [
+        "cognitive_work_d11_d60"
+      ],
+      "primary_exercise": {
+        "title": "Cambio consciente",
+        "type": "text",
+        "fields": [
+          {
+            "id": "reaccionAutomatica",
+            "label": "Reacción automática que querés cambiar",
+            "type": "textarea"
+          },
+          {
+            "id": "nuevaRespuesta",
+            "label": "Nueva respuesta elegida",
+            "type": "textarea"
+          },
+          {
+            "id": "resultado",
+            "label": "¿Qué pasó cuando lo intentaste?",
+            "type": "textarea"
+          }
+        ]
+      },
+      "source_assets": {
+        "txt": "docs/bitacora-60-dias/day-39.txt",
+        "png": "docs/bitacora-60-dias/day-39.png",
+        "extracted": true
+      }
+    },
+    {
+      "day": 40,
+      "source": {
+        "pdf_file": "docs/BITACORA_DDL_2026_NIKOS.pdf",
+        "start_page_hint": 45
+      },
+      "includes": [
+        "cognitive_work_d11_d60"
+      ],
+      "primary_exercise": {
+        "title": "Integración",
+        "type": "text",
+        "fields": [
+          {
+            "id": "queEntiendo",
+            "label": "¿Qué estás entendiendo de vos?",
+            "type": "textarea"
+          },
+          {
+            "id": "aprendizajes",
+            "label": "Aprendizajes hasta ahora",
+            "type": "textarea"
+          }
+        ]
+      },
+      "source_assets": {
+        "txt": "docs/bitacora-60-dias/day-40.txt",
+        "png": "docs/bitacora-60-dias/day-40.png",
+        "extracted": true
+      }
+    },
+    {
+      "day": 41,
+      "source": {
+        "pdf_file": "docs/BITACORA_DDL_2026_NIKOS.pdf",
+        "start_page_hint": 46
+      },
+      "includes": [
+        "cognitive_work_d11_d60"
+      ],
+      "primary_exercise": {
+        "title": "Identidad real vs imagen",
+        "type": "text",
+        "fields": [
+          {
+            "id": "comoMeVeo",
+            "label": "Cómo me veo",
+            "type": "textarea"
+          },
+          {
+            "id": "comoMeVenOtros",
+            "label": "Cómo creo que me ven otros",
+            "type": "textarea"
+          },
+          {
+            "id": "diferencias",
+            "label": "Diferencias entre ambas",
+            "type": "textarea"
+          }
+        ]
+      },
+      "source_assets": {
+        "txt": "docs/bitacora-60-dias/day-41.txt",
+        "png": "docs/bitacora-60-dias/day-41.png",
+        "extracted": true
+      }
+    },
+    {
+      "day": 42,
+      "source": {
+        "pdf_file": "docs/BITACORA_DDL_2026_NIKOS.pdf",
+        "start_page_hint": 47
+      },
+      "includes": [
+        "cognitive_work_d11_d60"
+      ],
+      "primary_exercise": {
+        "title": "Qué ocultás",
+        "type": "text",
+        "fields": [
+          {
+            "id": "queOculto",
+            "label": "¿Qué parte de vos ocultás?",
+            "type": "textarea"
+          },
+          {
+            "id": "porQue",
+            "label": "¿Por qué?",
+            "type": "textarea"
+          }
+        ]
+      },
+      "source_assets": {
+        "txt": "docs/bitacora-60-dias/day-42.txt",
+        "png": "docs/bitacora-60-dias/day-42.png",
+        "extracted": true
+      }
+    },
+    {
+      "day": 43,
+      "source": {
+        "pdf_file": "docs/BITACORA_DDL_2026_NIKOS.pdf",
+        "start_page_hint": 48
+      },
+      "includes": [
+        "cognitive_work_d11_d60"
+      ],
+      "primary_exercise": {
+        "title": "Qué te da orgullo",
+        "type": "text",
+        "fields": [
+          {
+            "id": "orgullo",
+            "label": "¿De qué estás orgulloso/a?",
+            "type": "textarea"
+          },
+          {
+            "id": "porQue",
+            "label": "¿Por qué te genera orgullo?",
+            "type": "textarea"
+          }
+        ]
+      },
+      "source_assets": {
+        "txt": "docs/bitacora-60-dias/day-43.txt",
+        "png": "docs/bitacora-60-dias/day-43.png",
+        "extracted": true
+      }
+    },
+    {
+      "day": 44,
+      "source": {
+        "pdf_file": "docs/BITACORA_DDL_2026_NIKOS.pdf",
+        "start_page_hint": 49
+      },
+      "includes": [
+        "cognitive_work_d11_d60"
+      ],
+      "primary_exercise": {
+        "title": "Qué evitás",
+        "type": "text",
+        "fields": [
+          {
+            "id": "queEvito",
+            "label": "¿Qué situaciones o conversaciones evitás?",
+            "type": "textarea"
+          },
+          {
+            "id": "quePassaria",
+            "label": "¿Qué pasaría si no las evitaras?",
+            "type": "textarea"
+          }
+        ]
+      },
+      "source_assets": {
+        "txt": "docs/bitacora-60-dias/day-44.txt",
+        "png": "docs/bitacora-60-dias/day-44.png",
+        "extracted": true
+      }
+    },
+    {
+      "day": 45,
+      "source": {
+        "pdf_file": "docs/BITACORA_DDL_2026_NIKOS.pdf",
+        "start_page_hint": 50
+      },
+      "includes": [
+        "cognitive_work_d11_d60"
+      ],
+      "primary_exercise": {
+        "title": "Bajo presión",
+        "type": "text",
+        "fields": [
+          {
+            "id": "comoReacciono",
+            "label": "¿Cómo reaccionás bajo presión?",
+            "type": "textarea"
+          },
+          {
+            "id": "queRevela",
+            "label": "¿Qué revela esto de vos?",
+            "type": "textarea"
+          }
+        ]
+      },
+      "source_assets": {
+        "txt": "docs/bitacora-60-dias/day-45.txt",
+        "png": "docs/bitacora-60-dias/day-45.png",
+        "extracted": true
+      }
+    },
+    {
+      "day": 46,
+      "source": {
+        "pdf_file": "docs/BITACORA_DDL_2026_NIKOS.pdf",
+        "start_page_hint": 51
+      },
+      "includes": [
+        "cognitive_work_d11_d60"
+      ],
+      "primary_exercise": {
+        "title": "Autenticidad",
+        "type": "text",
+        "fields": [
+          {
+            "id": "cuandoSoyAutentico",
+            "label": "¿Cuándo sos más auténtico/a?",
+            "type": "textarea"
+          },
+          {
+            "id": "cuandoNo",
+            "label": "¿Cuándo no lo sos?",
+            "type": "textarea"
+          }
+        ]
+      },
+      "source_assets": {
+        "txt": "docs/bitacora-60-dias/day-46.txt",
+        "png": "docs/bitacora-60-dias/day-46.png",
+        "extracted": true
+      }
+    },
+    {
+      "day": 47,
+      "source": {
+        "pdf_file": "docs/BITACORA_DDL_2026_NIKOS.pdf",
+        "start_page_hint": 52
+      },
+      "includes": [
+        "cognitive_work_d11_d60"
+      ],
+      "primary_exercise": {
+        "title": "Coherencia personal",
+        "type": "text",
+        "fields": [
+          {
+            "id": "valores",
+            "label": "Tus valores principales",
+            "type": "textarea"
+          },
+          {
+            "id": "coherencia",
+            "label": "¿Tus acciones están alineadas con ellos?",
+            "type": "textarea"
+          }
+        ]
+      },
+      "source_assets": {
+        "txt": "docs/bitacora-60-dias/day-47.txt",
+        "png": "docs/bitacora-60-dias/day-47.png",
+        "extracted": true
+      }
+    },
+    {
+      "day": 48,
+      "source": {
+        "pdf_file": "docs/BITACORA_DDL_2026_NIKOS.pdf",
+        "start_page_hint": 53
+      },
+      "includes": [
+        "cognitive_work_d11_d60"
+      ],
+      "primary_exercise": {
+        "title": "Zona de confort",
+        "type": "text",
+        "fields": [
+          {
+            "id": "dentroZona",
+            "label": "¿Qué está dentro de tu zona de confort?",
+            "type": "textarea"
+          },
+          {
+            "id": "fueraZona",
+            "label": "¿Qué te gustaría hacer que está fuera?",
+            "type": "textarea"
+          }
+        ]
+      },
+      "source_assets": {
+        "txt": "docs/bitacora-60-dias/day-48.txt",
+        "png": "docs/bitacora-60-dias/day-48.png",
+        "extracted": true
+      }
+    },
+    {
+      "day": 49,
+      "source": {
+        "pdf_file": "docs/BITACORA_DDL_2026_NIKOS.pdf",
+        "start_page_hint": 54
+      },
+      "includes": [
+        "cognitive_work_d11_d60"
+      ],
+      "primary_exercise": {
+        "title": "Relación contigo mismo/a",
+        "type": "text",
+        "fields": [
+          {
+            "id": "comoMeTrato",
+            "label": "¿Cómo me trato a mí mismo/a?",
+            "type": "textarea"
+          },
+          {
+            "id": "queNecesito",
+            "label": "¿Qué necesito de mí?",
+            "type": "textarea"
+          }
+        ]
+      },
+      "source_assets": {
+        "txt": "docs/bitacora-60-dias/day-49.txt",
+        "png": "docs/bitacora-60-dias/day-49.png",
+        "extracted": true
+      }
+    },
+    {
+      "day": 50,
+      "source": {
+        "pdf_file": "docs/BITACORA_DDL_2026_NIKOS.pdf",
+        "start_page_hint": 55
+      },
+      "includes": [
+        "cognitive_work_d11_d60"
+      ],
+      "primary_exercise": {
+        "title": "Síntesis de identidad",
+        "type": "text",
+        "fields": [
+          {
+            "id": "quienSoy",
+            "label": "¿Quién soy realmente?",
+            "type": "textarea"
+          },
+          {
+            "id": "quienQuieroSer",
+            "label": "¿Quién quiero ser?",
+            "type": "textarea"
+          }
+        ]
+      },
+      "source_assets": {
+        "txt": "docs/bitacora-60-dias/day-50.txt",
+        "png": "docs/bitacora-60-dias/day-50.png",
+        "extracted": true
+      }
+    },
+    {
+      "day": 51,
+      "source": {
+        "pdf_file": "docs/BITACORA_DDL_2026_NIKOS.pdf",
+        "start_page_hint": 56
+      },
+      "includes": [
+        "cognitive_work_d11_d60"
+      ],
+      "primary_exercise": {
+        "title": "Aprendizajes clave",
+        "type": "text",
+        "fields": [
+          {
+            "id": "aprendizajes",
+            "label": "Principales aprendizajes hasta ahora",
+            "type": "textarea"
+          }
+        ]
+      },
+      "source_assets": {
+        "txt": "docs/bitacora-60-dias/day-51.txt",
+        "png": "docs/bitacora-60-dias/day-51.png",
+        "extracted": true
+      }
+    },
+    {
+      "day": 52,
+      "source": {
+        "pdf_file": "docs/BITACORA_DDL_2026_NIKOS.pdf",
+        "start_page_hint": 57
+      },
+      "includes": [
+        "cognitive_work_d11_d60"
+      ],
+      "primary_exercise": {
+        "title": "Cambios mentales",
+        "type": "text",
+        "fields": [
+          {
+            "id": "cambiosMentales",
+            "label": "¿Qué cambió en tu forma de pensar?",
+            "type": "textarea"
+          }
+        ]
+      },
+      "source_assets": {
+        "txt": "docs/bitacora-60-dias/day-52.txt",
+        "png": "docs/bitacora-60-dias/day-52.png",
+        "extracted": true
+      }
+    },
+    {
+      "day": 53,
+      "source": {
+        "pdf_file": "docs/BITACORA_DDL_2026_NIKOS.pdf",
+        "start_page_hint": 58
+      },
+      "includes": [
+        "cognitive_work_d11_d60"
+      ],
+      "primary_exercise": {
+        "title": "Cambios corporales",
+        "type": "text",
+        "fields": [
+          {
+            "id": "cambiosCorporales",
+            "label": "¿Qué cambió en tu relación con tu cuerpo?",
+            "type": "textarea"
+          }
+        ]
+      },
+      "source_assets": {
+        "txt": "docs/bitacora-60-dias/day-53.txt",
+        "png": "docs/bitacora-60-dias/day-53.png",
+        "extracted": true
+      }
+    },
+    {
+      "day": 54,
+      "source": {
+        "pdf_file": "docs/BITACORA_DDL_2026_NIKOS.pdf",
+        "start_page_hint": 59
+      },
+      "includes": [
+        "cognitive_work_d11_d60"
+      ],
+      "primary_exercise": {
+        "title": "Herramientas que funcionaron",
+        "type": "text",
+        "fields": [
+          {
+            "id": "herramientas",
+            "label": "¿Qué ejercicios o herramientas te funcionaron mejor?",
+            "type": "textarea"
+          }
+        ]
+      },
+      "source_assets": {
+        "txt": "docs/bitacora-60-dias/day-54.txt",
+        "png": "docs/bitacora-60-dias/day-54.png",
+        "extracted": true
+      }
+    },
+    {
+      "day": 55,
+      "source": {
+        "pdf_file": "docs/BITACORA_DDL_2026_NIKOS.pdf",
+        "start_page_hint": 60
+      },
+      "includes": [
+        "cognitive_work_d11_d60"
+      ],
+      "primary_exercise": {
+        "title": "Hábitos a sostener",
+        "type": "text",
+        "fields": [
+          {
+            "id": "habitos",
+            "label": "¿Qué hábitos querés sostener?",
+            "type": "textarea"
+          },
+          {
+            "id": "como",
+            "label": "¿Cómo vas a hacerlo?",
+            "type": "textarea"
+          }
+        ]
+      },
+      "source_assets": {
+        "txt": "docs/bitacora-60-dias/day-55.txt",
+        "png": "docs/bitacora-60-dias/day-55.png",
+        "extracted": true
+      }
+    },
+    {
+      "day": 56,
+      "source": {
+        "pdf_file": "docs/BITACORA_DDL_2026_NIKOS.pdf",
+        "start_page_hint": 61
+      },
+      "includes": [
+        "cognitive_work_d11_d60"
+      ],
+      "primary_exercise": {
+        "title": "Desafíos pendientes",
+        "type": "text",
+        "fields": [
+          {
+            "id": "desafios",
+            "label": "¿Qué desafíos quedan por delante?",
+            "type": "textarea"
+          }
+        ]
+      },
+      "source_assets": {
+        "txt": null,
+        "png": null,
+        "extracted": false
+      },
+      "source_warning": "Missing in extracted source set"
+    },
+    {
+      "day": 57,
+      "source": {
+        "pdf_file": "docs/BITACORA_DDL_2026_NIKOS.pdf",
+        "start_page_hint": 62
+      },
+      "includes": [
+        "cognitive_work_d11_d60"
+      ],
+      "primary_exercise": {
+        "title": "Proyección futura",
+        "type": "text",
+        "fields": [
+          {
+            "id": "comoMeVeoFuturo",
+            "label": "¿Cómo te ves en 3 meses?",
+            "type": "textarea"
+          },
+          {
+            "id": "queHaras",
+            "label": "¿Qué harás para llegar ahí?",
+            "type": "textarea"
+          }
+        ]
+      },
+      "source_assets": {
+        "txt": "docs/bitacora-60-dias/day-57.txt",
+        "png": "docs/bitacora-60-dias/day-57.png",
+        "extracted": true
+      }
+    },
+    {
+      "day": 58,
+      "source": {
+        "pdf_file": "docs/BITACORA_DDL_2026_NIKOS.pdf",
+        "start_page_hint": 63
+      },
+      "includes": [
+        "cognitive_work_d11_d60"
+      ],
+      "primary_exercise": {
+        "title": "Agradecimientos",
+        "type": "text",
+        "fields": [
+          {
+            "id": "agradecimientos",
+            "label": "¿A quién o qué agradecés de este proceso?",
+            "type": "textarea"
+          }
+        ]
+      },
+      "source_assets": {
+        "txt": "docs/bitacora-60-dias/day-58.txt",
+        "png": "docs/bitacora-60-dias/day-58.png",
+        "extracted": true
+      }
+    },
+    {
+      "day": 59,
+      "source": {
+        "pdf_file": "docs/BITACORA_DDL_2026_NIKOS.pdf",
+        "start_page_hint": 64
+      },
+      "includes": [
+        "cognitive_work_d11_d60"
+      ],
+      "primary_exercise": {
+        "title": "Preparación para el cierre",
+        "type": "text",
+        "fields": [
+          {
+            "id": "reflexion",
+            "label": "Reflexión final antes del último día",
+            "type": "textarea"
+          }
+        ]
+      },
+      "source_assets": {
+        "txt": "docs/bitacora-60-dias/day-59.txt",
+        "png": "docs/bitacora-60-dias/day-59.png",
+        "extracted": true
+      }
+    },
+    {
+      "day": 60,
+      "source": {
+        "pdf_file": "docs/BITACORA_DDL_2026_NIKOS.pdf",
+        "start_page_hint": 65
+      },
+      "includes": [
+        "cognitive_work_d11_d60"
+      ],
+      "primary_exercise": {
+        "title": "Cierre final",
+        "type": "text",
+        "fields": [
+          {
+            "id": "sintesis",
+            "label": "Síntesis del proceso completo",
+            "type": "textarea"
+          },
+          {
+            "id": "queTeLlevas",
+            "label": "¿Qué te llevás?",
+            "type": "textarea"
+          },
+          {
+            "id": "queSigue",
+            "label": "¿Qué sigue ahora?",
+            "type": "textarea"
+          }
+        ]
+      },
+      "source_assets": {
+        "txt": "docs/bitacora-60-dias/day-60.txt",
+        "png": "docs/bitacora-60-dias/day-60.png",
+        "extracted": true
+      }
+    }
+  ],
+  "bonus_tracks": [
+    {
+      "id": "bonus-1",
+      "source_assets": {
+        "txt": "docs/bitacora-60-dias/bonus-1.txt",
+        "png": "docs/bitacora-60-dias/bonus-1.png",
+        "extracted": true
+      },
+      "text": "BONUS TRACK\nTU DIARIO INTEROCEPTIVO\nUn lugar para que registres las decisiones que vas tomado en tu\ndía, semana, mes, año y de cómo te sentiste al hacerlo.\nDividido en tres partes: La primera, escribís una breve descripción\nde los desafíos que estás enfrentando (en el área de tu vida que\nquieras).\nLa segunda, una descripción lo más detallada y precisa posible de\nlas sensaciones internas que sentís mientras contemplás las\ndiferentes opciones que tenés delante tuyo frente a ese desafío. En\nesta parte quiero que consideres una por una las posibilidades que\nestán frente a vos y tomés nota de cómo te sentís al imaginar elegir\nuna por sobre la otra.\nLa tercera, que anotes la elección que finalmente decidiste tomar, y\nuna descripción de cualquier otra sensación que surja al tomar esta\ndecisión final.\nUna vez que ya sabés qué sucedió con esa decisión que tomaste\npodés volver a tu diario y ver que te sucedía internamente en el\nmomento que tomaste esa decisión. Con el tiempo quizás puedas\ndilucidar algún patrón particular en tu toma de decisiones y tu\ncuerpo. Por ejemplo, una tensión en tu estómago que sucedió\ncuando contemplaste una acción particular que te llevó a una\nfrustración y quizás una sensación liviana en tu pecho cuando\nconsideraste un enfoque que fue exitoso."
+    },
+    {
+      "id": "bonus-2",
+      "source_assets": {
+        "txt": "docs/bitacora-60-dias/bonus-2.txt",
+        "png": "docs/bitacora-60-dias/bonus-2.png",
+        "extracted": true
+      },
+      "text": "BONUS TRACK\nBREVE DESCRIPCIÓN DE LOS DESAFÍOS QUE ESTÁS ENFRENTANDO (EN EL ÁREA DE TU\nVIDA QUE QUIERAS).\n\nDESCRIPCIÓN LO MÁS DETALLADA Y PRECISA POSIBLE DE LAS SENSACIONES INTERNAS\nQUE SENTÍS MIENTRAS CONTEMPLÁS LAS DIFERENTES OPCIONES QUE TENÉS DELANTE\nTUYO FRENTE A ESE DESAFÍO.\n\nANOTA LA ELECCIÓN QUE FINALMENTE DECIDISTE TOMAR, Y UNA DESCRIPCIÓN DE\nCUALQUIER OTRA SENSACIÓN QUE SURJA AL TOMAR ESTA DECISIÓN FINAL.\n\nPODÉS DILUCIDAR ALGÚN PATRÓN PARTICULAR EN TU TOMA DE DECISIONES Y TU CUERPO."
+    }
+  ]
+}
