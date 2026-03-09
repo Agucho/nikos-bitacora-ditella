@@ -13,7 +13,7 @@ const videoFiles = [
 
 export const materialExtraItems = videoFiles.map((fileName, index) => ({
   id: `video-${index + 1}`,
-  title: `Meditacion guiada ${index + 1}`,
+  title: `Ejercicio de respiración ${index + 1}`,
   fileName,
   storagePath: `material-extra/${fileName}`,
   src: encodeURI(`/material-extra/${fileName}`),

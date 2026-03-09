@@ -91,6 +91,18 @@ textarea {
   object-fit: contain;
 }
 
+.app-version {
+  position: absolute;
+  left: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 9px;
+  line-height: 1;
+  letter-spacing: 0.2px;
+  color: #9a9a9a;
+  font-weight: 500;
+}
+
 .avatar-button {
   position: absolute;
   right: 18px;
@@ -390,6 +402,16 @@ textarea {
   color: var(--white);
 }
 
+.day-cell.completed.completed-late {
+  background: var(--green);
+  border-color: var(--red);
+}
+
+.day-cell.future {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
 .day-cell.today {
   border-color: var(--yellow);
   border-width: 3px;
@@ -416,6 +438,35 @@ textarea {
   margin-bottom: 28px;
 }
 
+.day-definition-block {
+  margin-bottom: 28px;
+  border: 1px solid var(--gray-light);
+  background: #f6f6f6;
+  padding: 14px;
+}
+
+.day-definition-block h3 {
+  font-family: 'Archivo', sans-serif;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.day-definition-block pre {
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  line-height: 1.45;
+  max-height: 360px;
+  overflow: auto;
+  padding-right: 4px;
+}
+
+.day-definition-block p {
+  font-size: 13px;
+  color: var(--gray);
+}
+
 .exercise-block {
   margin-bottom: 34px;
   padding-bottom: 18px;
@@ -440,6 +491,31 @@ textarea {
 
 .field-wrap {
   margin-bottom: 20px;
+}
+
+.field-wrap > label {
+  white-space: pre-line;
+}
+
+.field-subtitle {
+  font-size: 0.9em;
+  color: #666;
+  margin: 4px 0 8px;
+}
+
+.exercise-description {
+  font-size: 0.95em;
+  color: #444;
+  margin: 0 0 16px;
+  line-height: 1.5;
+  white-space: pre-line;
+}
+
+.exercise-footer {
+  font-size: 0.95em;
+  font-weight: 600;
+  color: #444;
+  margin: 16px 0 0;
 }
 
 .micro-label {

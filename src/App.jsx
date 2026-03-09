@@ -19,8 +19,14 @@ import {
   watchJournal,
   watchProfile
 } from './firebase/db';
-import { getExerciseForDay } from './data/exercises';
+import {
+  cognitiveFields,
+  getExerciseForDay,
+  isDayCompleted,
+  situationFields
+} from './data/exercises';
 import { materialExtraItems } from './data/materialExtra';
+import { APP_VERSION } from './version';
 
 const NAV_ITEMS = [
   { key: 'emotion', label: 'Emocionómetro' },
@@ -74,23 +80,6 @@ function emptySituation() {
   };
 }
 
-const situationFields = [
-  { key: 'situacion', label: 'SITUACIÓN', placeholder: 'Describe la situación...' },
-  { key: 'cuerpo', label: 'CUERPO', placeholder: '¿Qué sentiste en tu cuerpo?' },
-  { key: 'pensamientos', label: 'PENSAMIENTOS DURANTE', placeholder: '¿Qué pensabas?' },
-  { key: 'emociones', label: 'EMOCIONES DURANTE Y DESPUÉS', placeholder: '¿Qué emociones experimentaste?' }
-];
-
-const cognitiveFields = [
-  { key: 'visualizacion', label: 'VISUALIZACIÓN', placeholder: 'Describe la situación...' },
-  { key: 'pensamientosNuevos', label: 'PENSAMIENTOS NUEVOS / PRECISOS', placeholder: '¿Qué pensamientos nuevos introduces?' },
-  { key: 'intento', label: 'INTENTAR USARLOS EN LA SITUACIÓN REAL', placeholder: '¿Cómo los usaste?' },
-  { key: 'cambioEmocion', label: '¿CAMBIÓ LA EMOCIÓN O SU INTENSIDAD?', placeholder: 'Describe...' },
-  { key: 'cambioCuerpo', label: '¿CAMBIÓ ALGUNA SEÑAL DEL CUERPO?', placeholder: 'Describe...' },
-  { key: 'menosIncomoda', label: '¿LA SITUACIÓN FUE MENOS INCÓMODA?', placeholder: 'Describe...' },
-  { key: 'masEficaz', label: '¿ACTUÉ O ME SENTÍ MÁS EFICAZ?', placeholder: 'Describe...' }
-];
-
 function emptyCognitive() {
   return {
     visualizacion: '',
@@ -122,29 +111,6 @@ function createDraft(dayNumber, rawData) {
     variableExercise: base.variableExercise || {},
     dayNumber
   };
-}
-
-function hasAnyText(value) {
-  return typeof value === 'string' && value.trim().length > 0;
-}
-
-function isDayCompleted(dayNumber, draft) {
-  const exercise = getExerciseForDay(dayNumber);
-
-  let variableComplete = false;
-  if (exercise.type === 'rating') {
-    variableComplete = true;
-  } else {
-    variableComplete = exercise.fields.some((field) => hasAnyText(draft.variableExercise[field.id]));
-  }
-
-  if (dayNumber <= 10) {
-    const situationCount = draft.situations.filter((row) => Object.values(row).some(hasAnyText)).length;
-    return hasAnyText(draft.gratitude) && situationCount >= 3 && variableComplete;
-  }
-
-  const cognitiveCount = draft.cognitiveWork.filter((row) => Object.values(row).some(hasAnyText)).length;
-  return cognitiveCount >= 3 && variableComplete;
 }
 
 function storageGet(key, fallback) {
@@ -440,10 +406,12 @@ function App() {
     const nowIso = new Date().toISOString();
     const completed = isDayCompleted(selectedDay, dayDraft);
     const shouldStartProgram = completed && !profile?.startDate;
+    const existing = journalByDay[selectedDay];
     const payload = {
       day: selectedDay,
       data: dayDraft,
-      completed
+      completed,
+      completedOnDay: completed ? (existing?.completedOnDay || currentDay) : null
     };
 
     setIsSavingDay(true);
@@ -752,18 +720,26 @@ function App() {
                 {Array.from({ length: 60 }, (_, index) => {
                   const day = index + 1;
                   const entry = journalByDay[day];
+                  const isFuture = false; // TODO: restore — hasProgramStarted && day > currentDay
                   const classes = ['day-cell'];
                   if (entry?.completed) {
                     classes.push('completed');
+                    const wasLate = entry.completedOnDay != null && entry.completedOnDay > day;
+                    if (wasLate) {
+                      classes.push('completed-late');
+                    }
                   } else if (hasProgramStarted && day < currentDay) {
                     classes.push('incomplete');
                   }
                   if (day === currentDay) {
                     classes.push('today');
                   }
+                  if (isFuture) {
+                    classes.push('future');
+                  }
 
                   return (
-                    <button key={day} className={classes.join(' ')} onClick={() => openDay(day)}>
+                    <button key={day} className={classes.join(' ')} onClick={() => !isFuture && openDay(day)} disabled={isFuture}>
                       {day}
                     </button>
                   );
@@ -776,6 +752,7 @@ function App() {
             <div className="day-detail">
               <button className="back-link" onClick={closeDay}>← VOLVER</button>
               <h2>Día {selectedDay}</h2>
+
 
               {selectedDay <= 10 && (
                 <div className="exercise-block">
@@ -818,39 +795,18 @@ function App() {
                 </div>
               )}
 
-              {selectedDay >= 11 && (
-                <div className="exercise-block">
-                  <h3>Situaciones incómodas - Trabajo cognitivo</h3>
-                  <div className="field-wrap">
-                    {dayDraft.cognitiveWork.map((row, index) => (
-                      <div key={`c-${index}`} className="card-row">
-                        <strong>SITUACIÓN {index + 1}</strong>
-                        {cognitiveFields.map((field) => (
-                          <div key={field.key} className="card-field">
-                            <label className="micro-label">{field.label}</label>
-                            <textarea
-                              placeholder={field.placeholder}
-                              value={row[field.key]}
-                              onChange={(event) => updateCognitive(index, field.key, event.target.value)}
-                            />
-                          </div>
-                        ))}
-                      </div>
-                    ))}
-                    <button
-                      type="button"
-                      className="btn btn-outline"
-                      onClick={() => setDayDraft((current) => ({ ...current, cognitiveWork: [...current.cognitiveWork, emptyCognitive()] }))}
-                    >
-                      + AÑADIR OTRA SITUACIÓN
-                    </button>
-                  </div>
+
+              {selectedExercise.intro && (
+                <div className="exercise-block intro-block">
+                  <h3>{selectedExercise.intro.title}</h3>
+                  <p className="exercise-description">{selectedExercise.intro.text}</p>
                 </div>
               )}
 
               <div className="exercise-block">
-                <h3>Ejercicio del día</h3>
-                <h4>{selectedExercise.title}</h4>
+                <h3>{selectedExercise.intro ? selectedExercise.title : 'Ejercicio del día'}</h3>
+                {!selectedExercise.intro && <h4>{selectedExercise.title}</h4>}
+                {selectedExercise.description && <p className="exercise-description">{selectedExercise.description}</p>}
 
                 {selectedExercise.type === 'rating' && selectedExercise.fields.map((field) => {
                   const value = dayDraft.variableExercise[field.id] ?? 5;
@@ -876,7 +832,8 @@ function App() {
                     return (
                       <div key={field.id} className="field-wrap">
                         <label>{field.label}</label>
-                        <textarea value={value} onChange={(event) => updateVariable(field.id, event.target.value)} />
+                        {field.subtitle && <p className="field-subtitle">{field.subtitle}</p>}
+                        <textarea placeholder={field.placeholder} value={value} onChange={(event) => updateVariable(field.id, event.target.value)} />
                       </div>
                     );
                   }
@@ -888,6 +845,7 @@ function App() {
                     </div>
                   );
                 })}
+                {selectedExercise.footer && <p className="exercise-footer">{selectedExercise.footer}</p>}
               </div>
 
               <button className="btn btn-primary" onClick={handleSaveDay} disabled={isSavingDay}>
@@ -900,12 +858,8 @@ function App() {
         <section className={`section ${activeTab === 'material' ? 'active' : ''}`}>
           <header className="section-header">
             <h1>Material Extra</h1>
-            <p>Meditaciones guiadas</p>
+            <p>Ejercicios de respiración</p>
           </header>
-
-          <div className="material-intro">
-            Elegí una meditación y reproducila cuando lo necesites.
-          </div>
 
           <div className="media-player-block">
             <div className="media-player-head">
@@ -948,7 +902,7 @@ function App() {
                 />
                 <div className="media-list-copy">
                   <strong>{item.title}</strong>
-                  <span>Meditación guiada</span>
+                  <span>Ejercicio de respiración</span>
                 </div>
                 <span className="media-list-action">Ver</span>
               </button>
@@ -987,6 +941,7 @@ function App() {
 function BrandHeader({ avatarInitial, onAvatarClick }) {
   return (
     <header className="brand-header">
+      <span className="app-version">{APP_VERSION}</span>
       <div className="left-brand brand-logo">
         <img src="/logo-di-tela.jpeg" alt="Universidad Torcuato Di Tella" />
       </div>
