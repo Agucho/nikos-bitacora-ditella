@@ -2,6 +2,7 @@ const { setGlobalOptions } = require('firebase-functions/v2');
 const { onCall, HttpsError } = require('firebase-functions/v2/https');
 const { onDocumentWritten } = require('firebase-functions/v2/firestore');
 const admin = require('firebase-admin');
+const { FieldValue } = require('firebase-admin/firestore');
 
 admin.initializeApp();
 setGlobalOptions({ region: 'us-central1', maxInstances: 10 });
@@ -20,7 +21,7 @@ exports.upsertProfile = onCall(async (request) => {
   const payload = request.data || {};
 
   const nextProfile = {
-    updatedAt: admin.firestore.FieldValue.serverTimestamp()
+    updatedAt: FieldValue.serverTimestamp()
   };
 
   if (typeof payload.name === 'string') {
@@ -68,7 +69,7 @@ exports.saveEmotionEntry = onCall(async (request) => {
       dateKey,
       pleasure,
       energy,
-      updatedAt: admin.firestore.FieldValue.serverTimestamp()
+      updatedAt: FieldValue.serverTimestamp()
     },
     { merge: true }
   );
@@ -80,29 +81,43 @@ exports.saveJournalEntry = onCall(async (request) => {
   const uid = assertAuthenticated(request);
   const payload = request.data || {};
 
-  const day = Number(payload.day);
-  const completed = Boolean(payload.completed);
-  const data = payload.data && typeof payload.data === 'object' ? payload.data : null;
+  console.log(`Saving journal entry for user ${uid}, day ${payload.day}`);
 
-  if (!Number.isInteger(day) || day < 1 || day > 60) {
-    throw new HttpsError('invalid-argument', 'day must be an integer between 1 and 60.');
+  try {
+    const day = Number(payload.day);
+    const completed = Boolean(payload.completed);
+    const data = payload.data && typeof payload.data === 'object' ? payload.data : null;
+
+    if (!Number.isInteger(day) || day < 1 || day > 60) {
+      throw new HttpsError('invalid-argument', 'day must be an integer between 1 and 60.');
+    }
+
+    if (!data) {
+      throw new HttpsError('invalid-argument', 'data payload is required.');
+    }
+
+    const docPath = `users/${uid}/journal/${day}`;
+    console.log(`Writing to Firestore path: ${docPath}`);
+
+    await db.doc(docPath).set(
+      {
+        day,
+        data,
+        completed,
+        updatedAt: FieldValue.serverTimestamp()
+      },
+      { merge: true }
+    );
+
+    console.log('Journal entry saved successfully');
+    return { ok: true };
+  } catch (error) {
+    console.error('Error in saveJournalEntry:', error);
+    if (error instanceof HttpsError) {
+      throw error;
+    }
+    throw new HttpsError('internal', error.message || 'Internal error saving journal entry');
   }
-
-  if (!data) {
-    throw new HttpsError('invalid-argument', 'data payload is required.');
-  }
-
-  await db.doc(`users/${uid}/journal/${day}`).set(
-    {
-      day,
-      data,
-      completed,
-      updatedAt: admin.firestore.FieldValue.serverTimestamp()
-    },
-    { merge: true }
-  );
-
-  return { ok: true };
 });
 
 exports.onJournalWrite = onDocumentWritten('users/{uid}/journal/{dayId}', async (event) => {
