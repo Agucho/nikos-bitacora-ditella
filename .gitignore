@@ -1,5 +1,44 @@
+# Dependencies
+node_modules/
+functions/node_modules/
+.pnp
+.pnp.js
+
+# Firebase Emulator & Logs
+.firebase/
+.firebase-local/
+*-debug.log
+firebase-debug.log
+firestore-debug.log
+pubsub-debug.log
+ui-debug.log
+functions-debug.log
+firebase-export-*/
+.runtimeconfig.json
+
+# Build & Output
+dist/
+build/
+.next/
+out/
+
+# Environment Variables
 .env
-.env.*
+.env.local
+.env.*.local
 !.env.example
 !.env.development.example
 !.env.production.example
+
+# Project Context Documents (Patrón robusto)
+CONTEXTO_DEL_PROYECTO*.md
+
+# OS & IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace

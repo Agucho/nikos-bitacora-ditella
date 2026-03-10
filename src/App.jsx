@@ -720,7 +720,7 @@ function App() {
                 {Array.from({ length: 60 }, (_, index) => {
                   const day = index + 1;
                   const entry = journalByDay[day];
-                  const isFuture = false; // TODO: restore — hasProgramStarted && day > currentDay
+                  const isFuture = day > currentDay;
                   const classes = ['day-cell'];
                   if (entry?.completed) {
                     classes.push('completed');
