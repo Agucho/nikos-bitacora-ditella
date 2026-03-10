@@ -876,7 +876,7 @@ function App() {
           </div>
 
           <div className="media-list">
-            {materialItems.map((item) => (
+            {materialItems.map((item, index) => (
               <button
                 key={item.id}
                 className={`media-list-item ${selectedMaterial.id === item.id ? 'active' : ''}`}
@@ -902,7 +902,13 @@ function App() {
                 />
                 <div className="media-list-copy">
                   <strong>{item.title}</strong>
-                  <span>Ejercicio de respiración</span>
+                  <span>
+                    {index <= 1
+                      ? 'Respiración Activa'
+                      : index <= 5
+                        ? 'Respiración Relajante'
+                        : 'Respiración Equilibrante'}
+                  </span>
                 </div>
                 <span className="media-list-action">Ver</span>
               </button>
