@@ -404,7 +404,7 @@ function App() {
     }
 
     const nowIso = new Date().toISOString();
-    const completed = isDayCompleted(selectedDay, dayDraft);
+    const completed = true;
     const shouldStartProgram = completed && !profile?.startDate;
     const existing = journalByDay[selectedDay];
     const payload = {
@@ -413,6 +413,11 @@ function App() {
       completed,
       completedOnDay: completed ? (existing?.completedOnDay || currentDay) : null
     };
+
+    setJournalByDay((current) => ({
+      ...current,
+      [selectedDay]: payload
+    }));
 
     setIsSavingDay(true);
     try {

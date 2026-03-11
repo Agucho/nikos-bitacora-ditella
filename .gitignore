@@ -3,3 +3,23 @@
 !.env.example
 !.env.development.example
 !.env.production.example
+# dependencies
+node_modules/
+functions/node_modules/
+
+# build
+dist/
+build/
+
+# logs
+*.log
+
+# firebase emulator
+.firebase-local/
+firebase-export-*
+
+# vite
+node_modules/.vite/
+
+# local docs
+CONTEXTO_DEL_PROYECTO-*.md
