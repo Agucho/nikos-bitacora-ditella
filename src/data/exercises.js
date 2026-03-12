@@ -104,17 +104,25 @@ function isPrimaryExerciseComplete(exercise, draft) {
   return exercise.fields.some((field) => hasAnyText(draft.variableExercise[field.id]));
 }
 
-export function isDayCompleted(dayNumber, draft) {
+function draftHasAnyMeaningfulContent(dayNumber, draft) {
   const exercise = getExerciseForDay(dayNumber);
-  const variableComplete = isPrimaryExerciseComplete(exercise, draft);
-
-  if (dayNumber <= 10) {
-    const situationCount = draft.situations.filter((row) => Object.values(row).some(hasAnyText)).length;
-    return hasAnyText(draft.gratitude) && situationCount >= 3 && variableComplete;
+  if (isPrimaryExerciseComplete(exercise, draft)) {
+    return true;
   }
+  if (hasAnyText(draft.gratitude)) {
+    return true;
+  }
+  if (Array.isArray(draft.situations) && draft.situations.some((row) => Object.values(row || {}).some(hasAnyText))) {
+    return true;
+  }
+  if (Array.isArray(draft.cognitiveWork) && draft.cognitiveWork.some((row) => Object.values(row || {}).some(hasAnyText))) {
+    return true;
+  }
+  return false;
+}
 
-  const cognitiveCount = draft.cognitiveWork.filter((row) => Object.values(row).some(hasAnyText)).length;
-  return cognitiveCount >= 3 && variableComplete;
+export function isDayCompleted(dayNumber, draft) {
+  return draftHasAnyMeaningfulContent(dayNumber, draft);
 }
 
 export { bitacoraDefinition };

@@ -26,6 +26,7 @@ import {
   situationFields
 } from './data/exercises';
 import { materialExtraItems } from './data/materialExtra';
+import { REGISTRATION_ENABLED } from './config';
 import { APP_VERSION } from './version';
 
 const NAV_ITEMS = [
@@ -58,9 +59,10 @@ function calculateCurrentDay(startDate) {
   return Math.max(1, Math.min(60, diffDays));
 }
 
-function calculateStreak(entriesByDay) {
+function calculateStreak(entriesByDay, currentDay) {
+  const fromDay = currentDay != null ? currentDay : 60;
   let streak = 0;
-  for (let day = 60; day >= 1; day -= 1) {
+  for (let day = fromDay; day >= 1; day -= 1) {
     const entry = entriesByDay[day];
     if (entry?.completed) {
       streak += 1;
@@ -168,7 +170,7 @@ function App() {
 
   const currentDay = useMemo(() => calculateCurrentDay(profile?.startDate), [profile?.startDate]);
   const hasProgramStarted = Boolean(profile?.startDate);
-  const streak = useMemo(() => calculateStreak(journalByDay), [journalByDay]);
+  const streak = useMemo(() => calculateStreak(journalByDay, currentDay), [journalByDay, currentDay]);
   const selectedExercise = useMemo(() => (selectedDay ? getExerciseForDay(selectedDay) : null), [selectedDay]);
   const displayName = useMemo(() => getDisplayName(profile, user), [profile, user]);
   const avatarInitial = useMemo(() => getInitial(displayName), [displayName]);
@@ -407,11 +409,14 @@ function App() {
     const completed = isDayCompleted(selectedDay, dayDraft);
     const shouldStartProgram = completed && !profile?.startDate;
     const existing = journalByDay[selectedDay];
+    const completedOnDayValue = completed
+      ? (existing?.completedOnDay ?? currentDay)
+      : null;
     const payload = {
       day: selectedDay,
       data: dayDraft,
       completed,
-      completedOnDay: completed ? (existing?.completedOnDay || currentDay) : null
+      completedOnDay: completedOnDayValue
     };
 
     setIsSavingDay(true);
@@ -587,24 +592,27 @@ function App() {
 
   if (!guestMode && !user) {
     const showMagicLinkConfirm = needsMagicLinkEmailConfirm;
+    const showRegistrationForm = REGISTRATION_ENABLED && !showMagicLinkConfirm;
     return (
       <div className="app-shell auth-only">
         <BrandHeader />
         <main className="section active profile-view">
           <div className="profile-card">
             <h1>
-              {showMagicLinkConfirm ? 'Confirmá tu email' : <>Bienvenidos a<br />Desafíos de Liderazgo</>}
+              {showMagicLinkConfirm ? 'Confirmá tu email' : REGISTRATION_ENABLED ? <>Bienvenidos a<br />Desafíos de Liderazgo</> : 'Registro temporalmente cerrado'}
             </h1>
             <p>
               {showMagicLinkConfirm
                 ? 'Usá el mismo email con el que recibiste el magic-link para completar el ingreso.'
-                : 'Crea tu perfil para comenzar'}
+                : REGISTRATION_ENABLED
+                  ? 'Crea tu perfil para comenzar'
+                  : 'El registro para nuevos participantes estará habilitado el domingo. Si ya tenés cuenta, ingresá tu email para recibir el enlace de acceso.'}
             </p>
 
             <form className="profile-form" onSubmit={showMagicLinkConfirm ? handleMagicLinkConfirm : handleMagicLinkRequest}>
-              {!showMagicLinkConfirm && (
+              {showRegistrationForm && (
                 <>
-                  <label htmlFor="name">Nombre</label>
+                  <label htmlFor="name">Nombre y Apellido</label>
                   <input
                     id="name"
                     type="text"
@@ -630,14 +638,16 @@ function App() {
               <button type="submit" className="btn btn-primary" disabled={isAuthActionBusy}>
                 {showMagicLinkConfirm ? (
                   <ButtonLabel loading={isCompletingMagicLink} loadingText="Confirmando...">Confirmar ingreso</ButtonLabel>
-                ) : (
+                ) : REGISTRATION_ENABLED ? (
                   <ButtonLabel loading={isSendingMagicLink} loadingText="Enviando...">Comenzar</ButtonLabel>
+                ) : (
+                  <ButtonLabel loading={isSendingMagicLink} loadingText="Enviando...">Enviar enlace</ButtonLabel>
                 )}
               </button>
             </form>
 
             {!showMagicLinkConfirm && magicLinkSent && (
-              <p className="auth-help">Revisá tu email y abrí el magic-link en este mismo navegador/dispositivo.</p>
+              <p className="auth-help">Revisá tu email y verificá tu cuenta haciendo click en el enlace. Si no ves el mail, revisá la carpeta de spam.</p>
             )}
             {!showMagicLinkConfirm && !hasFirebaseConfig && <p className="auth-help warning">Falta Firebase config en `.env`.</p>}
           </div>
@@ -947,12 +957,9 @@ function App() {
 function BrandHeader({ avatarInitial, onAvatarClick }) {
   return (
     <header className="brand-header">
-      <span className="app-version">{APP_VERSION}</span>
-      <div className="left-brand brand-logo">
-        <img src="/logo-di-tela.jpeg" alt="Universidad Torcuato Di Tella" />
+      <div className="header-brand-image">
+        <img src="/header-bitacora.jpg" alt="Bitácora Di Tella" />
       </div>
-      <div className="separator">x</div>
-      <div className="right-brand">Estanislao Bachrach</div>
       {onAvatarClick && (
         <button type="button" className="avatar-button" onClick={onAvatarClick} aria-label="Abrir menú">
           {avatarInitial}

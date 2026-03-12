@@ -92,13 +92,25 @@ exports.saveJournalEntry = onCall(async (request) => {
     throw new HttpsError('invalid-argument', 'data payload is required.');
   }
 
+  let completedOnDay = null;
+  if (completed && payload.hasOwnProperty('completedOnDay')) {
+    const raw = payload.completedOnDay;
+    const num = raw !== undefined && raw !== null ? Number(raw) : null;
+    if (typeof num === 'number' && !Number.isNaN(num) && num >= 1 && num <= 60) {
+      completedOnDay = num;
+    }
+  }
+
+  const docData = {
+    day,
+    data,
+    completed,
+    completedOnDay,
+    updatedAt: admin.firestore.FieldValue.serverTimestamp()
+  };
+
   await db.doc(`users/${uid}/journal/${day}`).set(
-    {
-      day,
-      data,
-      completed,
-      updatedAt: admin.firestore.FieldValue.serverTimestamp()
-    },
+    docData,
     { merge: true }
   );
 

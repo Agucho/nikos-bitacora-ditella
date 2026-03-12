@@ -82,7 +82,11 @@ export async function saveEmotionEntry(uid, payload) {
 }
 
 export async function saveJournalEntry(uid, payload) {
-  return callOrFallback('saveJournalEntry', payload, async () => {
+  const dataForCallable = {
+    ...payload,
+    completedOnDay: payload.completed ? (payload.completedOnDay ?? null) : null
+  };
+  return callOrFallback('saveJournalEntry', dataForCallable, async () => {
     const ref = doc(db, `users/${uid}/journal/${String(payload.day)}`);
     await setDoc(
       ref,
@@ -90,6 +94,7 @@ export async function saveJournalEntry(uid, payload) {
         day: payload.day,
         data: payload.data,
         completed: payload.completed,
+        completedOnDay: payload.completed ? (payload.completedOnDay ?? null) : null,
         updatedAt: serverTimestamp()
       },
       { merge: true }
