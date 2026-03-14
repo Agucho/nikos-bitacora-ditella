@@ -35,6 +35,10 @@ exports.upsertProfile = onCall(async (request) => {
     nextProfile.startDate = payload.startDate;
   }
 
+  if (payload.participantType === 'student' || payload.participantType === 'guest') {
+    nextProfile.participantType = payload.participantType;
+  }
+
   await db.doc(`users/${uid}`).set(
     nextProfile,
     { merge: true }

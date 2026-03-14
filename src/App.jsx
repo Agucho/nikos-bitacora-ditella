@@ -26,7 +26,7 @@ import {
   situationFields
 } from './data/exercises';
 import { materialExtraItems } from './data/materialExtra';
-import { REGISTRATION_ENABLED } from './config';
+import { REGISTRATION_ENABLED, isAdminUser } from './config';
 import { APP_VERSION } from './version';
 
 const NAV_ITEMS = [
@@ -34,6 +34,7 @@ const NAV_ITEMS = [
   { key: 'calendar', label: 'Bitácora' },
   { key: 'material', label: 'Material Extra' }
 ];
+
 
 function formatDate(date) {
   const days = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
@@ -148,6 +149,7 @@ function App() {
   const [status, setStatus] = useState('');
   const [authLoading, setAuthLoading] = useState(true);
   const [user, setUser] = useState(null);
+  const isAdmin = isAdminUser(user);
   const [guestMode, setGuestMode] = useState(() => localStorage.getItem(guestModeKey) === '1');
   const [profile, setProfile] = useState(null);
   const [emotionDraft, setEmotionDraft] = useState({ pleasure: 5, energy: 5 });
@@ -155,7 +157,7 @@ function App() {
   const [journalByDay, setJournalByDay] = useState({});
   const [selectedDay, setSelectedDay] = useState(null);
   const [dayDraft, setDayDraft] = useState(null);
-  const [authForm, setAuthForm] = useState({ name: '', email: '' });
+  const [authForm, setAuthForm] = useState({ name: '', email: '', participantType: '' });
   const [magicLinkSent, setMagicLinkSent] = useState(false);
   const [pendingProfile] = useState(() => consumePendingProfile());
   const [materialItems, setMaterialItems] = useState(materialExtraItems);
@@ -265,7 +267,8 @@ function App() {
 
     upsertProfile(user.uid, {
       name: pendingProfile.name || '',
-      email: user.email || pendingProfile.email || ''
+      email: user.email || pendingProfile.email || '',
+      participantType: pendingProfile.participantType === 'student' || pendingProfile.participantType === 'guest' ? pendingProfile.participantType : undefined
     }).catch((error) => {
       setStatus(error.message || 'No se pudo guardar el perfil.');
     });
@@ -478,11 +481,20 @@ function App() {
       return;
     }
 
+    if (showRegistrationForm) {
+      const pt = authForm.participantType;
+      if (pt !== 'student' && pt !== 'guest') {
+        setStatus('Elegí un tipo de participante para continuar.');
+        return;
+      }
+    }
+
     setIsSendingMagicLink(true);
     try {
       persistPendingProfile({
         name: authForm.name.trim(),
-        email
+        email,
+        participantType: showRegistrationForm ? authForm.participantType : undefined
       });
       await sendMagicLink(email);
       setMagicLinkSent(true);
@@ -569,7 +581,7 @@ function App() {
   }
 
   const todayKey = toDateKey(new Date());
-  const points = [
+  const rawPoints = [
     ...emotions
       .filter((item) => item.dateKey !== todayKey)
       .map((item) => ({
@@ -586,13 +598,26 @@ function App() {
     }
   ];
 
+  const groupKey = (x, y) => `${Math.round(x)}-${Math.round(y)}`;
+  const groups = {};
+  rawPoints.forEach((p) => {
+    const key = groupKey(p.x, p.y);
+    if (!groups[key]) {
+      groups[key] = { x: p.x, y: p.y, id: key, count: 0, isLive: false };
+    }
+    groups[key].count += 1;
+    if (p.isLive) groups[key].isLive = true;
+  });
+  const points = Object.values(groups);
+
   if (authLoading) {
     return <div className="screen-center">Cargando...</div>;
   }
+  const showMagicLinkConfirm = needsMagicLinkEmailConfirm;
+  const showRegistrationForm = REGISTRATION_ENABLED && !showMagicLinkConfirm;
 
   if (!guestMode && !user) {
-    const showMagicLinkConfirm = needsMagicLinkEmailConfirm;
-    const showRegistrationForm = REGISTRATION_ENABLED && !showMagicLinkConfirm;
+
     return (
       <div className="app-shell auth-only">
         <BrandHeader />
@@ -617,10 +642,36 @@ function App() {
                     id="name"
                     type="text"
                     value={authForm.name}
-                    placeholder="Tu nombre"
+                    placeholder="Nombre y Apellido"
                     disabled={isAuthActionBusy}
                     onChange={(event) => setAuthForm((current) => ({ ...current, name: event.target.value }))}
                   />
+
+                  <label className="profile-form-label-block">Tipo de participante</label>
+                  <div className="profile-form-radios" role="group" aria-label="Tipo de participante">
+                    <label className="profile-form-radio">
+                      <input
+                        type="radio"
+                        name="participantType"
+                        value="student"
+                        checked={authForm.participantType === 'student'}
+                        disabled={isAuthActionBusy}
+                        onChange={() => setAuthForm((current) => ({ ...current, participantType: 'student' }))}
+                      />
+                      <span>Estudiante</span>
+                    </label>
+                    <label className="profile-form-radio">
+                      <input
+                        type="radio"
+                        name="participantType"
+                        value="guest"
+                        checked={authForm.participantType === 'guest'}
+                        disabled={isAuthActionBusy}
+                        onChange={() => setAuthForm((current) => ({ ...current, participantType: 'guest' }))}
+                      />
+                      <span>Invitado/a</span>
+                    </label>
+                  </div>
                 </>
               )}
 
@@ -705,9 +756,12 @@ function App() {
               {points.map((point) => (
                 <span
                   key={point.id}
-                  className={`chart-point ${point.isLive ? 'live' : ''}`}
+                  className="chart-point-wrap"
                   style={{ left: `${point.x}%`, bottom: `${point.y}%` }}
-                />
+                >
+                  <span className={`chart-point ${point.isLive ? 'live' : ''}`} />
+                  {point.count > 1 && <span className="chart-point-badge">{point.count}</span>}
+                </span>
               ))}
             </div>
           </div>
@@ -730,7 +784,7 @@ function App() {
                 {Array.from({ length: 60 }, (_, index) => {
                   const day = index + 1;
                   const entry = journalByDay[day];
-                  const isFuture = false; // TODO: restore — hasProgramStarted && day > currentDay
+                  const isFuture = !isAdmin && hasProgramStarted && day > currentDay;
                   const classes = ['day-cell'];
                   if (entry?.completed) {
                     classes.push('completed');

@@ -54,6 +54,10 @@ export async function upsertProfile(uid, profile) {
       payload.startDate = profile.startDate;
     }
 
+    if (profile.participantType === 'student' || profile.participantType === 'guest') {
+      payload.participantType = profile.participantType;
+    }
+
     await setDoc(
       ref,
       payload,
