@@ -7,9 +7,15 @@ import {
   fetchUserJournal,
   getUserStatus
 } from './adminDb';
+import { isAdminUser } from '../config';
 import './admin.css';
 
-const PARTICIPANT_LABEL = { student: 'Estudiante', guest: 'Invitado/a' };
+function participantTypeDisplay(user) {
+  if (isAdminUser(user)) return 'Admin';
+  if (user.participantType === 'student') return 'Estudiante';
+  if (user.participantType === 'guest') return 'Invitado/a';
+  return '—';
+}
 
 const SITUATION_LABELS = {
   situacion: 'Situación',
@@ -34,6 +40,40 @@ function statusCssClass(status) {
   return 'admin-status--sin-actividad';
 }
 
+const STATUS_ORDER = { 'al día': 0, 'con retraso': 1, 'sin actividad': 2 };
+
+function compareUsers(a, b, field, direction) {
+  const dir = direction === 'asc' ? 1 : -1;
+
+  if (field === 'status') {
+    const diff = (STATUS_ORDER[a.status] ?? 3) - (STATUS_ORDER[b.status] ?? 3);
+    if (diff !== 0) return diff * dir;
+    // tiebreaker: latestCompleted descending
+    return (b.latestCompleted ?? -1) - (a.latestCompleted ?? -1);
+  }
+
+  if (field === 'name') {
+    return (a.name || '').localeCompare(b.name || '', 'es') * dir;
+  }
+
+  if (field === 'participantType') {
+    return participantTypeDisplay(a).localeCompare(participantTypeDisplay(b), 'es') * dir;
+  }
+
+  if (field === 'startDate') {
+    if (!a.startDate && !b.startDate) return 0;
+    if (!a.startDate) return 1;
+    if (!b.startDate) return -1;
+    return a.startDate.localeCompare(b.startDate) * dir;
+  }
+
+  // numeric fields: currentDay, latestCompleted, streak — nulls always last
+  if (a[field] == null && b[field] == null) return 0;
+  if (a[field] == null) return 1;
+  if (b[field] == null) return -1;
+  return (a[field] - b[field]) * dir;
+}
+
 // ─── Main component ───────────────────────────────────────────────────────────
 
 export function AdminDashboard({ user }) {
@@ -42,6 +82,17 @@ export function AdminDashboard({ user }) {
   const [error, setError] = useState(null);
   const [search, setSearch] = useState('');
   const [selectedUser, setSelectedUser] = useState(null);
+  const [sortField, setSortField] = useState('status');
+  const [sortDirection, setSortDirection] = useState('asc');
+
+  function handleSort(field) {
+    if (field === sortField) {
+      setSortDirection((d) => (d === 'asc' ? 'desc' : 'asc'));
+    } else {
+      setSortField(field);
+      setSortDirection('asc');
+    }
+  }
 
   useEffect(() => {
     let cancelled = false;
@@ -86,6 +137,11 @@ export function AdminDashboard({ user }) {
     );
   }, [enrichedUsers, search]);
 
+  const sorted = useMemo(
+    () => [...filtered].sort((a, b) => compareUsers(a, b, sortField, sortDirection)),
+    [filtered, sortField, sortDirection]
+  );
+
   if (selectedUser) {
     return (
       <UserDetail
@@ -117,11 +173,17 @@ export function AdminDashboard({ user }) {
                 onChange={(e) => setSearch(e.target.value)}
               />
               <span className="admin-count">
-                {filtered.length} {filtered.length === 1 ? 'participante' : 'participantes'}
+                {sorted.length} {sorted.length === 1 ? 'participante' : 'participantes'}
               </span>
             </div>
 
-            <UserTable users={filtered} onSelect={setSelectedUser} />
+            <UserTable
+              users={sorted}
+              onSelect={setSelectedUser}
+              sortField={sortField}
+              sortDirection={sortDirection}
+              onSort={handleSort}
+            />
           </>
         )}
       </main>
@@ -150,7 +212,24 @@ function AdminHeader({ user }) {
 
 // ─── User table ───────────────────────────────────────────────────────────────
 
-function UserTable({ users, onSelect }) {
+function SortTh({ field, label, sortField, sortDirection, onSort }) {
+  const active = sortField === field;
+  return (
+    <th
+      className={`admin-th-sortable${active ? ' admin-th-active' : ''}`}
+      onClick={() => onSort(field)}
+    >
+      {label}
+      <span className="admin-sort-arrow">
+        {active ? (sortDirection === 'asc' ? ' ▲' : ' ▼') : ' ⇅'}
+      </span>
+    </th>
+  );
+}
+
+function UserTable({ users, onSelect, sortField, sortDirection, onSort }) {
+  const sortProps = { sortField, sortDirection, onSort };
+
   if (users.length === 0) {
     return (
       <div className="admin-table-wrap">
@@ -161,25 +240,27 @@ function UserTable({ users, onSelect }) {
 
   return (
     <div className="admin-table-wrap">
-      <table className="admin-table">
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Email</th>
-            <th>Tipo</th>
-            <th>Inicio</th>
-            <th>Día actual</th>
-            <th>Último completado</th>
-            <th>Racha</th>
-            <th>Estado</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((u) => (
-            <UserRow key={u.uid} user={u} onSelect={onSelect} />
-          ))}
-        </tbody>
-      </table>
+      <div className="admin-table-scroll">
+        <table className="admin-table">
+          <thead>
+            <tr>
+              <SortTh field="name" label="Nombre" {...sortProps} />
+              <th>Email</th>
+              <SortTh field="participantType" label="Tipo" {...sortProps} />
+              <SortTh field="startDate" label="Inicio" {...sortProps} />
+              <SortTh field="currentDay" label="Día actual" {...sortProps} />
+              <SortTh field="latestCompleted" label="Último completado" {...sortProps} />
+              <SortTh field="streak" label="Racha" {...sortProps} />
+              <SortTh field="status" label="Estado" {...sortProps} />
+            </tr>
+          </thead>
+          <tbody>
+            {users.map((u) => (
+              <UserRow key={u.uid} user={u} onSelect={onSelect} />
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
@@ -189,7 +270,7 @@ function UserRow({ user, onSelect }) {
     <tr className="admin-table-row" onClick={() => onSelect(user)}>
       <td className="admin-name-cell">{user.name || '—'}</td>
       <td className="admin-email-cell">{user.email || '—'}</td>
-      <td className="admin-cell-muted">{PARTICIPANT_LABEL[user.participantType] || '—'}</td>
+      <td className="admin-cell-muted">{participantTypeDisplay(user)}</td>
       <td className="admin-cell-muted">{user.startDate || '—'}</td>
       <td className="admin-cell-muted">{user.currentDay ? `Día ${user.currentDay}` : '—'}</td>
       <td className="admin-cell-muted">{user.latestCompleted ? `Día ${user.latestCompleted}` : '—'}</td>
@@ -239,7 +320,7 @@ function UserDetail({ userData, adminUser, onBack }) {
             <div className="admin-detail-stat">
               <span className="admin-stat-label">Tipo</span>
               <span className="admin-stat-value admin-stat-value--small">
-                {PARTICIPANT_LABEL[userData.participantType] || '—'}
+                {participantTypeDisplay(userData)}
               </span>
             </div>
 

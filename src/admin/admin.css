@@ -147,6 +147,11 @@
   overflow: hidden;
 }
 
+.admin-table-scroll {
+  overflow-x: auto;
+  width: 100%;
+}
+
 .admin-table {
   width: 100%;
   border-collapse: collapse;
@@ -164,6 +169,30 @@
   background: #fafafa;
   border-bottom: 1px solid #e8e8e8;
   white-space: nowrap;
+}
+
+.admin-th-sortable {
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.1s, background 0.1s;
+}
+
+.admin-th-sortable:hover {
+  color: #555;
+  background: #f0f1f3;
+}
+
+.admin-th-active {
+  color: #1a1a1a;
+}
+
+.admin-sort-arrow {
+  font-size: 10px;
+  opacity: 0.45;
+}
+
+.admin-th-active .admin-sort-arrow {
+  opacity: 1;
 }
 
 .admin-table td {
