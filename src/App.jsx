@@ -28,6 +28,7 @@ import {
 import { materialExtraItems } from './data/materialExtra';
 import { REGISTRATION_ENABLED, isAdminUser } from './config';
 import { APP_VERSION } from './version';
+import { AdminDashboard } from './admin/AdminDashboard';
 
 const NAV_ITEMS = [
   { key: 'emotion', label: 'Emocionómetro' },
@@ -613,6 +614,23 @@ function App() {
   if (authLoading) {
     return <div className="screen-center">Cargando...</div>;
   }
+
+  if (window.location.pathname === '/admin') {
+    if (!user) {
+      window.location.replace('/');
+      return null;
+    }
+    if (!isAdmin) {
+      return (
+        <div className="screen-center" style={{ flexDirection: 'column', gap: '16px' }}>
+          <p>Acceso restringido. Este panel es solo para administradores.</p>
+          <a href="/">Volver a la app</a>
+        </div>
+      );
+    }
+    return <AdminDashboard user={user} />;
+  }
+
   const showMagicLinkConfirm = needsMagicLinkEmailConfirm;
   const showRegistrationForm = REGISTRATION_ENABLED && !showMagicLinkConfirm;
 
