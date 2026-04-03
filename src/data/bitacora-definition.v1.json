@@ -1104,26 +1104,61 @@
             "type": "textarea"
           },
           {
-            "id": "tengoQuieroTener",
-            "label": "¿Cuáles son las cosas que nunca tuviste y que te gustaría tener?",
-            "subtitle": "TENGO Y HAGO",
+            "id": "identificoFracaso",
+            "subtitle": "ME IDENTIFICO\n¿Con cuál de estas frases te identificás más?\nRespondé del 1 al 10 en cada frase.",
+            "label": "Soy un fracaso",
+            "type": "slider"
+          },
+          {
+            "id": "identificoNada",
+            "label": "No puedo hacer nada",
+            "type": "slider"
+          },
+          {
+            "id": "identificoGusto",
+            "label": "A nadie le gusto",
+            "type": "slider"
+          },
+          {
+            "id": "identificoBueno",
+            "label": "No soy lo suficientemente bueno",
+            "type": "slider"
+          },
+          {
+            "id": "identificoMal",
+            "label": "Siempre me va a ir mal",
+            "type": "slider"
+          },
+          {
+            "id": "identificoPreocupo",
+            "label": "¿Para qué me preocupo si no me va a salir?",
+            "type": "slider"
+          },
+          {
+            "id": "identificoIntereso",
+            "label": "No le intereso a nadie",
+            "type": "slider"
+          },
+          {
+            "id": "identificoZanahoria",
+            "label": "La zanahoria es un vegetal",
+            "type": "slider"
+          },
+          {
+            "id": "evidenciaSensaciones",
+            "label": "¿Tenés alguna evidencia (hechos) que apoyen estas sensaciones? Escribilas…",
             "type": "textarea"
           },
           {
-            "id": "hagoQuieroHacer",
-            "label": "¿Y las cosas que nunca hiciste y que te gustaría hacer?",
+            "id": "noLoVeia",
+            "subtitle": "NO LO VEÍA",
+            "label": "Viajá por algún lugar que hayas ido cientos de veces... Ahora detenete y mirá en todas direcciones. ¿Qué es lo que te habías perdido de ver? Escribilo…",
             "type": "textarea"
           },
           {
-            "id": "ufaSemana",
-            "label": "Poné acá todo lo que anduvo mal en esta última semana y cómo te hizo sentir. ¿Qué podrías hacer la próxima vez para si te vuelve a pasar no te sientas así?",
-            "subtitle": "UFA",
-            "type": "textarea"
-          },
-          {
-            "id": "posturaRegistro",
-            "label": "El desafío de hoy es registrar tanto tu cuerpo como tu postura en los diferentes momentos del día. Pensá en qué momentos podrías dedicarle unos segunditos para hacerte la siguiente pregunta: ¿Podés modificar o estirar alguna parte para estar un poco más cómodo? Escribilo…",
-            "subtitle": "PONIÉNDOSE CÓMODO",
+            "id": "saborBoca",
+            "subtitle": "SABOR",
+            "label": "¿Qué sabor hay en tu boca en este momento? Incluso si no notás nada... ¿Qué sabor tiene la 'nada'?",
             "type": "textarea"
           }
         ]

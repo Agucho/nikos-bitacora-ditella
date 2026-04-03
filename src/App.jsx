@@ -974,6 +974,26 @@ function App() {
                     );
                   }
 
+                  if (field.type === 'slider') {
+                    const sliderValue = Number(value) || 5;
+                    return (
+                      <div key={field.id} className="field-wrap">
+                        {field.subtitle && <p className="field-subtitle">{field.subtitle}</p>}
+                        <label>{field.label}</label>
+                        <input
+                          className="slider"
+                          type="range"
+                          min="1"
+                          max="10"
+                          step="1"
+                          value={sliderValue}
+                          onChange={(event) => updateVariable(field.id, Number(event.target.value))}
+                        />
+                        <div className="value-display small">{sliderValue}</div>
+                      </div>
+                    );
+                  }
+
                   return (
                     <div key={field.id} className="field-wrap">
                       <label>{field.label}</label>
