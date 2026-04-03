@@ -1179,37 +1179,86 @@
         "cognitive_work_d11_d60"
       ],
       "primary_exercise": {
-        "title": "Presencia y consciencia",
-        "type": "presence",
+        "title": "Ejercicios del día",
+        "type": "text",
+        "description": "Detectá y escribí una característica positiva tuya y la de alguien que conocés (o algo positivo que hiciste o que hizo esa persona en el día). [Que no se repitan durante los próximos 10 días]",
         "fields": [
           {
-            "id": "caracteristicaPropia",
-            "label": "Una característica positiva tuya (no repetir)",
+            "id": "positivoPropio",
+            "label": "Una característica positiva tuya, o algo positivo que hiciste",
             "type": "textarea"
           },
           {
-            "id": "caracteristicaOtra",
-            "label": "Una característica positiva de otra persona (no repetir)",
+            "id": "positivoOtraPersona",
+            "label": "Una característica positiva de otra persona, o algo positivo que hizo esa persona en el día",
             "type": "textarea"
           },
           {
-            "id": "emocionActual",
-            "label": "Emoción actual",
-            "type": "text"
-          },
-          {
-            "id": "sensacionesCorporales",
-            "label": "Sensaciones corporales",
+            "id": "emocionMomento",
+            "label": "En este momento me siento (emoción)...",
+            "subtitle": "MI CONCIENCIA DEL MOMENTO PRESENTE:\nCompletá las siguientes frases sobre tu cuerpo:",
             "type": "textarea"
           },
           {
-            "id": "respiracion",
-            "label": "Cómo está tu respiración",
-            "type": "text"
+            "id": "sensacionesCuerpo",
+            "label": "Y puedo sentir de mi cuerpo (al menos tres sensaciones)...",
+            "type": "textarea"
           },
           {
-            "id": "experienciaPresente",
-            "label": "Experiencia del momento presente",
+            "id": "curiosidadSensacion",
+            "label": "Siento curiosidad sobre (una de las tres sensaciones anteriores)...",
+            "type": "textarea"
+          },
+          {
+            "id": "conexionCuerpo",
+            "label": "Estoy conectando con (algún aspecto curioso o parte de tu cuerpo que te dé placer)...",
+            "type": "textarea"
+          },
+          {
+            "id": "aprendizajeCuerpo",
+            "label": "Lo cual me hace aprender que mi cuerpo me enseña (describir un breve detalle)...",
+            "type": "textarea"
+          },
+          {
+            "id": "respiracionMomento",
+            "label": "Puedo notar que mi respiración (describí qué, cómo y cuándo es tu respiración)...",
+            "type": "textarea"
+          },
+          {
+            "id": "sentirCuerpoCompleto",
+            "label": "Al sentir todo mi cuerpo siento (lo que se te ocurra al sentir tu cuerpo)...",
+            "type": "textarea"
+          },
+          {
+            "id": "experienciaMomentoPresente",
+            "label": "Puedo decir que en este momento siento (tu experiencia en el momento presente)...",
+            "type": "textarea"
+          },
+          {
+            "id": "comoYo",
+            "subtitle": "COMO YO\nSeleccioná de la siguiente lista las 3 sensaciones que más se asemejan a vos:",
+            "type": "checkbox_group",
+            "maxSelections": 3,
+            "options": [
+              "Estoy tan feliz de estar vivo",
+              "Solo necesito insistir un poco más con esto",
+              "Todo es posible",
+              "El amor es estúpido",
+              "Tengo miedo de la muerte, pero agradezco que sea inevitable",
+              "Me preocupo más por los otros que por mí",
+              "Internet es demasiado para mi cabeza, pero no puedo parar",
+              "Para cualquier cosa que desees, sé el cambio que te proponés",
+              "La gente puede cambiar, pero yo no",
+              "Si puedo superar esto, puedo superar cualquier cosa",
+              "Lloro hasta con ver publicidades en la tele",
+              "Me hace feliz saber qué hora es todo el tiempo",
+              "Me enojo con el tráfico en la ciudad"
+            ]
+          },
+          {
+            "id": "loIgnoraba",
+            "subtitle": "LO IGNORABA",
+            "label": "Te invito a prestar atención a algo que normalmente ignorás… El cielo, la lámpara del techo, un árbol, una flor, un cuadro… ¿Hay algo 'cool' en las cosas ordinarias? ¿Te animás a compartirlo? Escribilo…",
             "type": "textarea"
           }
         ]

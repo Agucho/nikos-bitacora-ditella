@@ -994,6 +994,42 @@ function App() {
                     );
                   }
 
+                  if (field.type === 'checkbox_group') {
+                    const selected = Array.isArray(dayDraft.variableExercise[field.id])
+                      ? dayDraft.variableExercise[field.id]
+                      : [];
+                    const max = field.maxSelections || Infinity;
+                    return (
+                      <div key={field.id} className="field-wrap">
+                        {field.subtitle && <p className="field-subtitle">{field.subtitle}</p>}
+                        {field.label && <label>{field.label}</label>}
+                        <div className="checkbox-group">
+                          {(field.options || []).map((option) => {
+                            const isChecked = selected.includes(option);
+                            const isDisabled = !isChecked && selected.length >= max;
+                            return (
+                              <label key={option} className={`checkbox-option${isDisabled ? ' checkbox-option--disabled' : ''}`}>
+                                <input
+                                  type="checkbox"
+                                  checked={isChecked}
+                                  disabled={isDisabled}
+                                  onChange={() => {
+                                    const next = isChecked
+                                      ? selected.filter((s) => s !== option)
+                                      : [...selected, option];
+                                    updateVariable(field.id, next);
+                                  }}
+                                />
+                                {option}
+                              </label>
+                            );
+                          })}
+                        </div>
+                        <p className="checkbox-count">{selected.length} / {max} seleccionadas</p>
+                      </div>
+                    );
+                  }
+
                   return (
                     <div key={field.id} className="field-wrap">
                       <label>{field.label}</label>
