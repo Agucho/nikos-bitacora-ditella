@@ -34,10 +34,13 @@ export function persistPendingProfile(profile) {
   localStorage.setItem(PROFILE_STORAGE_KEY, JSON.stringify(profile));
 }
 
-export function consumePendingProfile() {
+export function getPendingProfile() {
   const raw = localStorage.getItem(PROFILE_STORAGE_KEY);
-  localStorage.removeItem(PROFILE_STORAGE_KEY);
   return raw ? JSON.parse(raw) : null;
+}
+
+export function clearPendingProfile() {
+  localStorage.removeItem(PROFILE_STORAGE_KEY);
 }
 
 export function getPendingMagicLinkEmail() {

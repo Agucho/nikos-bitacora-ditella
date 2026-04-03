@@ -3,9 +3,10 @@ import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { getDownloadURL, ref } from 'firebase/storage';
 import { auth, hasFirebaseConfig, storage } from './firebase/client';
 import {
+  clearPendingProfile,
   completeMagicLinkSignIn,
-  consumePendingProfile,
   getPendingMagicLinkEmail,
+  getPendingProfile,
   hasMagicLinkInUrl,
   MAGIC_LINK_EMAIL_REQUIRED_CODE,
   persistPendingProfile,
@@ -36,6 +37,27 @@ const NAV_ITEMS = [
   { key: 'material', label: 'Material Extra' }
 ];
 
+const BUENOS_AIRES_TIMEZONE = 'America/Argentina/Buenos_Aires';
+
+function getBuenosAiresDateParts(date = new Date()) {
+  const parts = new Intl.DateTimeFormat('en-CA', {
+    timeZone: BUENOS_AIRES_TIMEZONE,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit'
+  }).formatToParts(date);
+
+  return {
+    year: Number(parts.find((p) => p.type === 'year').value),
+    month: Number(parts.find((p) => p.type === 'month').value),
+    day: Number(parts.find((p) => p.type === 'day').value)
+  };
+}
+
+function getBuenosAiresDateKey(date = new Date()) {
+  const { year, month, day } = getBuenosAiresDateParts(date);
+  return `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+}
 
 function formatDate(date) {
   const days = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
@@ -44,7 +66,7 @@ function formatDate(date) {
 }
 
 function toDateKey(date) {
-  return date.toISOString().split('T')[0];
+  return getBuenosAiresDateKey(date);
 }
 
 function calculateCurrentDay(startDate) {
@@ -53,11 +75,15 @@ function calculateCurrentDay(startDate) {
   }
 
   const start = new Date(startDate);
-  const today = new Date();
-  const startDay = new Date(start.getFullYear(), start.getMonth(), start.getDate());
-  const todayDay = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+  const startParts = getBuenosAiresDateParts(start);
+  const todayParts = getBuenosAiresDateParts(new Date());
+
+  const startDay = new Date(startParts.year, startParts.month - 1, startParts.day);
+  const todayDay = new Date(todayParts.year, todayParts.month - 1, todayParts.day);
+
   const diffMs = todayDay.getTime() - startDay.getTime();
   const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24)) + 1;
+
   return Math.max(1, Math.min(60, diffDays));
 }
 
@@ -160,7 +186,7 @@ function App() {
   const [dayDraft, setDayDraft] = useState(null);
   const [authForm, setAuthForm] = useState({ name: '', email: '', participantType: '' });
   const [magicLinkSent, setMagicLinkSent] = useState(false);
-  const [pendingProfile] = useState(() => consumePendingProfile());
+  const [pendingProfile, setPendingProfile] = useState(() => getPendingProfile());
   const [materialItems, setMaterialItems] = useState(materialExtraItems);
   const [selectedMaterial, setSelectedMaterial] = useState(materialExtraItems[0]);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -265,14 +291,23 @@ function App() {
     if (!user || !pendingProfile || guestMode) {
       return;
     }
-
+  
     upsertProfile(user.uid, {
       name: pendingProfile.name || '',
       email: user.email || pendingProfile.email || '',
-      participantType: pendingProfile.participantType === 'student' || pendingProfile.participantType === 'guest' ? pendingProfile.participantType : undefined
-    }).catch((error) => {
-      setStatus(error.message || 'No se pudo guardar el perfil.');
-    });
+      participantType:
+        pendingProfile.participantType === 'student' ||
+        pendingProfile.participantType === 'guest'
+          ? pendingProfile.participantType
+          : undefined
+    })
+      .then(() => {
+        clearPendingProfile();
+        setPendingProfile(null);
+      })
+      .catch((error) => {
+        setStatus(error.message || 'No se pudo guardar el perfil.');
+      });
   }, [user, pendingProfile, guestMode]);
 
   useEffect(() => {
@@ -369,7 +404,7 @@ function App() {
       return;
     }
 
-    const today = toDateKey(new Date());
+    const today = getBuenosAiresDateKey(new Date());
     const payload = {
       dateKey: today,
       pleasure: Number(emotionDraft.pleasure),
@@ -454,7 +489,17 @@ function App() {
 
       await saveJournalEntry(user.uid, payload);
       if (shouldStartProgram) {
-        await upsertProfile(user.uid, { startDate: nowIso });
+        await upsertProfile(user.uid, {
+          startDate: nowIso,
+          email: user.email || profile?.email || '',
+          name: profile?.name || pendingProfile?.name || '',
+          participantType:
+            profile?.participantType === 'student' || profile?.participantType === 'guest'
+              ? profile.participantType
+              : pendingProfile?.participantType === 'student' || pendingProfile?.participantType === 'guest'
+                ? pendingProfile.participantType
+                : undefined
+        });
       }
       setStatus('Bitácora guardada.');
       closeDay();
@@ -616,10 +661,19 @@ function App() {
   }
 
   if (window.location.pathname === '/admin') {
-    if (!user) {
-      window.location.replace('/');
-      return null;
+    if (authLoading) {
+      return <div className="screen-center">Cargando...</div>;
     }
+  
+    if (!user) {
+      return (
+        <div className="screen-center" style={{ flexDirection: 'column', gap: '16px' }}>
+          <p>Necesitas iniciar sesión para acceder al panel.</p>
+          <a href="/">Volver a la app</a>
+        </div>
+      );
+    }
+  
     if (!isAdmin) {
       return (
         <div className="screen-center" style={{ flexDirection: 'column', gap: '16px' }}>
@@ -628,6 +682,7 @@ function App() {
         </div>
       );
     }
+  
     return <AdminDashboard user={user} />;
   }
 

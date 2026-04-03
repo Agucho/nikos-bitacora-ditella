@@ -106,6 +106,66 @@
   color: #c0392b;
 }
 
+/* ─── Metrics bar ────────────────────────────────────────────────────────── */
+
+.admin-metrics {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.admin-metric-card {
+  flex: 1;
+  min-width: 100px;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 14px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.admin-metric-value {
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1;
+  color: #1a1a1a;
+}
+
+.admin-metric-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #aaa;
+}
+
+.admin-metric-card--al-dia {
+  border-left: 3px solid #4caf7d;
+}
+
+.admin-metric-card--al-dia .admin-metric-value {
+  color: #1e7e34;
+}
+
+.admin-metric-card--con-retraso {
+  border-left: 3px solid #f09640;
+}
+
+.admin-metric-card--con-retraso .admin-metric-value {
+  color: #d84a00;
+}
+
+.admin-metric-card--sin-actividad {
+  border-left: 3px solid #ccc;
+}
+
+.admin-metric-card--sin-actividad .admin-metric-value {
+  color: #999;
+}
+
 /* ─── Toolbar ────────────────────────────────────────────────────────────── */
 
 .admin-toolbar {
@@ -136,6 +196,23 @@
 .admin-count {
   font-size: 13px;
   color: #999;
+}
+
+.admin-reset-sort {
+  background: none;
+  border: 1px solid #d0d0d0;
+  border-radius: 6px;
+  padding: 6px 11px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #666;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.admin-reset-sort:hover {
+  background: #f0f0f0;
+  color: #1a1a1a;
 }
 
 /* ─── User table ─────────────────────────────────────────────────────────── */
@@ -210,8 +287,20 @@
   transition: background 0.1s;
 }
 
+.admin-row--al-dia {
+  background: #f6fcf8;
+}
+
+.admin-row--con-retraso {
+  background: #fffaf4;
+}
+
+.admin-row--sin-actividad {
+  background: #fafafa;
+}
+
 .admin-table-row:hover {
-  background: #f5f7ff;
+  background: #eef1ff;
 }
 
 .admin-name-cell {

@@ -40,13 +40,26 @@ function statusCssClass(status) {
   return 'admin-status--sin-actividad';
 }
 
-const STATUS_ORDER = { 'al día': 0, 'con retraso': 1, 'sin actividad': 2 };
+// Default sort: con retraso → sin actividad → al día
+const STATUS_ORDER = { 'con retraso': 0, 'sin actividad': 1, 'al día': 2 };
+
+// Status order used only for the manual column sort (asc = al día first)
+const STATUS_ORDER_COLUMN = { 'al día': 0, 'con retraso': 1, 'sin actividad': 2 };
+
+function defaultSort(a, b) {
+  const diff = (STATUS_ORDER[a.status] ?? 3) - (STATUS_ORDER[b.status] ?? 3);
+  if (diff !== 0) return diff;
+  // within group: streak desc, then latestCompleted desc
+  const streakDiff = (b.streak ?? 0) - (a.streak ?? 0);
+  if (streakDiff !== 0) return streakDiff;
+  return (b.latestCompleted ?? -1) - (a.latestCompleted ?? -1);
+}
 
 function compareUsers(a, b, field, direction) {
   const dir = direction === 'asc' ? 1 : -1;
 
   if (field === 'status') {
-    const diff = (STATUS_ORDER[a.status] ?? 3) - (STATUS_ORDER[b.status] ?? 3);
+    const diff = (STATUS_ORDER_COLUMN[a.status] ?? 3) - (STATUS_ORDER_COLUMN[b.status] ?? 3);
     if (diff !== 0) return diff * dir;
     // tiebreaker: latestCompleted descending
     return (b.latestCompleted ?? -1) - (a.latestCompleted ?? -1);
@@ -82,7 +95,7 @@ export function AdminDashboard({ user }) {
   const [error, setError] = useState(null);
   const [search, setSearch] = useState('');
   const [selectedUser, setSelectedUser] = useState(null);
-  const [sortField, setSortField] = useState('status');
+  const [sortField, setSortField] = useState(null);   // null = default sort
   const [sortDirection, setSortDirection] = useState('asc');
 
   function handleSort(field) {
@@ -92,6 +105,11 @@ export function AdminDashboard({ user }) {
       setSortField(field);
       setSortDirection('asc');
     }
+  }
+
+  function handleResetSort() {
+    setSortField(null);
+    setSortDirection('asc');
   }
 
   useEffect(() => {
@@ -117,7 +135,8 @@ export function AdminDashboard({ user }) {
     return () => { cancelled = true; };
   }, []);
 
-  const enrichedUsers = useMemo(() => rawUsers.map((u) => {
+  const enrichedUsers = useMemo(() => rawUsers
+  .map((u) => {
     const currentDay = calcCurrentDay(u.startDate);
     const streak = calcStreak(u.journalByDay, currentDay);
     const completedEntries = Object.values(u.journalByDay).filter((e) => e?.completed);
@@ -126,7 +145,9 @@ export function AdminDashboard({ user }) {
       : null;
     const status = getUserStatus(u.startDate, u.journalByDay, currentDay);
     return { ...u, currentDay, streak, latestCompleted, status };
-  }), [rawUsers]);
+  })
+  .filter((u) => u.name && u.email && u.participantType),
+[rawUsers]);
 
   const filtered = useMemo(() => {
     const q = search.toLowerCase().trim();
@@ -138,9 +159,18 @@ export function AdminDashboard({ user }) {
   }, [enrichedUsers, search]);
 
   const sorted = useMemo(
-    () => [...filtered].sort((a, b) => compareUsers(a, b, sortField, sortDirection)),
+    () => sortField
+      ? [...filtered].sort((a, b) => compareUsers(a, b, sortField, sortDirection))
+      : [...filtered].sort(defaultSort),
     [filtered, sortField, sortDirection]
   );
+
+  const metrics = useMemo(() => ({
+    total: enrichedUsers.length,
+    alDia: enrichedUsers.filter((u) => u.status === 'al día').length,
+    conRetraso: enrichedUsers.filter((u) => u.status === 'con retraso').length,
+    sinActividad: enrichedUsers.filter((u) => u.status === 'sin actividad').length,
+  }), [enrichedUsers]);
 
   if (selectedUser) {
     return (
@@ -164,6 +194,25 @@ export function AdminDashboard({ user }) {
 
         {!loading && !error && (
           <>
+            <div className="admin-metrics">
+              <div className="admin-metric-card">
+                <span className="admin-metric-value">{metrics.total}</span>
+                <span className="admin-metric-label">Participantes</span>
+              </div>
+              <div className="admin-metric-card admin-metric-card--al-dia">
+                <span className="admin-metric-value">{metrics.alDia}</span>
+                <span className="admin-metric-label">Al día</span>
+              </div>
+              <div className="admin-metric-card admin-metric-card--con-retraso">
+                <span className="admin-metric-value">{metrics.conRetraso}</span>
+                <span className="admin-metric-label">Con retraso</span>
+              </div>
+              <div className="admin-metric-card admin-metric-card--sin-actividad">
+                <span className="admin-metric-value">{metrics.sinActividad}</span>
+                <span className="admin-metric-label">Sin actividad</span>
+              </div>
+            </div>
+
             <div className="admin-toolbar">
               <input
                 className="admin-search"
@@ -175,6 +224,11 @@ export function AdminDashboard({ user }) {
               <span className="admin-count">
                 {sorted.length} {sorted.length === 1 ? 'participante' : 'participantes'}
               </span>
+              {sortField && (
+                <button type="button" className="admin-reset-sort" onClick={handleResetSort}>
+                  Restablecer orden
+                </button>
+              )}
             </div>
 
             <UserTable
@@ -265,9 +319,18 @@ function UserTable({ users, onSelect, sortField, sortDirection, onSort }) {
   );
 }
 
+function rowTintClass(status) {
+  if (status === 'al día') return 'admin-row--al-dia';
+  if (status === 'con retraso') return 'admin-row--con-retraso';
+  return 'admin-row--sin-actividad';
+}
+
 function UserRow({ user, onSelect }) {
   return (
-    <tr className="admin-table-row" onClick={() => onSelect(user)}>
+    <tr
+      className={`admin-table-row ${rowTintClass(user.status)}`}
+      onClick={() => onSelect(user)}
+    >
       <td className="admin-name-cell">{user.name || '—'}</td>
       <td className="admin-email-cell">{user.email || '—'}</td>
       <td className="admin-cell-muted">{participantTypeDisplay(user)}</td>
