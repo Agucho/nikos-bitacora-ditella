@@ -1032,8 +1032,9 @@ function App() {
 
                   return (
                     <div key={field.id} className="field-wrap">
+                      {field.subtitle && <p className="field-subtitle">{field.subtitle}</p>}
                       <label>{field.label}</label>
-                      <input type="text" value={value} onChange={(event) => updateVariable(field.id, event.target.value)} />
+                      <input type="text" placeholder={field.placeholder} value={value} onChange={(event) => updateVariable(field.id, event.target.value)} />
                     </div>
                   );
                 })}

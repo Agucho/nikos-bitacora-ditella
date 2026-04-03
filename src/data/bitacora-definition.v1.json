@@ -1279,37 +1279,138 @@
         "cognitive_work_d11_d60"
       ],
       "primary_exercise": {
-        "title": "Presencia y consciencia",
-        "type": "presence",
+        "title": "Ejercicios del día",
+        "type": "text",
+        "description": "Detectá y escribí una característica positiva tuya y la de alguien que conocés (o algo positivo que hiciste o que hizo esa persona en el día). [Que no se repitan durante los próximos 10 días]",
         "fields": [
           {
-            "id": "caracteristicaPropia",
-            "label": "Una característica positiva tuya (no repetir)",
+            "id": "positivoPropio",
+            "label": "Una característica positiva tuya, o algo positivo que hiciste",
             "type": "textarea"
           },
           {
-            "id": "caracteristicaOtra",
-            "label": "Una característica positiva de otra persona (no repetir)",
+            "id": "positivoOtraPersona",
+            "label": "Una característica positiva de otra persona, o algo positivo que hizo esa persona en el día",
             "type": "textarea"
           },
           {
-            "id": "emocionActual",
-            "label": "Emoción actual",
+            "id": "emocionMomento",
+            "label": "En este momento me siento (emoción)...",
+            "subtitle": "MI CONCIENCIA DEL MOMENTO PRESENTE:\nCompletá las siguientes frases sobre tu cuerpo:",
+            "type": "textarea"
+          },
+          {
+            "id": "sensacionesCuerpo",
+            "label": "Y puedo sentir de mi cuerpo (al menos tres sensaciones)...",
+            "type": "textarea"
+          },
+          {
+            "id": "curiosidadSensacion",
+            "label": "Siento curiosidad sobre (una de las tres sensaciones anteriores)...",
+            "type": "textarea"
+          },
+          {
+            "id": "conexionCuerpo",
+            "label": "Estoy conectando con (algún aspecto curioso o parte de tu cuerpo que te dé placer)...",
+            "type": "textarea"
+          },
+          {
+            "id": "aprendizajeCuerpo",
+            "label": "Lo cual me hace aprender que mi cuerpo me enseña (describir un breve detalle)...",
+            "type": "textarea"
+          },
+          {
+            "id": "respiracionMomento",
+            "label": "Puedo notar que mi respiración (describí qué, cómo y cuándo es tu respiración)...",
+            "type": "textarea"
+          },
+          {
+            "id": "sentirCuerpoCompleto",
+            "label": "Al sentir todo mi cuerpo siento (lo que se te ocurra al sentir tu cuerpo)...",
+            "type": "textarea"
+          },
+          {
+            "id": "experienciaMomentoPresente",
+            "label": "Puedo decir que en este momento siento (tu experiencia en el momento presente)...",
+            "type": "textarea"
+          },
+          {
+            "id": "completar1Comportamiento",
+            "subtitle": "COMPLETAR",
+            "label": "1. Cuando...",
+            "placeholder": "comportamiento",
             "type": "text"
           },
           {
-            "id": "sensacionesCorporales",
-            "label": "Sensaciones corporales",
-            "type": "textarea"
-          },
-          {
-            "id": "respiracion",
-            "label": "Cómo está tu respiración",
+            "id": "completar1Emocion",
+            "label": "Yo siento...",
+            "placeholder": "emoción",
             "type": "text"
           },
           {
-            "id": "experienciaPresente",
-            "label": "Experiencia del momento presente",
+            "id": "completar1Razon",
+            "label": "Porque...",
+            "placeholder": "razón",
+            "type": "text"
+          },
+          {
+            "id": "completar2Comportamiento",
+            "label": "2. Cuando...",
+            "placeholder": "comportamiento",
+            "type": "text"
+          },
+          {
+            "id": "completar2Emocion",
+            "label": "Yo siento...",
+            "placeholder": "emoción",
+            "type": "text"
+          },
+          {
+            "id": "completar2Razon",
+            "label": "Porque...",
+            "placeholder": "razón",
+            "type": "text"
+          },
+          {
+            "id": "completar3Comportamiento",
+            "label": "3. Cuando...",
+            "placeholder": "comportamiento",
+            "type": "text"
+          },
+          {
+            "id": "completar3Emocion",
+            "label": "Yo siento...",
+            "placeholder": "emoción",
+            "type": "text"
+          },
+          {
+            "id": "completar3Razon",
+            "label": "Porque...",
+            "placeholder": "razón",
+            "type": "text"
+          },
+          {
+            "id": "completar4Comportamiento",
+            "label": "4. Cuando...",
+            "placeholder": "comportamiento",
+            "type": "text"
+          },
+          {
+            "id": "completar4Emocion",
+            "label": "Yo siento...",
+            "placeholder": "emoción",
+            "type": "text"
+          },
+          {
+            "id": "completar4Razon",
+            "label": "Porque...",
+            "placeholder": "razón",
+            "type": "text"
+          },
+          {
+            "id": "focalizaPanza",
+            "subtitle": "FOCALIZÁ EN LA PANZA",
+            "label": "Esta vez podés elegir estar sentado o parado, tus manos podés apoyarlas sobre tu panza o dejarlas relajadas al costado de tu cuerpo.\n\nCuando respirás notá cómo la panza sube al inspirar y baja al expirar.\nNotalo durante 30 respiraciones.\n\nEscribí alguna sensación por más pequeña que sea…",
             "type": "textarea"
           }
         ]
