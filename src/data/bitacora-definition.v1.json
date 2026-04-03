@@ -969,7 +969,7 @@
           {
             "id": "emocionMomento",
             "label": "En este momento me siento (emoción)...",
-            "subtitle": "Mi conciencia del momento presente — Completá las siguientes frases sobre tu cuerpo:",
+            "subtitle": "MI CONCIENCIA DEL MOMENTO PRESENTE:\nCompletá las siguientes frases sobre tu cuerpo:",
             "type": "textarea"
           },
           {

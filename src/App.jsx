@@ -941,8 +941,7 @@ function App() {
               )}
 
               <div className="exercise-block">
-                <h3>{selectedExercise.intro ? selectedExercise.title : 'Ejercicio del día'}</h3>
-                {!selectedExercise.intro && <h4>{selectedExercise.title}</h4>}
+                <h3>{selectedExercise.title || 'Ejercicio del día'}</h3>
                 {selectedExercise.description && <p className="exercise-description">{selectedExercise.description}</p>}
 
                 {selectedExercise.type === 'rating' && selectedExercise.fields.map((field) => {
@@ -968,8 +967,8 @@ function App() {
                   if (field.type === 'textarea') {
                     return (
                       <div key={field.id} className="field-wrap">
-                        <label>{field.label}</label>
                         {field.subtitle && <p className="field-subtitle">{field.subtitle}</p>}
+                        <label>{field.label}</label>
                         <textarea placeholder={field.placeholder} value={value} onChange={(event) => updateVariable(field.id, event.target.value)} />
                       </div>
                     );
