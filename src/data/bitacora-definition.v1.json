@@ -1537,37 +1537,81 @@
         "cognitive_work_d11_d60"
       ],
       "primary_exercise": {
-        "title": "Presencia y consciencia",
-        "type": "presence",
+        "title": "Ejercicios del día",
+        "type": "text",
+        "description": "Detectá y escribí una característica positiva tuya y la de alguien que conocés (o algo positivo que hiciste o que hizo esa persona en el día). [Que no se repitan durante los próximos 10 días]",
         "fields": [
           {
-            "id": "caracteristicaPropia",
-            "label": "Una característica positiva tuya (no repetir)",
+            "id": "positivoPropio",
+            "label": "Una característica positiva tuya, o algo positivo que hiciste",
             "type": "textarea"
           },
           {
-            "id": "caracteristicaOtra",
-            "label": "Una característica positiva de otra persona (no repetir)",
+            "id": "positivoOtraPersona",
+            "label": "Una característica positiva de otra persona, o algo positivo que hizo esa persona en el día",
             "type": "textarea"
           },
           {
-            "id": "emocionActual",
-            "label": "Emoción actual",
-            "type": "text"
-          },
-          {
-            "id": "sensacionesCorporales",
-            "label": "Sensaciones corporales",
+            "id": "emocionMomento",
+            "label": "En este momento me siento (emoción)...",
+            "subtitle": "MI CONCIENCIA DEL MOMENTO PRESENTE:\nCompletá las siguientes frases sobre tu cuerpo:",
             "type": "textarea"
           },
           {
-            "id": "respiracion",
-            "label": "Cómo está tu respiración",
-            "type": "text"
+            "id": "sensacionesCuerpo",
+            "label": "Y puedo sentir de mi cuerpo (al menos tres sensaciones)...",
+            "type": "textarea"
           },
           {
-            "id": "experienciaPresente",
-            "label": "Experiencia del momento presente",
+            "id": "curiosidadSensacion",
+            "label": "Siento curiosidad sobre (una de las tres sensaciones anteriores)...",
+            "type": "textarea"
+          },
+          {
+            "id": "conexionCuerpo",
+            "label": "Estoy conectando con (algún aspecto curioso o parte de tu cuerpo que te dé placer)...",
+            "type": "textarea"
+          },
+          {
+            "id": "aprendizajeCuerpo",
+            "label": "Lo cual me hace aprender que mi cuerpo me enseña (describir un breve detalle)...",
+            "type": "textarea"
+          },
+          {
+            "id": "respiracionMomento",
+            "label": "Puedo notar que mi respiración (describí qué, cómo y cuándo es tu respiración)...",
+            "type": "textarea"
+          },
+          {
+            "id": "sentirCuerpoCompleto",
+            "label": "Al sentir todo mi cuerpo siento (lo que se te ocurra al sentir tu cuerpo)...",
+            "type": "textarea"
+          },
+          {
+            "id": "experienciaMomentoPresente",
+            "label": "Puedo decir que en este momento siento (tu experiencia en el momento presente)...",
+            "type": "textarea"
+          },
+          {
+            "id": "ultimaVezArriesgaste",
+            "subtitle": "EL CICLO DE LA CONFIANZA",
+            "label": "Tener confianza en vos es una variable importante a la hora de enfrentar un desafío. La definición de autoconfianza es la sensación de control en situaciones que implica cualquier desafío para vos. El ciclo de la confianza consta de 5 pasos:\n\n1. Sea lo que sea que estás por enfrentar decidite a pensar positivo, orientado siempre al futuro, tratando de focalizar en soluciones, en lugar de problemas. Pensamientos asociados al proceso de lo que estás por enfrentar y no al resultado esperado. Acordate que el cerebro cree lo que vos pensás. Si arrancás pensando negativo te será imposible aumentar confianza en vos mismo. Tenés que estar convencido de que el esfuerzo y el posible dolor valen la pena. Y que las recompensas que luego quizás vendrán, también.\n\n2. Trabajar duro. Sea estudio, entrenamiento, práctica, repeticiones, tiempo, lo que sea que será duro.\n\n3. Tomar riesgo. Sin que tomes algo de riesgo es difícil que tu confianza aumente. Tomar riesgo construye tu confianza. Este es el punto más complejo porque la decisión importante es cuánto, cómo, dónde, en qué momento voy a arriesgar. Aquí está la clave. ¿Cuándo fue la última vez que arriesgaste? Escribilo…",
+            "type": "textarea"
+          },
+          {
+            "id": "granDesafio",
+            "subtitle": "4. Luego de 1, 2 y 3 quizás, y solo quizás, experimentes el éxito. No hay seguridad de nada, solo aumentan las chances de que lo logres.\n\n5. Si lo lográs y tenés éxito automáticamente pensarás en positivo, realimentando el ciclo. ¡Habrá aumentado tu confianza!",
+            "label": "¿En qué gran desafío estás trabajando o estás a punto de iniciar? Escribilo…",
+            "type": "textarea"
+          },
+          {
+            "id": "comoLoVasAPensar",
+            "label": "¿Cómo lo vas a pensar? Escribilo…",
+            "type": "textarea"
+          },
+          {
+            "id": "riesgoCalculado",
+            "label": "¿Qué riesgo medido y/o calculado vas a tomar? Escribilo…",
             "type": "textarea"
           }
         ]
