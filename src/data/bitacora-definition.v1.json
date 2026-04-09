@@ -1892,17 +1892,71 @@
         "cognitive_work_d11_d60"
       ],
       "primary_exercise": {
-        "title": "Ponerse cómodo",
+        "title": "Ejercicios del día",
         "type": "text",
+        "description": "Detectá y escribí una característica positiva tuya y la de alguien que conocés (o algo positivo que hiciste o que hizo esa persona en el día). [Que no se repitan durante los próximos 10 días]",
         "fields": [
           {
-            "id": "postura",
-            "label": "Describe tu postura más cómoda",
+            "id": "positivoPropio",
+            "label": "Una característica positiva tuya, o algo positivo que hiciste",
             "type": "textarea"
           },
           {
-            "id": "sensaciones",
-            "label": "¿Qué sientes en tu cuerpo?",
+            "id": "positivoOtraPersona",
+            "label": "Una característica positiva de otra persona, o algo positivo que hizo esa persona en el día",
+            "type": "textarea"
+          },
+          {
+            "id": "emocionMomento",
+            "label": "En este momento me siento (emoción)...",
+            "subtitle": "MI CONCIENCIA DEL MOMENTO PRESENTE:\nCompletá las siguientes frases sobre tu cuerpo:",
+            "type": "textarea"
+          },
+          {
+            "id": "sensacionesCuerpo",
+            "label": "Y puedo sentir de mi cuerpo (al menos tres sensaciones)...",
+            "type": "textarea"
+          },
+          {
+            "id": "curiosidadSensacion",
+            "label": "Siento curiosidad sobre (una de las tres sensaciones anteriores)...",
+            "type": "textarea"
+          },
+          {
+            "id": "conexionCuerpo",
+            "label": "Estoy conectando con (algún aspecto curioso o parte de tu cuerpo que te dé placer)...",
+            "type": "textarea"
+          },
+          {
+            "id": "aprendizajeCuerpo",
+            "label": "Lo cual me hace aprender que mi cuerpo me enseña (describir un breve detalle)...",
+            "type": "textarea"
+          },
+          {
+            "id": "respiracionMomento",
+            "label": "Puedo notar que mi respiración (describí qué, cómo y cuándo es tu respiración)...",
+            "type": "textarea"
+          },
+          {
+            "id": "sentirCuerpoCompleto",
+            "label": "Al sentir todo mi cuerpo siento (lo que se te ocurra al sentir tu cuerpo)...",
+            "type": "textarea"
+          },
+          {
+            "id": "experienciaMomentoPresente",
+            "label": "Puedo decir que en este momento siento (tu experiencia en el momento presente)...",
+            "type": "textarea"
+          },
+          {
+            "id": "noCreasTodo",
+            "subtitle": "NO CREAS TODO LO QUE PENSÁS",
+            "label": "Por pensar algo no significa que sea real o verdad.\n\n¿Cuáles son los pensamientos que estás teniendo ahora? ¿Son reales? ¿Son verdades o juicios falsos?\n\nLista de pensamientos…",
+            "type": "textarea"
+          },
+          {
+            "id": "caminoAlAndar",
+            "subtitle": "SE HACE CAMINO AL ANDAR (CAMINANDO)",
+            "label": "Descalzate, sentí el piso en cada parte de las plantas de los pies.\n\nRealizá tres pasos atentamente y lo más silencioso que sea posible. Mientras realizás cada movimiento focalizá en las sensaciones que registran las plantas de tus pies.\n\n¿Sentiste algo nuevo? Escribilo…",
             "type": "textarea"
           }
         ]
