@@ -589,6 +589,111 @@ textarea {
   font-weight: 500;
 }
 
+/* energy_states field */
+.energy-states-wrap {
+  padding-top: 4px;
+}
+
+.energy-states-label {
+  font-size: 1em;
+  color: #444;
+  line-height: 1.7;
+  white-space: pre-line;
+  margin: 0 0 20px;
+}
+
+.energy-states-chart-row {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.energy-pie-chart {
+  width: 160px;
+  height: 160px;
+  flex-shrink: 0;
+}
+
+.energy-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.energy-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95em;
+}
+
+.energy-legend-dot {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.energy-legend-name {
+  color: #333;
+  flex: 1;
+}
+
+.energy-legend-pct {
+  font-weight: 700;
+  color: #333;
+  min-width: 36px;
+  text-align: right;
+}
+
+.energy-sliders {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.energy-slider-row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.energy-slider-row label {
+  font-size: 0.9em;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.energy-slider-control {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.energy-slider-control .slider {
+  flex: 1;
+}
+
+.energy-slider-pct {
+  font-size: 1.05em;
+  font-weight: 700;
+  color: #333;
+  min-width: 40px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.energy-texts {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
 .exercise-footer {
   font-size: 1.1em;
   font-weight: 600;

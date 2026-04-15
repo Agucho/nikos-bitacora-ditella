@@ -31,6 +31,38 @@ import { REGISTRATION_ENABLED, isAdminUser } from './config';
 import { APP_VERSION } from './version';
 import { AdminDashboard } from './admin/AdminDashboard';
 
+// --- energy_states helpers ---
+function pieSlicePath(cx, cy, r, startDeg, endDeg) {
+  const toRad = (deg) => (deg - 90) * Math.PI / 180;
+  const x1 = cx + r * Math.cos(toRad(startDeg));
+  const y1 = cy + r * Math.sin(toRad(startDeg));
+  const x2 = cx + r * Math.cos(toRad(endDeg));
+  const y2 = cy + r * Math.sin(toRad(endDeg));
+  const largeArc = endDeg - startDeg > 180 ? 1 : 0;
+  return `M ${cx} ${cy} L ${x1.toFixed(2)} ${y1.toFixed(2)} A ${r} ${r} 0 ${largeArc} 1 ${x2.toFixed(2)} ${y2.toFixed(2)} Z`;
+}
+
+function syncEnergySliders(changedIdx, newVal, current) {
+  const clamped = Math.max(0, Math.min(100, Math.round(newVal)));
+  const others = [0, 1, 2].filter((i) => i !== changedIdx);
+  const remaining = 100 - clamped;
+  const otherSum = current[others[0]] + current[others[1]];
+  const next = [...current];
+  next[changedIdx] = clamped;
+  if (otherSum === 0) {
+    next[others[0]] = Math.round(remaining / 2);
+    next[others[1]] = remaining - next[others[0]];
+  } else {
+    next[others[0]] = Math.round(remaining * current[others[0]] / otherSum);
+    next[others[1]] = remaining - next[others[0]];
+  }
+  if (next[others[1]] < 0) {
+    next[others[0]] += next[others[1]];
+    next[others[1]] = 0;
+  }
+  return next;
+}
+
 const NAV_ITEMS = [
   { key: 'emotion', label: 'Emocionómetro' },
   { key: 'calendar', label: 'Bitácora' },
@@ -962,13 +994,13 @@ function App() {
                   );
                 })}
 
-                {selectedExercise.type !== 'rating' && selectedExercise.fields.map((field) => {
+{selectedExercise.type !== 'rating' && selectedExercise.fields.map((field) => {
                   const value = dayDraft.variableExercise[field.id] || '';
                   if (field.type === 'textarea') {
                     return (
                       <div key={field.id} className="field-wrap">
-                        {field.subtitle && <p className="field-subtitle">{field.subtitle}</p>}
                         <label>{field.label}</label>
+                        {field.subtitle && <p className="field-subtitle">{field.subtitle}</p>}
                         <textarea placeholder={field.placeholder} value={value} onChange={(event) => updateVariable(field.id, event.target.value)} />
                       </div>
                     );
@@ -1026,6 +1058,109 @@ function App() {
                           })}
                         </div>
                         <p className="checkbox-count">{selected.length} / {max} seleccionadas</p>
+                      </div>
+                    );
+                  }
+
+                  if (field.type === 'energy_states') {
+                    const keys = field.stateKeys || {
+                      estado1Percent: 'estado1Percent',
+                      estado2Percent: 'estado2Percent',
+                      estado3Percent: 'estado3Percent',
+                      estado1Texto: 'estado1Texto',
+                      estado2Texto: 'estado2Texto',
+                      estado3Texto: 'estado3Texto',
+                    };
+                    const vex = dayDraft.variableExercise;
+                    const hasData = vex[keys.estado1Percent] != null;
+                    const rawP = [
+                      Number(vex[keys.estado1Percent]),
+                      Number(vex[keys.estado2Percent]),
+                      Number(vex[keys.estado3Percent]),
+                    ];
+                    const p = hasData ? rawP : [34, 33, 33];
+                    const texts = [
+                      vex[keys.estado1Texto] || '',
+                      vex[keys.estado2Texto] || '',
+                      vex[keys.estado3Texto] || '',
+                    ];
+                    const percentKeys = [keys.estado1Percent, keys.estado2Percent, keys.estado3Percent];
+                    const textKeys = [keys.estado1Texto, keys.estado2Texto, keys.estado3Texto];
+                    const STATE_LABELS = ['Estado 1 — Regulado', 'Estado 2 — Muy energético', 'Estado 3 — Abatido'];
+                    const COLORS = ['#3BAA6E', '#FF8C42', '#7B68EE'];
+                    const cx = 100, cy = 100, r = 80;
+                    let cumAngle = 0;
+                    const slices = p.map((pct, i) => {
+                      const startAngle = cumAngle;
+                      const sweep = pct * 3.6;
+                      cumAngle += sweep;
+                      return { startAngle, endAngle: startAngle + sweep, color: COLORS[i], pct };
+                    });
+                    return (
+                      <div key={field.id} className="field-wrap energy-states-wrap">
+                        {field.subtitle && <p className="field-subtitle">{field.subtitle}</p>}
+                        {field.label && <p className="energy-states-label">{field.label}</p>}
+                        <div className="energy-states-chart-row">
+                          <svg viewBox="0 0 200 200" className="energy-pie-chart">
+                            {slices.map((slice, i) => {
+                              if (slice.pct <= 0) return null;
+                              if (slice.pct >= 100) return <circle key={i} cx={cx} cy={cy} r={r} fill={slice.color} />;
+                              return (
+                                <path
+                                  key={i}
+                                  d={pieSlicePath(cx, cy, r, slice.startAngle, slice.endAngle)}
+                                  fill={slice.color}
+                                  stroke="#fff"
+                                  strokeWidth="2"
+                                />
+                              );
+                            })}
+                          </svg>
+                          <div className="energy-legend">
+                            {STATE_LABELS.map((lbl, i) => (
+                              <div key={i} className="energy-legend-item">
+                                <span className="energy-legend-dot" style={{ background: COLORS[i] }} />
+                                <span className="energy-legend-name">{lbl}</span>
+                                <span className="energy-legend-pct">{p[i]}%</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                        <div className="energy-sliders">
+                          {STATE_LABELS.map((lbl, i) => (
+                            <div key={i} className="energy-slider-row">
+                              <label style={{ color: COLORS[i] }}>{lbl}</label>
+                              <div className="energy-slider-control">
+                                <input
+                                  className="slider"
+                                  type="range"
+                                  min="0"
+                                  max="100"
+                                  value={p[i]}
+                                  onChange={(e) => {
+                                    const next = syncEnergySliders(i, Number(e.target.value), p);
+                                    updateVariable(percentKeys[0], next[0]);
+                                    updateVariable(percentKeys[1], next[1]);
+                                    updateVariable(percentKeys[2], next[2]);
+                                  }}
+                                />
+                                <span className="energy-slider-pct">{p[i]}%</span>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                        <div className="energy-texts">
+                          {STATE_LABELS.map((lbl, i) => (
+                            <div key={i} className="field-wrap">
+                              <label style={{ color: COLORS[i] }}>{lbl} — ¿Cómo fue tu experiencia?</label>
+                              <textarea
+                                value={texts[i]}
+                                onChange={(e) => updateVariable(textKeys[i], e.target.value)}
+                                placeholder={`Describí tu experiencia en ${lbl}…`}
+                              />
+                            </div>
+                          ))}
+                        </div>
                       </div>
                     );
                   }
