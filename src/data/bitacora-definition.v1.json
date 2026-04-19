@@ -2228,14 +2228,14 @@
           {
             "id": "cualidadProyectada",
             "type": "textarea",
-            "label": "TU CUALIDAD",
+            "label": "TU CUALIDAD MÁS VISIBLE",
             "subtitle": "¿Cuál es tu cualidad o característica que vos creés que más proyectás hacia los demás?\n\nEscribí…",
             "placeholder": "Escribilo..."
           },
           {
             "id": "cualidadDeseada",
             "type": "textarea",
-            "label": "TU CUALIDAD",
+            "label": "LA CUALIDAD QUE TE GUSTARÍA PROYECTAR",
             "subtitle": "¿Cuál es tu cualidad o característica que a vos te gustaría proyectar más hacia los demás?\n\nEscribí…",
             "placeholder": "Escribilo..."
           }
