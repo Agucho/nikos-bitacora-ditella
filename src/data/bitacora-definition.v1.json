@@ -2432,18 +2432,43 @@
         "cognitive_work_d11_d60"
       ],
       "primary_exercise": {
-        "title": "Qué ocultás",
+        "title": "Ejercicios del día",
         "type": "text",
         "fields": [
           {
-            "id": "queOculto",
-            "label": "¿Qué parte de vos ocultás?",
-            "type": "textarea"
+            "id": "estadosEnergeticos",
+            "type": "energy_states",
+            "label": "ESTADOS ENERGÉTICOS",
+            "subtitle": "Cuando reflexionás sobre tu día, es probable que puedas reconocer distintos estados energéticos.\n\nPor momentos, podés haber estado regulado, con la energía suficiente y adecuada para enfrentar los desafíos de la vida [ESTADO 1].\n\nEn otros momentos, quizás te sentiste con demasiada energía: alterado, ansioso o estresado, como si estuvieras listo para luchar o escapar de algo [ESTADO 2].\n\nY también puede haber habido momentos de baja energía: abatido, sin impulso, con ganas de no moverte, evitar o no enfrentar lo que tenías por delante [ESTADO 3].\n\nEl \"sabor\" general de tu día es el resultado de cómo se combinan estos tres estados.\n\nPara visualizarlo, usá el gráfico circular. Ajustá el tamaño de cada porción según el tiempo que sentís que pasaste en cada estado: regulado, muy energético o abatido.\n\n¿Qué tan grande es cada uno?\n\nUna vez que completes el gráfico, describí con palabras tu experiencia en cada estado.\n\nEl final del día es un buen momento para hacer este ejercicio.",
+            "stateKeys": {
+              "estado1Percent": "estado1Percent",
+              "estado2Percent": "estado2Percent",
+              "estado3Percent": "estado3Percent",
+              "estado1Texto": "estado1Texto",
+              "estado2Texto": "estado2Texto",
+              "estado3Texto": "estado3Texto"
+            }
           },
           {
-            "id": "porQue",
-            "label": "¿Por qué?",
-            "type": "textarea"
+            "id": "mayorPreocupacion",
+            "type": "textarea",
+            "label": "PREOCUPACIÓN",
+            "subtitle": "¿Cuál es tu mayor, mayor, mayor preocupación en este momento?",
+            "placeholder": "Escribilo..."
+          },
+          {
+            "id": "consejoMejorAmigo",
+            "type": "textarea",
+            "label": "CONSEJO PARA TU MEJOR AMIGO",
+            "subtitle": "Imaginate que a tu mejor amigo le preocupa lo mismo. Escribile algún consejo.",
+            "placeholder": "Escribilo..."
+          },
+          {
+            "id": "conexionArcoIris",
+            "type": "textarea",
+            "label": "LA CONEXIÓN DEL ARCO IRIS",
+            "subtitle": "En este mismo momento, hacé una pausa y contemplá todo lo que hay a tu alrededor, estés donde estés.\n\n¿Podés encontrar cada uno de los colores del arco iris?",
+            "placeholder": "Escribilo..."
           }
         ]
       },
