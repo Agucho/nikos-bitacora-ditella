@@ -2383,23 +2383,36 @@
         "cognitive_work_d11_d60"
       ],
       "primary_exercise": {
-        "title": "Identidad real vs imagen",
+        "title": "Ejercicios del día",
         "type": "text",
         "fields": [
           {
-            "id": "comoMeVeo",
-            "label": "Cómo me veo",
-            "type": "textarea"
+            "id": "estadosEnergeticos",
+            "type": "energy_states",
+            "label": "ESTADOS ENERGÉTICOS",
+            "subtitle": "Cuando reflexionás sobre tu día, es probable que puedas reconocer distintos estados energéticos.\n\nPor momentos, podés haber estado regulado, con la energía suficiente y adecuada para enfrentar los desafíos de la vida [ESTADO 1].\n\nEn otros momentos, quizás te sentiste con demasiada energía: alterado, ansioso o estresado, como si estuvieras listo para luchar o escapar de algo [ESTADO 2].\n\nY también puede haber habido momentos de baja energía: abatido, sin impulso, con ganas de no moverte, evitar o no enfrentar lo que tenías por delante [ESTADO 3].\n\nEl \"sabor\" general de tu día es el resultado de cómo se combinan estos tres estados.\n\nPara visualizarlo, usá el gráfico circular. Ajustá el tamaño de cada porción según el tiempo que sentís que pasaste en cada estado: regulado, muy energético o abatido.\n\n¿Qué tan grande es cada uno?\n\nUna vez que completes el gráfico, describí con palabras tu experiencia en cada estado.\n\nEl final del día es un buen momento para hacer este ejercicio.",
+            "stateKeys": {
+              "estado1Percent": "estado1Percent",
+              "estado2Percent": "estado2Percent",
+              "estado3Percent": "estado3Percent",
+              "estado1Texto": "estado1Texto",
+              "estado2Texto": "estado2Texto",
+              "estado3Texto": "estado3Texto"
+            }
           },
           {
-            "id": "comoMeVenOtros",
-            "label": "Cómo creo que me ven otros",
-            "type": "textarea"
+            "id": "noticiasEventosNegativos",
+            "type": "textarea",
+            "label": "NOTICIAS",
+            "subtitle": "Escribí una lista con los últimos eventos negativos que escuchaste en las noticias últimamente.\n\nEscribí:",
+            "placeholder": "Escribilo..."
           },
           {
-            "id": "diferencias",
-            "label": "Diferencias entre ambas",
-            "type": "textarea"
+            "id": "noticiasEventosPositivos",
+            "type": "textarea",
+            "label": "EVENTOS POSITIVOS",
+            "subtitle": "Ahora listá la mayor cantidad de eventos positivos que escuchaste, en cualquier lado, durante el mismo período de tiempo.\n\nEscribí:",
+            "placeholder": "Escribilo..."
           }
         ]
       },
