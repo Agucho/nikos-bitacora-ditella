@@ -2544,18 +2544,29 @@
         "cognitive_work_d11_d60"
       ],
       "primary_exercise": {
-        "title": "Qué evitás",
+        "title": "Ejercicios del día",
         "type": "text",
         "fields": [
           {
-            "id": "queEvito",
-            "label": "¿Qué situaciones o conversaciones evitás?",
-            "type": "textarea"
+            "id": "estadosEnergeticos",
+            "type": "energy_states",
+            "label": "ESTADOS ENERGÉTICOS",
+            "subtitle": "Cuando reflexionás sobre tu día, es probable que puedas reconocer distintos estados energéticos.\n\nPor momentos, podés haber estado regulado, con la energía suficiente y adecuada para enfrentar los desafíos de la vida [ESTADO 1].\n\nEn otros momentos, quizás te sentiste con demasiada energía: alterado, ansioso o estresado, como si estuvieras listo para luchar o escapar de algo [ESTADO 2].\n\nY también puede haber habido momentos de baja energía: abatido, sin impulso, con ganas de no moverte, evitar o no enfrentar lo que tenías por delante [ESTADO 3].\n\nEl \"sabor\" general de tu día es el resultado de cómo se combinan estos tres estados.\n\nPara visualizarlo, usá el gráfico circular. Ajustá el tamaño de cada porción según el tiempo que sentís que pasaste en cada estado: regulado, muy energético o abatido.\n\n¿Qué tan grande es cada uno?\n\nUna vez que completes el gráfico, describí con palabras tu experiencia en cada estado.\n\nEl final del día es un buen momento para hacer este ejercicio.",
+            "stateKeys": {
+              "estado1Percent": "estado1Percent",
+              "estado2Percent": "estado2Percent",
+              "estado3Percent": "estado3Percent",
+              "estado1Texto": "estado1Texto",
+              "estado2Texto": "estado2Texto",
+              "estado3Texto": "estado3Texto"
+            }
           },
           {
-            "id": "quePassaria",
-            "label": "¿Qué pasaría si no las evitaras?",
-            "type": "textarea"
+            "id": "agotadoEstado3",
+            "type": "textarea",
+            "label": "AGOTADO [DORSAL – ESTADO 3]",
+            "subtitle": "Cuando comenzás a sentirte agotado física y emocionalmente, sentís el cambio de intensidad en tu energía. Te desconectás de tu cuerpo, pensamientos, emociones y comportamientos.\n\nComprender cómo experimentás este estado te brinda un marco para hacer que ese momento sea menos aterrador. Conocé las formas en que tu respuesta de supervivencia hacia la inmovilización o el abatimiento comienza a activarse.\n\nRecordá un momento en el que sentiste que tu energía de abatimiento comenzaba a desconectarte.\n\nCuerpo: observá cómo tu cuerpo te muestra que la energía se está agotando.\n\nCerebro: escuchá los pensamientos que surgen. ¿Qué pensás sobre vos mismo, el mundo y las personas que te rodean? Identificá las emociones que aparecen.\n\nComportamientos: observá las acciones que querés tomar. Pueden ser impulsos internos o comportamientos reales en los que te involucrás.",
+            "placeholder": "Escribilo..."
           }
         ]
       },
