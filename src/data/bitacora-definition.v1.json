@@ -2648,18 +2648,36 @@
         "cognitive_work_d11_d60"
       ],
       "primary_exercise": {
-        "title": "Autenticidad",
+        "title": "Ejercicios del día",
         "type": "text",
         "fields": [
           {
-            "id": "cuandoSoyAutentico",
-            "label": "¿Cuándo sos más auténtico/a?",
-            "type": "textarea"
+            "id": "revisionDiferenteProximaVez",
+            "type": "textarea",
+            "label": "1. Detectá y escribí",
+            "subtitle": "Detectá y escribí si hubo algo que no te gustó cómo lo pensaste, hiciste o resolviste, y cómo lo pensarías, harías o resolverías diferente una próxima vez.",
+            "placeholder": "Escribilo..."
           },
           {
-            "id": "cuandoNo",
-            "label": "¿Cuándo no lo sos?",
-            "type": "textarea"
+            "id": "pensamientosIntensidadEmocional",
+            "type": "textarea",
+            "label": "2. Pensamientos que intensificaron emociones",
+            "subtitle": "Detectá y escribí pensamientos que tuviste en el día que te hayan hecho crecer la intensidad de una o más emociones.",
+            "placeholder": "Escribilo..."
+          },
+          {
+            "id": "senalCuerpoEmocion",
+            "type": "textarea",
+            "label": "Señal del cuerpo",
+            "subtitle": "¿Qué señal te dio tu cuerpo al sentir eso?",
+            "placeholder": "Escribilo..."
+          },
+          {
+            "id": "conQuien",
+            "type": "textarea",
+            "label": "¿CON QUIÉN?",
+            "subtitle": "Si pasás mucho tiempo con gente negativa, te vas a contagiar. Entonces, pasá la mayor cantidad de tiempo posible con gente positiva.\n\nEvaluá tu vida en este momento. ¿Qué tipo de personas te rodean? ¿Creen en vos y te hacen sentir bien, o están constantemente tirándote abajo y menospreciando tus ideas y sueños?\n\nHacé una lista de diez personas con las que pasás la mayor parte de tu tiempo. Al lado, escribí cuánto te apoyan y de qué manera te gustaría que te apoyen más.",
+            "placeholder": "Nombre 1:\n\nNombre 2:\n\nNombre 3:\n\nNombre 4:\n\nNombre 5:\n\nNombre 6:\n\nNombre 7:\n\nNombre 8:\n\nNombre 9:\n\nNombre 10:"
           }
         ]
       },
