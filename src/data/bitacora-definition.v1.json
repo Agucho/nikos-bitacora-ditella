@@ -2615,14 +2615,14 @@
             "type": "textarea",
             "label": "Conocé tu mejor versión",
             "subtitle": "Adaptado de Amanda Blake.\n\nInvestigá y escribí: ¿cómo, en qué momento, y cuál es un estado tuyo desencajado, sobrepasado, sobreexigido o incómodo?\n\nEn ese estado, buscá lugares en tu vida donde ya experimentaste algo parecido.\n\nCuando estás transitando por ese estado, ¿hacia qué forma de ser o capacidad te gustaría moverte, adquirir o convertirte?\n\nSi ya no tuvieses que experimentar ese estado desencajado, ¿qué te gustaría experimentar en su lugar?",
-            "placeholder": "Escribilo..."
+            "placeholder": "Estado tuyo desencajado, sobrepasado, sobre exigido, incómodo:\nSensación, postura, gestos:\nEstado de ánimo, emociones:\nPensamientos y suposiciones:"
           },
           {
             "id": "mejorVersionEstadoOptimo",
             "type": "textarea",
             "label": "Mi mejor estado",
             "subtitle": "Investigá y escribí: ¿cómo, en qué momento, y cuál es mi mejor estado, mi mejor versión?\n\n¿Cuáles son las sensaciones del cuerpo, posturas y gestos que acompañan a esta mejor versión?\n\n¿Cómo es mi humor en ese momento?\n\n¿Cómo interpreto, en general, el mundo que me rodea cuando estoy con ese humor?\n\n¿Cuáles son mis suposiciones centrales cuando funciono en ese estado?",
-            "placeholder": "Escribilo..."
+            "placeholder": "Estado mi mejor versión:\nSensación, postura, gestos:\nEstado de ánimo, emociones:\nPensamientos y suposiciones:"
           },
           {
             "id": "mejorVersionEjemplo",
