@@ -2586,18 +2586,49 @@
         "cognitive_work_d11_d60"
       ],
       "primary_exercise": {
-        "title": "Bajo presión",
+        "title": "Ejercicios del día",
         "type": "text",
         "fields": [
           {
-            "id": "comoReacciono",
-            "label": "¿Cómo reaccionás bajo presión?",
-            "type": "textarea"
+            "id": "revisionDiferenteProximaVez",
+            "type": "textarea",
+            "label": "Detectá y escribí",
+            "subtitle": "Detectá y escribí si hubo algo que no te gustó cómo lo pensaste, hiciste o resolviste, y cómo lo pensarías, harías o resolverías diferente una próxima vez.",
+            "placeholder": "Escribilo..."
           },
           {
-            "id": "queRevela",
-            "label": "¿Qué revela esto de vos?",
-            "type": "textarea"
+            "id": "pensamientosIntensidadEmocional",
+            "type": "textarea",
+            "label": "Pensamientos que intensificaron emociones",
+            "subtitle": "Detectá y escribí pensamientos que tuviste en el día que te hayan hecho crecer la intensidad de una o más emociones.",
+            "placeholder": "Escribilo..."
+          },
+          {
+            "id": "senalCuerpoEmocion",
+            "type": "textarea",
+            "label": "Señal del cuerpo",
+            "subtitle": "¿Qué señal te dio tu cuerpo al sentir eso?",
+            "placeholder": "Escribilo..."
+          },
+          {
+            "id": "mejorVersionEstadoDesencajado",
+            "type": "textarea",
+            "label": "Conocé tu mejor versión",
+            "subtitle": "Adaptado de Amanda Blake.\n\nInvestigá y escribí: ¿cómo, en qué momento, y cuál es un estado tuyo desencajado, sobrepasado, sobreexigido o incómodo?\n\nEn ese estado, buscá lugares en tu vida donde ya experimentaste algo parecido.\n\nCuando estás transitando por ese estado, ¿hacia qué forma de ser o capacidad te gustaría moverte, adquirir o convertirte?\n\nSi ya no tuvieses que experimentar ese estado desencajado, ¿qué te gustaría experimentar en su lugar?",
+            "placeholder": "Escribilo..."
+          },
+          {
+            "id": "mejorVersionEstadoOptimo",
+            "type": "textarea",
+            "label": "Mi mejor estado",
+            "subtitle": "Investigá y escribí: ¿cómo, en qué momento, y cuál es mi mejor estado, mi mejor versión?\n\n¿Cuáles son las sensaciones del cuerpo, posturas y gestos que acompañan a esta mejor versión?\n\n¿Cómo es mi humor en ese momento?\n\n¿Cómo interpreto, en general, el mundo que me rodea cuando estoy con ese humor?\n\n¿Cuáles son mis suposiciones centrales cuando funciono en ese estado?",
+            "placeholder": "Escribilo..."
+          },
+          {
+            "id": "mejorVersionEjemplo",
+            "type": "text",
+            "label": "Ejemplo",
+            "subtitle": "Estado tuyo desencajado, sobrepasado, sobreexigido o incómodo: estado de ansiedad frente a una presentación en el trabajo.\n\nSensación, postura, gestos: se revuelve mi panza, rechino los dientes, estoy un poco encorvado y mis hombros están muy tensos.\n\nEstado de ánimo, emociones: miedo, ansiedad, miedo de ser juzgado.\n\nPensamientos y suposiciones: no quiero, no puedo hacer esto, no soy lo suficientemente bueno.\n\nEstado mi mejor versión: bajada con mi snowboard con mucha seguridad.\n\nSensación, postura, gestos: postura sólida, hombros relajados, respiro profundamente, de pie, miro hacia delante.\n\nEstado de ánimo, emociones: concentrado, relajado, anticipación ansiosa y levemente emocionado.\n\nPensamientos y suposiciones: si me caigo, puedo levantarme fácilmente. ¡Esto es divertido!"
           }
         ]
       },
