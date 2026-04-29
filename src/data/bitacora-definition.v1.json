@@ -2722,10 +2722,15 @@
             "placeholder": "Escribilo..."
           },
           {
+            "id": "egoIntro",
+            "type": "text",
+            "label": "",
+            "subtitle": "En una escala del 1 al 10, evaluá cuán ciertas son estas frases para vos y tu ego."
+          },
+          {
             "id": "egoTenerSer",
             "type": "slider",
             "label": "Mi ego tiende a equiparar tener con ser",
-            "subtitle": "En una escala del 1 al 10, evaluá cuán cierta es esta frase para vos y tu ego.",
             "min": 1,
             "max": 10
           },
@@ -2733,7 +2738,6 @@
             "id": "egoComparacion",
             "type": "slider",
             "label": "Mi ego vive a través de la comparación",
-            "subtitle": "En una escala del 1 al 10, evaluá cuán cierta es esta frase para vos y tu ego.",
             "min": 1,
             "max": 10
           },
@@ -2741,7 +2745,6 @@
             "id": "egoNuncaSatisfecho",
             "type": "slider",
             "label": "Mi ego nunca está satisfecho",
-            "subtitle": "En una escala del 1 al 10, evaluá cuán cierta es esta frase para vos y tu ego.",
             "min": 1,
             "max": 10
           },
@@ -2749,7 +2752,6 @@
             "id": "egoAprobacion",
             "type": "slider",
             "label": "Mi ego necesita la aprobación de los demás para sentirse valorado",
-            "subtitle": "En una escala del 1 al 10, evaluá cuán cierta es esta frase para vos y tu ego.",
             "min": 1,
             "max": 10
           },
@@ -2757,7 +2759,6 @@
             "id": "egoAsociarmeFamosos",
             "type": "slider",
             "label": "Aumenta mi valor cuando trato de asociarme con gente famosa o inteligente",
-            "subtitle": "En una escala del 1 al 10, evaluá cuán cierta es esta frase para vos y tu ego.",
             "min": 1,
             "max": 10
           },
@@ -2765,7 +2766,6 @@
             "id": "egoChusmerio",
             "type": "slider",
             "label": "Me gusta el chusmerío",
-            "subtitle": "En una escala del 1 al 10, evaluá cuán cierta es esta frase para vos y tu ego.",
             "min": 1,
             "max": 10
           },
@@ -2773,7 +2773,6 @@
             "id": "egoInferioridad",
             "type": "slider",
             "label": "Tengo un complejo de inferioridad",
-            "subtitle": "En una escala del 1 al 10, evaluá cuán cierta es esta frase para vos y tu ego.",
             "min": 1,
             "max": 10
           },
@@ -2781,7 +2780,6 @@
             "id": "egoSuperioridad",
             "type": "slider",
             "label": "Tengo un complejo de superioridad",
-            "subtitle": "En una escala del 1 al 10, evaluá cuán cierta es esta frase para vos y tu ego.",
             "min": 1,
             "max": 10
           },
@@ -2789,7 +2787,6 @@
             "id": "egoFama",
             "type": "slider",
             "label": "Busco ser famoso",
-            "subtitle": "En una escala del 1 al 10, evaluá cuán cierta es esta frase para vos y tu ego.",
             "min": 1,
             "max": 10
           },
@@ -2797,7 +2794,6 @@
             "id": "egoTenerRazon",
             "type": "slider",
             "label": "Busco constantemente tener razón",
-            "subtitle": "En una escala del 1 al 10, evaluá cuán cierta es esta frase para vos y tu ego.",
             "min": 1,
             "max": 10
           },
@@ -2805,7 +2801,6 @@
             "id": "egoQueja",
             "type": "slider",
             "label": "Suelo quejarme mucho",
-            "subtitle": "En una escala del 1 al 10, evaluá cuán cierta es esta frase para vos y tu ego.",
             "min": 1,
             "max": 10
           },
@@ -2813,7 +2808,6 @@
             "id": "egoReconocimiento",
             "type": "slider",
             "label": "Busco reconocimiento, atención, que me admiren",
-            "subtitle": "En una escala del 1 al 10, evaluá cuán cierta es esta frase para vos y tu ego.",
             "min": 1,
             "max": 10
           },

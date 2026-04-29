@@ -533,6 +533,20 @@ textarea {
   white-space: pre-line;
 }
 
+.field-wrap .slider {
+  margin-top: 8px;
+}
+
+.field-wrap .slider::-webkit-slider-thumb {
+  width: 16px;
+  height: 16px;
+}
+
+.field-wrap .slider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+}
+
 .field-subtitle {
   font-size: 1.05em;
   color: #666;
