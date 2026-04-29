@@ -973,7 +973,9 @@ function App() {
               )}
 
               <div className="exercise-block">
-                <h3>{selectedExercise.title || 'Ejercicio del día'}</h3>
+                {selectedExercise.title && selectedExercise.title.trim() && !(selectedDay === 45 && selectedExercise.title === 'Ejercicios del día') && (
+                  <h3>{selectedExercise.title}</h3>
+                )}
                 {selectedExercise.description && <p className="exercise-description">{selectedExercise.description}</p>}
 
                 {selectedExercise.type === 'rating' && selectedExercise.fields.map((field) => {
@@ -1161,6 +1163,15 @@ function App() {
                             </div>
                           ))}
                         </div>
+                      </div>
+                    );
+                  }
+
+                  if (field.type === 'text' && field.subtitle && !field.placeholder) {
+                    return (
+                      <div key={field.id} className="field-wrap">
+                        {field.label && <label>{field.label}</label>}
+                        {field.subtitle && <p className="field-subtitle">{field.subtitle}</p>}
                       </div>
                     );
                   }
