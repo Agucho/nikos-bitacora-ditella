@@ -1175,6 +1175,12 @@ textarea {
     font-size: 30px;
   }
 
+  textarea::placeholder {
+    font-size: 0.75em;
+    line-height: 1.35;
+    color: #777;
+  }
+
   .material-intro {
     font-size: 24px;
     margin-bottom: 24px;
