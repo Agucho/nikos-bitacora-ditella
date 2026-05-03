@@ -3186,13 +3186,43 @@
         "cognitive_work_d11_d60"
       ],
       "primary_exercise": {
-        "title": "Cambios corporales",
+        "title": "Ejercicios del día",
         "type": "text",
         "fields": [
           {
-            "id": "cambiosCorporales",
-            "label": "¿Qué cambió en tu relación con tu cuerpo?",
-            "type": "textarea"
+            "id": "revisionDiferenteProximaVez",
+            "type": "textarea",
+            "label": "1. Detectá y escribí",
+            "subtitle": "Detectá y escribí si hubo algo que no te gustó cómo lo pensaste, hiciste o resolviste, y cómo lo pensarías, harías o resolverías diferente una próxima vez.",
+            "placeholder": "Escribilo..."
+          },
+          {
+            "id": "pensamientosIntensidadEmocional",
+            "type": "textarea",
+            "label": "2. Pensamientos que intensificaron emociones",
+            "subtitle": "Detectá y escribí pensamientos que tuviste en el día que te hayan hecho crecer la intensidad de una o más emociones.",
+            "placeholder": "Escribilo..."
+          },
+          {
+            "id": "senalCuerpoEmocion",
+            "type": "textarea",
+            "label": "Señal del cuerpo",
+            "subtitle": "¿Qué señal te dio tu cuerpo al sentir eso?",
+            "placeholder": "Escribilo..."
+          },
+          {
+            "id": "banquilloPensamientos",
+            "type": "textarea",
+            "label": "PONÉ TUS PENSAMIENTOS EN EL BANQUILLO DE ACUSADOS",
+            "subtitle": "Pensar si hay evidencia ayuda a detener la autocrítica y favorece la autoaceptación.\n\nPrimero, pensá en aquellas situaciones en las que solés auto-boicotearte o tirarte abajo, y comenzá a examinar los hechos y las evidencias.\n\nDesafiá esas críticas preguntándote: ¿Cuál es la evidencia?\n\nEjemplo:\nPensamiento: Soy un fracasado.\nAnalizá la evidencia: ¿Quién dijo eso? ¿Por qué creo en personas tóxicas? ¿Qué cosas exitosas hice yo que demuestran que ese pensamiento no es cierto?\n\nNo tenés que creer en todo lo que pensás.\n\nEscribí:",
+            "placeholder": ""
+          },
+          {
+            "id": "dejarPasado",
+            "type": "textarea",
+            "label": "DEJÁ EL PASADO EN EL PASADO",
+            "subtitle": "Podés aprender modos de pensar que te ayuden a dejar el pasado en el pasado.\n\n¿Cómo?\n\nEscribí algunos “por qué” que te mantienen apegado a tu pasado, y luego transformalos en “¿cómo sigo?”.\n\nPor ejemplo:\nCambiá un “¿Por qué fui tan tonto al...?” por “Para seguir adelante, voy a trabajar en perdonarme por no saber antes lo que ahora sé”.\n\nEscribí:",
+            "placeholder": "Por qué?\nCómo sigo?\n\nPor qué?\nCómo sigo?\n\nPor qué?\nCómo sigo?\n\nPor qué?\nCómo sigo?"
           }
         ]
       },
