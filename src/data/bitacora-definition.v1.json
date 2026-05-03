@@ -3116,7 +3116,7 @@
             "id": "reformulaPercepciones",
             "type": "textarea",
             "label": "REFORMULÁ TUS PERCEPCIONES",
-            "subtitle": "Usá estas dos columnas como guía. De un lado, escribí el pensamiento que te causa ansiedad o estrés. Por ejemplo: “Sería terrible que dijera algo tonto durante la reunión”.\n\nDespués, reformulalo. Por ejemplo: “Nada es tonto si digo lo que pienso. Todos tenemos derecho a dar nuestra opinión sin ser juzgados”.",
+            "subtitle": "Usá estas líneas como guía. En cada bloque, primero escribí el pensamiento que te causa ansiedad o estrés. Por ejemplo: “Sería terrible que dijera algo tonto durante la reunión”.\n\nLuego, en la línea de abajo, reformulalo. Por ejemplo: “Nada es tonto si digo lo que pienso. Todos tenemos derecho a dar nuestra opinión sin ser juzgados”.",
             "placeholder": "PENSAMIENTO QUE ME CAUSA ANSIEDAD:\nREFORMULACIÓN:\n\nPENSAMIENTO QUE ME CAUSA ANSIEDAD:\nREFORMULACIÓN:\n\nPENSAMIENTO QUE ME CAUSA ANSIEDAD:\nREFORMULACIÓN:\n\nPENSAMIENTO QUE ME CAUSA ANSIEDAD:\nREFORMULACIÓN:\n\nPENSAMIENTO QUE ME CAUSA ANSIEDAD:\nREFORMULACIÓN:"
           }
         ]
