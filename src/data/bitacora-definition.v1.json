@@ -3276,8 +3276,8 @@
             "id": "rankingEmocional",
             "type": "textarea",
             "label": "RANKING",
-            "subtitle": "Pensá en tus últimos 3 meses y rankeate según tristeza, felicidad, enojo, miedo y otras emociones.",
-            "placeholder": "- cómo estoy en general [ ]\n- cómo estoy físicamente [ ]\n- planes para el futuro [ ]\n- hábitos de dormir [ ]\n- creatividad en el día a día [ ]\n- trabajo duro [ ]\n- manteniendo la calma [ ]\n- trabajando para vivir [ ]\n- sintiéndome ok [ ]\n- crecimiento personal [ ]\n- crecimiento profesional [ ]\n- me cuido [ ]\n- siendo genial [ ]\n- mostrando gentileza [ ]\n- divirtiéndome [ ]\n- esforzándome [ ]\n- haciendo cosas en la naturaleza [ ]\n- mandando tweets o WhatsApps divertidos [ ]\n- comiendo bien [ ]\n- llamando a casa o a mis padres [ ]\n- siendo amigo [ ]\n- disfrutando mi propio espacio [ ]\n- resolviendo [ ]"
+            "subtitle": "Pensá en tus últimos 3 meses y rankeate según tristeza, felicidad, enojo, miedo y otras emociones.\n\nUsá esta lista como guía:\n\n- cómo estoy en general [ ]\n- cómo estoy físicamente [ ]\n- planes para el futuro [ ]\n- hábitos de dormir [ ]\n- creatividad en el día a día [ ]\n- trabajo duro [ ]\n- manteniendo la calma [ ]\n- trabajando para vivir [ ]\n- sintiéndome ok [ ]\n- crecimiento personal [ ]\n- crecimiento profesional [ ]\n- me cuido [ ]\n- siendo genial [ ]\n- mostrando gentileza [ ]\n- divirtiéndome [ ]\n- esforzándome [ ]\n- haciendo cosas en la naturaleza [ ]\n- mandando tweets o WhatsApps divertidos [ ]\n- comiendo bien [ ]\n- llamando a casa o a mis padres [ ]\n- siendo amigo [ ]\n- disfrutando mi propio espacio [ ]\n- resolviendo [ ]",
+            "placeholder": "Escribilo..."
           },
           {
             "id": "entrenandoVoluntadVoy",
