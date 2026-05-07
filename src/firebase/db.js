@@ -86,6 +86,23 @@ export async function saveEmotionEntry(uid, payload) {
 }
 
 export async function saveJournalEntry(uid, payload) {
+  if (typeof payload.day === 'string') {
+    ensureFirebase();
+    const ref = doc(db, `users/${uid}/journal/${payload.day}`);
+    await setDoc(
+      ref,
+      {
+        day: payload.day,
+        data: payload.data,
+        completed: false,
+        completedOnDay: null,
+        updatedAt: serverTimestamp()
+      },
+      { merge: true }
+    );
+    return { ok: true };
+  }
+
   const dataForCallable = {
     ...payload,
     completedOnDay: payload.completed ? (payload.completedOnDay ?? null) : null

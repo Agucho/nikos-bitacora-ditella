@@ -2,6 +2,69 @@ import bitacoraDefinition from './bitacora-definition.v1.json';
 
 const DAY_COUNT = 60;
 
+export const BONUS_ENTRY_IDS = {
+  diario: 'bonus_diario',
+  final: 'bonus_final'
+};
+
+const bonusExercises = {
+  [BONUS_ENTRY_IDS.diario]: {
+    title: 'TU DIARIO INTEROCEPTIVO',
+    type: 'text',
+    fields: [
+      {
+        id: 'diarioDesafios',
+        type: 'textarea',
+        label: 'BREVE DESCRIPCIÓN DE LOS DESAFÍOS',
+        subtitle: 'Escribí una breve descripción de los desafíos que estás enfrentando, en el área de tu vida que quieras.',
+        placeholder: 'Escribilo...'
+      },
+      {
+        id: 'diarioSensacionesOpciones',
+        type: 'textarea',
+        label: 'SENSACIONES INTERNAS FRENTE A LAS OPCIONES',
+        subtitle: 'Describí, de la forma más detallada y precisa posible, las sensaciones internas que sentís mientras contemplás las diferentes opciones que tenés delante frente a ese desafío.\n\nConsiderá una por una las posibilidades que están frente a vos y tomá nota de cómo te sentís al imaginar elegir una por sobre otra.',
+        placeholder: 'Escribilo...'
+      },
+      {
+        id: 'diarioEleccionFinal',
+        type: 'textarea',
+        label: 'ELECCIÓN FINAL',
+        subtitle: 'Anotá la elección que finalmente decidiste tomar y describí cualquier otra sensación que surja al tomar esta decisión final.',
+        placeholder: 'Escribilo...'
+      },
+      {
+        id: 'diarioPatronCuerpoDecision',
+        type: 'textarea',
+        label: 'PATRONES ENTRE TU CUERPO Y TUS DECISIONES',
+        subtitle: 'Una vez que ya sabés qué sucedió con esa decisión que tomaste, podés volver a tu diario y observar qué te sucedía internamente en el momento en que tomaste esa decisión.\n\nCon el tiempo, quizás puedas dilucidar algún patrón particular entre tu toma de decisiones y tu cuerpo. Por ejemplo: una tensión en tu estómago al contemplar una acción que luego te llevó a una frustración, o una sensación liviana en tu pecho al considerar un enfoque que terminó siendo exitoso.',
+        placeholder: 'Escribilo...'
+      }
+    ]
+  },
+  [BONUS_ENTRY_IDS.final]: {
+    title: 'DESPUÉS DE ESTOS 60 DÍAS',
+    type: 'text',
+    fields: [
+      {
+        id: 'queRescatas60Dias',
+        type: 'textarea',
+        label: 'DESPUÉS DE ESTOS 60 DÍAS, ¿QUÉ RESCATÁS?',
+        placeholder: 'Escribilo...'
+      }
+    ]
+  }
+};
+
+export function isBonusEntryId(value) {
+  return typeof value === 'string' && Object.prototype.hasOwnProperty.call(bonusExercises, value);
+}
+
+export const bonusEntryButtons = [
+  { id: BONUS_ENTRY_IDS.diario, label: 'DIARIO' },
+  { id: BONUS_ENTRY_IDS.final, label: 'FINAL' }
+];
+
 function invariant(condition, message) {
   if (!condition) {
     throw new Error(`[bitacora-definition] ${message}`);
@@ -72,6 +135,10 @@ export function getDayDefinitionText(dayNumber) {
 }
 
 export function getExerciseForDay(dayNumber) {
+  if (isBonusEntryId(dayNumber)) {
+    return bonusExercises[dayNumber];
+  }
+
   const dayEntry = getDayDefinition(dayNumber);
   if (!dayEntry) {
     return {

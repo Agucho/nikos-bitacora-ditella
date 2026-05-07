@@ -21,9 +21,11 @@ import {
   watchProfile
 } from './firebase/db';
 import {
+  bonusEntryButtons,
   cognitiveFields,
   getExerciseForDay,
   isDayCompleted,
+  isBonusEntryId,
   situationFields
 } from './data/exercises';
 import { materialExtraItems } from './data/materialExtra';
@@ -236,6 +238,7 @@ function App() {
   const displayName = useMemo(() => getDisplayName(profile, user), [profile, user]);
   const avatarInitial = useMemo(() => getInitial(displayName), [displayName]);
   const isAuthActionBusy = isSendingMagicLink || isCompletingMagicLink;
+  const canOpenBonusEntries = isAdmin || !hasProgramStarted || currentDay >= 60;
 
   useEffect(() => {
     if (guestMode && hasMagicLinkInUrl()) {
@@ -400,6 +403,13 @@ function App() {
     setSelectedDay(dayNumber);
   }
 
+  function openBonusEntry(entryId) {
+    if (!canOpenBonusEntries) {
+      return;
+    }
+    openDay(entryId);
+  }
+
   function closeDay() {
     setSelectedDay(null);
     setDayDraft(null);
@@ -477,16 +487,18 @@ function App() {
     }
 
     const nowIso = new Date().toISOString();
+    const isBonusEntry = isBonusEntryId(selectedDay);
     const completed = isDayCompleted(selectedDay, dayDraft);
-    const shouldStartProgram = completed && !profile?.startDate;
+    const completedForProgress = isBonusEntry ? false : completed;
+    const shouldStartProgram = completedForProgress && !profile?.startDate;
     const existing = journalByDay[selectedDay];
-    const completedOnDayValue = completed
+    const completedOnDayValue = completedForProgress
       ? (existing?.completedOnDay ?? currentDay)
       : null;
     const payload = {
       day: selectedDay,
       data: dayDraft,
-      completed,
+      completed: completedForProgress,
       completedOnDay: completedOnDayValue
     };
 
@@ -914,13 +926,26 @@ function App() {
                   );
                 })}
               </div>
+              <div className="bonus-entry-row">
+                {bonusEntryButtons.map((entry) => (
+                  <button
+                    key={entry.id}
+                    type="button"
+                    className={`bonus-entry-button${!canOpenBonusEntries ? ' locked' : ''}`}
+                    onClick={() => openBonusEntry(entry.id)}
+                    disabled={!canOpenBonusEntries}
+                  >
+                    {entry.label}
+                  </button>
+                ))}
+              </div>
             </>
           )}
 
           {selectedDay && dayDraft && (
             <div className="day-detail">
               <button className="back-link" onClick={closeDay}>← VOLVER</button>
-              <h2>Día {selectedDay}</h2>
+              <h2>{isBonusEntryId(selectedDay) ? selectedExercise.title : `Día ${selectedDay}`}</h2>
 
 
               {selectedDay <= 10 && (
@@ -973,7 +998,7 @@ function App() {
               )}
 
               <div className="exercise-block">
-                {selectedExercise.title && selectedExercise.title.trim() && !(selectedDay === 45 && selectedExercise.title === 'Ejercicios del día') && (
+                {selectedExercise.title && selectedExercise.title.trim() && !isBonusEntryId(selectedDay) && !(selectedDay === 45 && selectedExercise.title === 'Ejercicios del día') && (
                   <h3>{selectedExercise.title}</h3>
                 )}
                 {selectedExercise.description && <p className="exercise-description">{selectedExercise.description}</p>}
