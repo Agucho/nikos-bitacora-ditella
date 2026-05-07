@@ -3584,13 +3584,74 @@
         "cognitive_work_d11_d60"
       ],
       "primary_exercise": {
-        "title": "Preparación para el cierre",
+        "title": "Ejercicios del día",
         "type": "text",
         "fields": [
           {
-            "id": "reflexion",
-            "label": "Reflexión final antes del último día",
-            "type": "textarea"
+            "id": "revisionDiferenteProximaVez",
+            "type": "textarea",
+            "label": "1. Detectá y escribí",
+            "subtitle": "Detectá y escribí si hubo algo que no te gustó cómo lo pensaste, hiciste o resolviste, y cómo lo pensarías, harías o resolverías diferente una próxima vez.",
+            "placeholder": "Escribilo..."
+          },
+          {
+            "id": "pensamientosIntensidadEmocional",
+            "type": "textarea",
+            "label": "2. Pensamientos que intensificaron emociones",
+            "subtitle": "Detectá y escribí pensamientos que tuviste en el día que te hayan hecho crecer la intensidad de una o más emociones.",
+            "placeholder": "Escribilo..."
+          },
+          {
+            "id": "senalCuerpoEmocion",
+            "type": "textarea",
+            "label": "Señal del cuerpo",
+            "subtitle": "¿Qué señal te dio tu cuerpo al sentir eso?",
+            "placeholder": "Escribilo..."
+          },
+          {
+            "id": "eventoAnsioso",
+            "type": "textarea",
+            "label": "EVENTO ANSIOSO",
+            "subtitle": "¿Qué evento en el futuro cercano te pone ansioso?\n\nResumilo en una frase.",
+            "placeholder": "Escribilo..."
+          },
+          {
+            "id": "peorQuePodriaPasar",
+            "type": "textarea",
+            "label": "¿QUÉ ES LO PEOR QUE PODRÍA PASAR?",
+            "placeholder": "Escribilo..."
+          },
+          {
+            "id": "mejorQuePodriaPasar",
+            "type": "textarea",
+            "label": "¿QUÉ ES LO MEJOR QUE PODRÍA PASAR?",
+            "placeholder": "Escribilo..."
+          },
+          {
+            "id": "algoIntermedio",
+            "type": "textarea",
+            "label": "¿Y ALGO ENTRE LO PEOR Y LO MEJOR?",
+            "placeholder": "Escribilo..."
+          },
+          {
+            "id": "quePasoFinalmente",
+            "type": "textarea",
+            "label": "CUANDO PASE EL EVENTO...",
+            "subtitle": "Volvé a este ejercicio y escribí qué pasó.\n\n¿Cuál de tus tres respuestas fue la más cercana a la realidad?",
+            "placeholder": "Escribilo..."
+          },
+          {
+            "id": "abrazoUnoMismo",
+            "type": "text",
+            "label": "ABRAZO A UNO MISMO",
+            "subtitle": "Envolvete con tus brazos y ofrecete a vos mismo un abrazo durante 10 respiraciones."
+          },
+          {
+            "id": "quieto",
+            "type": "textarea",
+            "label": "QUIETO",
+            "subtitle": "Mirá a tu alrededor y buscá algo absolutamente inmóvil.\n\nPermití que tu mirada y tu mente se apoyen en una quietud similar a la del objeto.\n\n¿Qué encontraste?",
+            "placeholder": "Escribilo..."
           }
         ]
       },
